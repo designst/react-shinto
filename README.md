@@ -1,2 +1,2 @@
 # react-shinto
-React / Redux - Shintō
+React Shintō

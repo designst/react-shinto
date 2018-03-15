@@ -1,3 +1,7 @@
+# Misc
+.DS_Store
+.idea
+
 # Logs
 logs
 *.log
@@ -57,3 +61,8 @@ typings/
 # dotenv environment variables file
 .env
 
+# Build
+build/
+
+# Webpack Assets
+public/webpack-assets.json
