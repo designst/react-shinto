@@ -13,6 +13,7 @@ import openBrowser from 'react-dev-utils/openBrowser';
 import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles';
 
 import paths from '../config/paths';
+import { host, port } from '../app/config';
 import proxyMiddleware from './middlewares/proxyMiddleware';
 import frontendMiddleware from './middlewares/frontendMiddleware';
 
@@ -20,28 +21,25 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
   process.exit(1);
 }
 
-const HOST = process.env.HOST || '0.0.0.0';
-const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
-
 const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
 
 const app = express();
 const server = http.createServer(app);
 
-choosePort(HOST, DEFAULT_PORT)
+choosePort(host, port)
   .then(port => {
     if (port == null) {
       return console.error(chalk.red('No port found.'));
     }
 
-    const urls = prepareUrls(protocol, HOST, port);
+    const urls = prepareUrls(protocol, host, port);
 
     // Proxy Middleware
     proxyMiddleware(app, server);
     // Frontend Middleware
     frontendMiddleware(app, urls, port);
 
-    server.listen(port, HOST, (err) => {
+    server.listen(port, host, (err) => {
       if (err) {
         return console.error(chalk.red(err.message));
       }

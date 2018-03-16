@@ -4,6 +4,7 @@ import { renderRoutes } from 'react-router-config';
 
 import './style.css';
 import logo from './logo.svg';
+import config from '../../config';
 
 type Props = { route: Object };
 
@@ -11,12 +12,7 @@ const App = ({ route }: Props) => (
   <div
     className="App"
   >
-    <Helmet
-      defaultTitle="React.js Boilerplate"
-      titleTemplate="%s - React.js Boilerplate"
-    >
-      <meta name="description" content="A React.js Boilerplate application" />
-    </Helmet>
+    <Helmet {...config.app} />
 
     <header
       className="App-header"
@@ -30,7 +26,7 @@ const App = ({ route }: Props) => (
       <h1
         className="App-title"
       >
-        Welcome to React
+        {config.app.title}
       </h1>
     </header>
 
