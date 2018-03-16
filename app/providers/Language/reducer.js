@@ -4,6 +4,8 @@
  *
  */
 
+import fp from 'lodash/fp';
+
 import {
   CHANGE_LOCALE,
 } from './constants';
@@ -19,8 +21,9 @@ const initialState = {
 const languageProviderReducer = (state = initialState, action) => {
   switch (action.type) {
     case CHANGE_LOCALE:
-      return state
-        .set('locale', action.locale);
+      return fp.assign(state, {
+        locale: action.locale,
+      });
     default:
       return state;
   }

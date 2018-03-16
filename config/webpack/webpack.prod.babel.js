@@ -3,7 +3,6 @@ import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
 import AssetsPlugin from 'assets-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
-// import ManifestPlugin from 'webpack-manifest-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import eslintFormatter from 'react-dev-utils/eslintFormatter';
 import ModuleScopePlugin from 'react-dev-utils/ModuleScopePlugin';
@@ -239,9 +238,6 @@ module.exports = {
     // It is absolutely essential that NODE_ENV was set to production here.
     // Otherwise React will be compiled in the very slow development mode.
     new webpack.DefinePlugin(env.stringified),
-    new AssetsPlugin({
-      path: paths.appPublic,
-    }),
     // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
     new ExtractTextPlugin({
       filename: cssFilename,
@@ -249,9 +245,9 @@ module.exports = {
     // Generate a manifest file which contains a mapping of all asset filenames
     // to their corresponding output file so that tools can pick it up without
     // having to parse `index.html`.
-    // new ManifestPlugin({
-    //   fileName: 'asset-manifest.json',
-    // }),
+    new AssetsPlugin({
+      path: paths.appPublic,
+    }),
     // Generate a service worker script that will precache, and keep up to date,
     // the HTML & assets that are part of the Webpack build.
     new SWPrecacheWebpackPlugin({

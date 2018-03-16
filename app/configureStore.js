@@ -1,11 +1,12 @@
 /* @flow */
 
+import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { routerMiddleware } from 'react-router-redux';
 import { compose, createStore, applyMiddleware } from 'redux';
 
 // import type { Store } from '../types';
-import rootReducer from './reducers';
+import createReducer from './createReducer';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -18,25 +19,31 @@ export default (history, initialState) => {
     routerMiddleware(history),
   ];
 
+  let composeEnhancers = compose;
+
+  if (process.env.NODE_ENV !== 'production' && typeof window === 'object') {
+    const loggerMiddleware = createLogger();
+    middlewares.push(loggerMiddleware);
+
+    // If Redux DevTools Extension is installed use it, otherwise use Redux compose
+    /* eslint-disable no-underscore-dangle */
+    // noinspection JSUnresolvedVariable
+    if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+      // noinspection JSUnresolvedFunction
+      composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+        // Prevent recomputing reducers for `replaceReducer`
+        shouldHotReload: false,
+      });
+    }
+    /* eslint-enable */
+  }
+
   const enhancers = [
     applyMiddleware(...middlewares),
   ];
 
-  // If Redux DevTools Extension is installed use it, otherwise use Redux compose
-  /* eslint-disable no-underscore-dangle */
-  const composeEnhancers =
-    process.env.NODE_ENV !== 'production' &&
-    typeof window === 'object' &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-      ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-        // Prevent recomputing reducers for `replaceReducer`
-        shouldHotReload: false,
-      })
-      : compose;
-  /* eslint-enable */
-
   const store = createStore(
-    rootReducer,
+    createReducer(),
     initialState,
     composeEnhancers(...enhancers)
   );
@@ -48,9 +55,9 @@ export default (history, initialState) => {
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept('./reducers', () => {
+    module.hot.accept('./createReducer', () => {
       try {
-        const nextReducer = require('./reducers').default;
+        const nextReducer = require('./createReducer').default;
 
         store.replaceReducer(nextReducer);
       } catch (error) {

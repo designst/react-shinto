@@ -1,9 +1,11 @@
 import express from 'express';
 import compression from 'compression';
 
-module.exports = (app, name, urls, options) => {
-  const publicPath = options.publicPath || '/';
-  const outputPath = options.outputPath || urls.appPublic;
+import paths from '../../config/paths';
+
+module.exports = (app, webpackConfig) => {
+  const publicPath = webpackConfig.output.publicPath || '/';
+  const outputPath = webpackConfig.output.path || paths.appBuild;
 
   // Compress all requests
   app.use(compression());

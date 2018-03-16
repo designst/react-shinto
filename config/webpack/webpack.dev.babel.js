@@ -135,6 +135,7 @@ module.exports = {
               // directory for faster rebuilds.
               cacheDirectory: true,
               plugins: [
+                'lodash',
                 'react-hot-loader/babel',
                 'loadable-components/babel',
               ],

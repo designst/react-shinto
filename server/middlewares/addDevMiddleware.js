@@ -1,4 +1,5 @@
 import fs from 'fs';
+import chalk from 'chalk';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
@@ -6,12 +7,26 @@ import { createCompiler } from 'react-dev-utils/WebpackDevServerUtils';
 
 import paths from '../../config/paths';
 
+const name = require(paths.appPackageJson).name;
 const useYarn = fs.existsSync(paths.yarnLockFile);
 
-module.exports = (app, name, urls, webpackConfig) => {
+const ngrok = process.env.ENABLE_TUNNEL ? require('ngrok') : false;
+
+module.exports = (app, urls, port, webpackConfig) => {
   const compiler = createCompiler(webpack, webpackConfig, name, urls, useYarn);
 
-  compiler.apply(new webpack.ProgressPlugin());
+  if (ngrok) {
+    ngrok.connect(port)
+      .then(ngrokUrl => {
+        compiler.plugin('done', () => {
+          console.log(`  ${chalk.bold('Ngrok Proxy:')}      ${ngrokUrl}`);
+          console.log();
+        });
+      })
+      .catch(err => {
+        console.error(chalk.red(err));
+      });
+  }
 
   app.use(webpackDevMiddleware(compiler, {
     publicPath: webpackConfig.output.publicPath,

@@ -19,7 +19,7 @@ import configureStore from '../../app/configureStore';
 
 const isProd = process.env.NODE_ENV === 'production';
 
-module.exports = (app, name, urls) => {
+module.exports = (app, urls, port) => {
   // Prevent HTTP parameter pollution.
   app.use(hpp());
   // Use helmet to secure Express with various HTTP headers
@@ -32,11 +32,11 @@ module.exports = (app, name, urls) => {
   if (isProd) {
     const addProdMiddleware = require('./addProdMiddleware');
     const webpackConfig = require('../../config/webpack/webpack.prod.babel');
-    addProdMiddleware(app, name, urls, webpackConfig);
+    addProdMiddleware(app, webpackConfig);
   } else {
     const webpackConfig = require('../../config/webpack/webpack.dev.babel');
     const addDevMiddleware = require('./addDevMiddleware');
-    addDevMiddleware(app, name, urls, webpackConfig);
+    addDevMiddleware(app, urls, port, webpackConfig);
   }
 
   app.get('*', (req, res) => {

@@ -1,4 +1,9 @@
-import httpProxy from 'http-proxy';
+import { prepareProxy } from 'react-dev-utils/WebpackDevServerUtils';
+
+import paths from '../../config/paths';
+import httpProxy from "http-proxy";
+
+const proxySetting = require(paths.appPackageJson).proxy;
 
 const setAuthorizationHeader = (proxyReq) => {
   if (!proxyReq.hasHeader('Authorization')) {
@@ -11,7 +16,9 @@ const setAuthorizationHeader = (proxyReq) => {
   }
 };
 
-module.exports = (proxyConfig) => {
+module.exports = (app, server) => {
+  const proxyConfig = prepareProxy(proxySetting, paths.appPublic);
+
   const proxy = httpProxy.createProxy(proxyConfig);
 
   proxy.on('error', (error, req, res) => {
@@ -23,6 +30,9 @@ module.exports = (proxyConfig) => {
   });
 
   proxy.on('proxyReq', setAuthorizationHeader);
+
+  app.use('/api', proxy.web);
+  server.on('upgrade', proxy.ws);
 
   return proxy;
 };

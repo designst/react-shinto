@@ -14,7 +14,9 @@ import configureStore from './configureStore';
 import registerServiceWorker from './registerServiceWorker';
 
 // Get the initial state from server-side rendering
+// noinspection JSUnresolvedVariable
 const initialState = window.__INITIAL_STATE__;
+
 const history = createHistory();
 const store = configureStore(history, initialState);
 

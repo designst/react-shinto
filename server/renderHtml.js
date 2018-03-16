@@ -31,13 +31,13 @@ export default (head: Object,
 
         <!-- Insert bundled styles into <link> tag -->
         ${Object.keys(envAssets).map(
-    key =>
-      envAssets[key].css
-        ? `<link href="${
-          envAssets[key].css
-          }" media="screen, projection" rel="stylesheet" type="text/css">`
-        : ''
-  )}
+          key =>
+            envAssets[key].css
+              ? `<link href="${
+                envAssets[key].css
+                }" media="screen, projection" rel="stylesheet" type="text/css">`
+              : ''
+        )}
 
       </head>
       <body>
@@ -51,13 +51,13 @@ export default (head: Object,
         <script>
           // Use serialize-javascript for mitigating XSS attacks. See the following security issues:
           // http://redux.js.org/docs/recipes/ServerRendering.html#security-considerations
-          window.__INITIAL_STATE__=${serialize(initialState)};
+          window.__INITIAL_STATE__ = ${serialize(initialState)};
         </script>
 
         <!-- Insert bundled scripts into <script> tag -->
         ${Object.keys(envAssets)
-    .reverse() // Reverse scripts to get correct ordering
-    .map(key => `<script src="${envAssets[key].js}"></script>`)}
+          .reverse() // Reverse scripts to get correct ordering
+          .map(key => `<script src="${envAssets[key].js}"></script>`)}
 
         ${head.script.toString()}
       </body>
