@@ -1,7 +1,7 @@
 /* eslint-disable */
 /* @flow */
 
-import path from 'path';
+import http from 'http';
 import express from 'express';
 
 import openBrowser from 'react-dev-utils/openBrowser';
@@ -10,10 +10,12 @@ import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles';
 import {
   choosePort,
   prepareUrls,
+  prepareProxy,
 } from 'react-dev-utils/WebpackDevServerUtils';
 
 import paths from '../config/paths';
 import logger from './logger';
+import createProxy from './proxy';
 import frontendMiddleware from './middlewares/frontendMiddleware';
 
 const isDev = process.env.NODE_ENV === 'development';
@@ -27,6 +29,8 @@ const HOST = process.env.HOST || '0.0.0.0';
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
 
 const app = express();
+const server = http.createServer(app);
+
 const ngrok = (isDev && process.env.ENABLE_TUNNEL) ? require('ngrok') : false;
 
 choosePort(HOST, DEFAULT_PORT)
@@ -39,9 +43,18 @@ choosePort(HOST, DEFAULT_PORT)
     const name = require(paths.appPackageJson).name;
     const urls = prepareUrls(protocol, HOST, port);
 
+    // Load proxy config
+    const proxySetting = require(paths.appPackageJson).proxy;
+    const proxyConfig = prepareProxy(proxySetting, paths.appPublic);
+
+    const proxy = createProxy(proxyConfig);
+
+    app.use('/api', proxy.web);
+    server.on('upgrade', proxy.ws);
+
     frontendMiddleware(app, name, urls);
 
-    app.listen(port, HOST, (err) => {
+    server.listen(port, HOST, (err) => {
       if (err) {
         return logger.error(err.message);
       }

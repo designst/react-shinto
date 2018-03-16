@@ -99,10 +99,29 @@ module.exports = {
           // A missing `test` is equivalent to a match.
           {
             test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+            // Any image below or equal to 10K will be converted to inline base64 instead
+            use: [
+              {
+                loader: require.resolve('url-loader'),
+                options: {
+                  limit: 10000,
+                  name: 'static/media/[name].[hash:8].[ext]',
+                },
+              },
+              // Using for image optimization
+              {
+                loader: require.resolve('image-webpack-loader'),
+                options: {
+                  bypassOnDebug: true,
+                },
+              },
+            ],
+          },
+          {
+            test: /\.(eot|svg|otf|ttf|woff2?)$/,
             loader: require.resolve('url-loader'),
             options: {
               limit: 10000,
-              name: 'static/media/[name].[hash:8].[ext]',
             },
           },
           // Process JS with Babel.
