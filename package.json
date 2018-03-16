@@ -41,7 +41,7 @@
       "env": {
         "NODE_PATH": "./app",
         "NODE_ENV": "production",
-        "PORT": 8081
+        "PORT": 8080
       }
     },
     "build": {
