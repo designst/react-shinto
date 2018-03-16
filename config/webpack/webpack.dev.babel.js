@@ -2,6 +2,7 @@ import path from 'path';
 import webpack from 'webpack';
 import autoprefixer from 'autoprefixer';
 import eslintFormatter from 'react-dev-utils/eslintFormatter';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import ModuleScopePlugin from 'react-dev-utils/ModuleScopePlugin';
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 // import WatchMissingNodeModulesPlugin from 'react-dev-utils/WatchMissingNodeModulesPlugin';
@@ -253,6 +254,12 @@ module.exports = {
     // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
     // You can remove this if you don't use Moment.js:
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+    // Visualize all of the webpack bundles
+    // Check "https://github.com/webpack-contrib/webpack-bundle-analyzer#options-for-plugin"
+    // for more configurations
+    new BundleAnalyzerPlugin({
+      analyzerMode: process.env.NODE_ENV === 'analyze' ? 'server' : 'disabled',
+    }),
   ],
   // Some libraries import Node modules but don't use them in the browser.
   // Tell Webpack to provide empty mocks for them so importing them works.
