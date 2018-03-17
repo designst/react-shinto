@@ -10,7 +10,7 @@ describe('<Loading />', () => {
       .create(
         <StaticRouter context={{}}>
           <Loading />
-        </StaticRouter>
+        </StaticRouter>,
       )
       .toJSON();
 

@@ -9,31 +9,18 @@ import config from '../../config';
 type Props = { route: Object };
 
 const App = ({ route }: Props) => (
-  <div
-    className="App"
-  >
+  <div className="App">
     <Helmet {...config.app} />
 
-    <header
-      className="App-header"
-    >
-      <img
-        src={logo}
-        alt="logo"
-        className="App-logo"
-      />
+    <header className="App-header">
+      <img src={logo} alt="logo" className="App-logo" />
 
-      <h1
-        className="App-title"
-      >
-        {config.app.title}
-      </h1>
+      <h1 className="App-title">{config.app.title}</h1>
     </header>
 
-    <p
-      className="App-intro"
-    >
-      To get started, edit <code>app/containers/App/index.js</code> and save to reload.
+    <p className="App-intro">
+      To get started, edit <code>app/containers/App/index.js</code> and save to
+      reload.
     </p>
 
     {renderRoutes(route.routes)}

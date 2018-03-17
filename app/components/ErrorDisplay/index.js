@@ -7,9 +7,7 @@ import './styles.css';
 type Props = { error: Object };
 
 export default ({ error }: Props) => (
-  <div
-    className="Error"
-  >
+  <div className="Error">
     <p>Oops! {error.message}</p>
   </div>
 );

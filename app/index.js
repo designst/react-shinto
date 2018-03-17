@@ -23,17 +23,13 @@ const store = configureStore(history, initialState);
 const render = (Routes: Array<Object>) => {
   hydrate(
     <AppContainer>
-      <Provider
-        store={store}
-      >
-        <ConnectedRouter
-          history={history}
-        >
+      <Provider store={store}>
+        <ConnectedRouter history={history}>
           {renderRoutes(Routes)}
         </ConnectedRouter>
       </Provider>
     </AppContainer>,
-    document.getElementById('root')
+    document.getElementById('root'),
   );
 
   registerServiceWorker();

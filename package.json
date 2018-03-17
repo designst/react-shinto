@@ -133,10 +133,13 @@
     "extends": [
       "airbnb",
       "prettier",
+      "prettier/react",
+      "prettier/flowtype",
       "plugin:lodash-fp/recommended"
     ],
     "plugins": [
       "react",
+      "prettier",
       "jsx-a11y",
       "lodash-fp",
       "redux-saga"
@@ -172,7 +175,7 @@
         {
           "parser": "flow",
           "singleQuote": true,
-          "trailingComma": "es5"
+          "trailingComma": "all"
         }
       ],
       "lodash-fp/use-fp": "off",

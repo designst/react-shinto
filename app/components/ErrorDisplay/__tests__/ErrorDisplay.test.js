@@ -11,7 +11,7 @@ describe('<ErrorDisplay />', () => {
       .create(
         <StaticRouter context={{}}>
           <ErrorDisplay error={mockData} />
-        </StaticRouter>
+        </StaticRouter>,
       )
       .toJSON();
 

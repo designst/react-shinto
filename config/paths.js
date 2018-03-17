@@ -30,9 +30,10 @@ const getPublicUrl = appPackageJson =>
 // single-page apps that may serve index.html for nested URLs like /todos/42.
 // We can't use a relative path in HTML because we don't want to load something
 // like /todos/42/static/js/bundle.7289d.js. We have to know the root.
-const getServedPath = (appPackageJson) => {
+const getServedPath = appPackageJson => {
   const publicUrl = getPublicUrl(appPackageJson);
-  const servedUrl = envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/');
+  const servedUrl =
+    envPublicUrl || (publicUrl ? url.parse(publicUrl).pathname : '/');
 
   return ensureSlash(servedUrl, true);
 };

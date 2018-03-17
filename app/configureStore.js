@@ -16,11 +16,7 @@ export default (history, initialState) => {
   // 1. thunkMiddleware: Makes thunk work
   // 2. sagaMiddleware: Makes redux-sagas work
   // 3. routerMiddleware: Syncs the location/URL path to the state
-  const middlewares = [
-    thunk,
-    sagaMiddleware,
-    routerMiddleware(history),
-  ];
+  const middlewares = [thunk, sagaMiddleware, routerMiddleware(history)];
 
   let composeEnhancers = compose;
 
@@ -41,14 +37,12 @@ export default (history, initialState) => {
     /* eslint-enable */
   }
 
-  const enhancers = [
-    applyMiddleware(...middlewares),
-  ];
+  const enhancers = [applyMiddleware(...middlewares)];
 
   const store = createStore(
     createReducer(),
     initialState,
-    composeEnhancers(...enhancers)
+    composeEnhancers(...enhancers),
   );
 
   // Extensions

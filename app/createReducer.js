@@ -40,9 +40,10 @@ const routeReducer = (state = routeInitialState, action) => {
 /**
  * Creates the main reducer with the dynamically injected ones
  */
-export default injectedReducers => combineReducers({
-  route: routeReducer,
-  global: globalReducer,
-  language: languageProviderReducer,
-  ...injectedReducers,
-});
+export default injectedReducers =>
+  combineReducers({
+    route: routeReducer,
+    global: globalReducer,
+    language: languageProviderReducer,
+    ...injectedReducers,
+  });

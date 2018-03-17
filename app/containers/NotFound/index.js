@@ -11,12 +11,8 @@ export default ({ staticContext }: Props) => {
   if (staticContext) staticContext.status = '404'; // eslint-disable-line no-param-reassign
 
   return (
-    <div
-      className="NotFound"
-    >
-      <Helmet
-        title="Oops"
-      />
+    <div className="NotFound">
+      <Helmet title="Oops" />
       <p>Oops, Page was not found!</p>
     </div>
   );
