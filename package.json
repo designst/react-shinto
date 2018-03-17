@@ -195,7 +195,7 @@
     "settings": {
       "import/resolver": {
         "webpack": {
-          "config": "./config/webpack/prod.js"
+          "config": "./config/webpack/webpack.dev.babel.js"
         }
       }
     },
