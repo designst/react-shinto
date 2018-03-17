@@ -6,8 +6,8 @@ import fp from 'lodash/fp';
 import { combineReducers } from 'redux';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-import globalReducer from './containers/App/reducer';
-import languageProviderReducer from './providers/Language/reducer';
+import globalReducer from '../containers/App/reducer';
+import languageProviderReducer from '../providers/Language/reducer';
 
 /*
  * routeReducer

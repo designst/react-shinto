@@ -10,8 +10,8 @@ import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
 
 import routes from './routes';
-import configureStore from './configureStore';
-import registerServiceWorker from './registerServiceWorker';
+import configureStore from './utils/configureStore';
+import registerServiceWorker from './utils/registerServiceWorker';
 
 // Get the initial state from server-side rendering
 // noinspection JSUnresolvedVariable

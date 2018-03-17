@@ -15,7 +15,7 @@ import { renderRoutes, matchRoutes } from 'react-router-config';
 import routes from '../../app/routes';
 import assets from '../../public/webpack-assets.json';
 import renderHtml from '../renderHtml';
-import configureStore from '../../app/configureStore';
+import configureStore from '../../app/utils/configureStore';
 
 const isProd = process.env.NODE_ENV === 'production';
 
