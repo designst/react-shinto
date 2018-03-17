@@ -1,7 +1,6 @@
-import { prepareProxy } from 'react-dev-utils/WebpackDevServerUtils';
+import httpProxyMiddleware from 'http-proxy-middleware';
 
 import paths from '../../config/paths';
-import httpProxy from "http-proxy";
 
 const proxySetting = require(paths.appPackageJson).proxy;
 
@@ -16,23 +15,43 @@ const setAuthorizationHeader = (proxyReq) => {
   }
 };
 
-module.exports = (app, server) => {
-  const proxyConfig = prepareProxy(proxySetting, paths.appPublic);
-
-  const proxy = httpProxy.createProxy(proxyConfig);
-
-  proxy.on('error', (error, req, res) => {
-    res.writeHead(502, {
-      'Content-Type': 'text/plain',
-    });
-
-    res.end('Proxy Error');
+const handleProxyError = (err, req, res) => {
+  res.writeHead(502, {
+    'Content-Type': 'text/plain',
   });
 
-  proxy.on('proxyReq', setAuthorizationHeader);
+  res.end('Something went wrong. And we are reporting a custom error message.');
+};
 
-  app.use('/api', proxy.web);
-  server.on('upgrade', proxy.ws);
+const handleProxyRequest = (proxyReq, req, res) => {
+  setAuthorizationHeader(proxyReq);
+};
 
-  return proxy;
+const handleProxyResponse = (proxyRes, req, res) => {
+
+};
+
+const handleProxyRequestWs = (proxyReq, req, socket, options, head) => {
+
+};
+
+module.exports = (app, server) => {
+  Object.keys(proxySetting).forEach(context => {
+    const proxyConfig = proxySetting[context];
+
+    const proxy = httpProxyMiddleware({
+      ...proxyConfig,
+      onError: handleProxyError,
+      onProxyReq: handleProxyRequest,
+      onProxyRes: handleProxyResponse,
+      onProxyReqWs: handleProxyRequestWs,
+    });
+
+    app.use(context, proxy);
+
+    if (proxyConfig.ws) {
+      // noinspection JSUnresolvedVariable
+      server.on('upgrade', proxy.upgrade);
+    }
+  });
 };

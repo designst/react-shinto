@@ -51,7 +51,7 @@ if (module.hot) {
 
       render(nextRoutes);
     } catch (error) {
-      console.error(`==> 😭  Routes hot reloading error ${error}`);
+      console.error(`==> Routes hot reloading error ${error}`);
     }
   });
 }

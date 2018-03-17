@@ -1,5 +1,6 @@
 import App from './containers/App';
 import asyncHome from './containers/Home';
+import NotFound from './containers/NotFound';
 
 export default [
   {
@@ -9,7 +10,9 @@ export default [
         path: '/',
         exact: true,
         component: asyncHome,
-        loadData: () => [],
+      },
+      {
+        component: NotFound,
       },
     ],
   },

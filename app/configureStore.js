@@ -1,5 +1,6 @@
 /* @flow */
 
+import thunk from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import { routerMiddleware } from 'react-router-redux';
@@ -11,10 +12,12 @@ import createReducer from './createReducer';
 const sagaMiddleware = createSagaMiddleware();
 
 export default (history, initialState) => {
-  // Create the store with two middlewares
-  // 1. sagaMiddleware: Makes redux-sagas work
-  // 2. routerMiddleware: Syncs the location/URL path to the state
+  // Create the store with three middlewares
+  // 1. thunkMiddleware: Makes thunk work
+  // 2. sagaMiddleware: Makes redux-sagas work
+  // 3. routerMiddleware: Syncs the location/URL path to the state
   const middlewares = [
+    thunk,
     sagaMiddleware,
     routerMiddleware(history),
   ];
@@ -61,7 +64,7 @@ export default (history, initialState) => {
 
         store.replaceReducer(nextReducer);
       } catch (error) {
-        console.error(`==> 😭  Reducer hot reloading error ${error}`);
+        console.error(`==> Reducer hot reloading error ${error}`);
       }
     });
   }

@@ -41,6 +41,6 @@ module.exports = (app, urls, port, webpackConfig) => {
   }));
 
   app.use(webpackHotMiddleware(compiler, {
-    log: false // Turn it off for friendly-errors-webpack-plugin
+    log: false, // Turn it off for friendly-errors-webpack-plugin
   }));
 };

@@ -14,7 +14,7 @@ import { createSelector } from 'reselect';
 
 import { makeSelectLocale } from './selectors';
 
-export class LanguageProvider extends PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class LanguageProvider extends PureComponent {
   render() {
     return (
       <IntlProvider
@@ -29,8 +29,8 @@ export class LanguageProvider extends PureComponent { // eslint-disable-line rea
 }
 
 LanguageProvider.propTypes = {
-  locale: PropTypes.string,
-  messages: PropTypes.object,
+  locale: PropTypes.string.isRequired,
+  messages: PropTypes.object.isRequired,
   children: PropTypes.element.isRequired,
 };
 
