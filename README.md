@@ -4,6 +4,7 @@
 [![dependencies Status](https://david-dm.org/designst/react-shinto/status.svg)](https://david-dm.org/designst/react-shinto)
 [![devDependencies Status](https://david-dm.org/designst/react-shinto/dev-status.svg)](https://david-dm.org/designst/react-shinto?type=dev)
 [![Coverage Status](https://coveralls.io/repos/github/designst/react-shinto/badge.svg?branch=master)](https://coveralls.io/github/designst/react-shinto?branch=master)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 [![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/designst/react-shinto/master/LICENSE)
 
 Take the best of the best and make it even better.
@@ -14,6 +15,7 @@ Take the best of the best and make it even better.
 - [Redux](https://redux.js.org/)'s futuristic [Flux](https://facebook.github.io/flux/) impelementation.
 - [Express](http://expressjs.com/) web server.
 - [Webpack 4](https://webpack.js.org/) for bundling support.
+- [Prettier](https://prettier.io/) opinionated code formatter.
 
 
 ## Getting Started
