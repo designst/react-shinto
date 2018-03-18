@@ -13,9 +13,9 @@ import createHistory from 'history/createMemoryHistory';
 import { getLoadableState } from 'loadable-components/server';
 import { renderRoutes, matchRoutes } from 'react-router-config';
 
-import routes from 'app/routes';
-import assets from 'public/webpack-assets.json';
-import configureStore from 'app/utils/configureStore';
+import routes from '../../app/routes';
+import assets from '../../public/webpack-assets.json';
+import configureStore from '../../app/utils/configureStore';
 
 import renderHtml from '../renderHtml';
 
