@@ -4,7 +4,7 @@ import paths from '../../config/paths';
 
 const proxySetting = require(paths.appPackageJson).proxy;
 
-const setAuthorizationHeader = (proxyReq) => {
+const setAuthorizationHeader = proxyReq => {
   if (!proxyReq.hasHeader('Authorization')) {
     // Get authorization token from localStorage/sessionStorage/cookie
     const token = null;
@@ -27,13 +27,9 @@ const handleProxyRequest = (proxyReq, req, res) => {
   setAuthorizationHeader(proxyReq);
 };
 
-const handleProxyResponse = (proxyRes, req, res) => {
+const handleProxyResponse = (proxyRes, req, res) => {};
 
-};
-
-const handleProxyRequestWs = (proxyReq, req, socket, options, head) => {
-
-};
+const handleProxyRequestWs = (proxyReq, req, socket, options, head) => {};
 
 module.exports = (app, server) => {
   Object.keys(proxySetting).forEach(context => {

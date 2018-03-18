@@ -1,5 +1,6 @@
 import hpp from 'hpp';
 import path from 'path';
+import chalk from 'chalk';
 import React from 'react';
 import morgan from 'morgan';
 import helmet from 'helmet';
@@ -12,10 +13,11 @@ import createHistory from 'history/createMemoryHistory';
 import { getLoadableState } from 'loadable-components/server';
 import { renderRoutes, matchRoutes } from 'react-router-config';
 
-import routes from '../../app/routes';
-import assets from '../../public/webpack-assets.json';
+import routes from 'app/routes';
+import assets from 'public/webpack-assets.json';
+import configureStore from 'app/utils/configureStore';
+
 import renderHtml from '../renderHtml';
-import configureStore from '../../app/utils/configureStore';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -26,7 +28,7 @@ module.exports = (app, urls, port) => {
   app.use(helmet());
 
   // Use for http request debug (show errors only)
-  app.use(morgan('dev', {skip: (req, res) => res.statusCode < 400}));
+  app.use(morgan('dev', { skip: (req, res) => res.statusCode < 400 }));
   app.use(favicon(path.resolve(process.cwd(), 'public/favicon.ico')));
 
   if (isProd) {
@@ -46,12 +48,12 @@ module.exports = (app, urls, port) => {
     const loadBranchData = () => {
       const branch = matchRoutes(routes, req.path);
 
-      const promises = branch.map(({route, match}) => {
+      const promises = branch.map(({ route, match }) => {
         if (route.loadData) {
           return Promise.all(
             route
-              .loadData({params: match.params, getState: store.getState})
-              .map(item => store.dispatch(item))
+              .loadData({ params: match.params, getState: store.getState })
+              .map(item => store.dispatch(item)),
           );
         }
 
@@ -68,14 +70,9 @@ module.exports = (app, urls, port) => {
 
         const staticContext = {};
         const AppComponent = (
-          <Provider
-            store={store}
-          >
+          <Provider store={store}>
             {/* Setup React-Router server-side rendering */}
-            <StaticRouter
-              context={staticContext}
-              location={req.path}
-            >
+            <StaticRouter context={staticContext} location={req.path}>
               {renderRoutes(routes)}
             </StaticRouter>
           </Provider>
@@ -110,8 +107,8 @@ module.exports = (app, urls, port) => {
                 assets,
                 htmlContent,
                 initialState,
-                loadableStateTag
-              )
+                loadableStateTag,
+              ),
             );
         });
       } catch (err) {

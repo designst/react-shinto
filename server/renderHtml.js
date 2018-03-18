@@ -1,15 +1,15 @@
 import serialize from 'serialize-javascript';
 import { minify } from 'html-minifier';
 
-export default (head: Object,
-                assets: Object,
-                htmlContent: string,
-                initialState: Object,
-                loadableStateTag: string): string => {
+export default (
+  head: Object,
+  assets: Object,
+  htmlContent: string,
+  initialState: Object,
+  loadableStateTag: string,
+): string => {
   // Use pre-defined assets for development to prevent html from inserting wrong styles / scripts
-  const envAssets = __DEV__
-    ? { main: { js: '/static/js/main.js' } }
-    : assets;
+  const envAssets = __DEV__ ? { main: { js: '/static/js/main.js' } } : assets;
 
   const html = `
     <!doctype html>
@@ -34,9 +34,9 @@ export default (head: Object,
           key =>
             envAssets[key].css
               ? `<link href="${
-                envAssets[key].css
+                  envAssets[key].css
                 }" media="screen, projection" rel="stylesheet" type="text/css">`
-              : ''
+              : '',
         )}
 
       </head>

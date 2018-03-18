@@ -2,9 +2,10 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { renderRoutes } from 'react-router-config';
 
+import config from 'config';
+
 import './style.css';
 import logo from './logo.svg';
-import config from '../../config';
 
 type Props = { route: Object };
 

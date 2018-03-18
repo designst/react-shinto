@@ -13,7 +13,6 @@ import openBrowser from 'react-dev-utils/openBrowser';
 import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles';
 
 import paths from '../config/paths';
-import { host, port } from '../app/config';
 import proxyMiddleware from './middlewares/proxyMiddleware';
 import frontendMiddleware from './middlewares/frontendMiddleware';
 
@@ -21,6 +20,8 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
   process.exit(1);
 }
 
+const host = process.env.HOST || '0.0.0.0';
+const port = parseInt(process.env.PORT, 10) || 3000;
 const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
 
 const app = express();

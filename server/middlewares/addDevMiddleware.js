@@ -7,7 +7,7 @@ import { createCompiler } from 'react-dev-utils/WebpackDevServerUtils';
 
 import paths from '../../config/paths';
 
-const name = require(paths.appPackageJson).name;
+const { name } = require(paths.appPackageJson);
 const useYarn = fs.existsSync(paths.yarnLockFile);
 
 const ngrok = process.env.ENABLE_TUNNEL ? require('ngrok') : false;
@@ -16,7 +16,8 @@ module.exports = (app, urls, port, webpackConfig) => {
   const compiler = createCompiler(webpack, webpackConfig, name, urls, useYarn);
 
   if (ngrok) {
-    ngrok.connect(port)
+    ngrok
+      .connect(port)
       .then(ngrokUrl => {
         compiler.plugin('done', () => {
           console.log(`  ${chalk.bold('Ngrok Proxy:')}      ${ngrokUrl}`);
@@ -28,19 +29,23 @@ module.exports = (app, urls, port, webpackConfig) => {
       });
   }
 
-  app.use(webpackDevMiddleware(compiler, {
-    publicPath: webpackConfig.output.publicPath,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
-    hot: true,
-    quiet: true, // Turn it on for friendly-errors-webpack-plugin
-    noInfo: true,
-    stats: 'minimal',
-    serverSideRender: true,
-  }));
+  app.use(
+    webpackDevMiddleware(compiler, {
+      publicPath: webpackConfig.output.publicPath,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+      },
+      hot: true,
+      quiet: true, // Turn it on for friendly-errors-webpack-plugin
+      noInfo: true,
+      stats: 'minimal',
+      serverSideRender: true,
+    }),
+  );
 
-  app.use(webpackHotMiddleware(compiler, {
-    log: false, // Turn it off for friendly-errors-webpack-plugin
-  }));
+  app.use(
+    webpackHotMiddleware(compiler, {
+      log: false, // Turn it off for friendly-errors-webpack-plugin
+    }),
+  );
 };
