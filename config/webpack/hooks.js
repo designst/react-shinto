@@ -5,6 +5,8 @@
 import path from 'path';
 import sass from 'node-sass';
 
+import paths from '../paths';
+
 module.exports = () => {
   // CSS modules
   require('css-modules-require-hook')({
@@ -14,7 +16,7 @@ module.exports = () => {
     prepend: [require('autoprefixer')],
     preprocessCss: (data, filename) =>
       sass.renderSync({
-        data,
+        data: data.replace('~', `${paths.appNodeModules}/`),
         file: filename,
       }).css,
     // Must be the same with the "context" of webpack LoaderOptionsPlugin
