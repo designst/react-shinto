@@ -2,8 +2,8 @@
 
 /* Require hooks for server-side */
 
-const path = require('path');
-const sass = require('node-sass');
+import path from 'path';
+import sass from 'node-sass';
 
 module.exports = () => {
   // CSS modules
