@@ -1,11 +1,11 @@
 # 🥥 React [Shintō](https://de.wikipedia.org/wiki/Shint%C5%8D)
 
-[![Build Status](https://travis-ci.org/designst/react-shinto.svg?branch=master)](https://travis-ci.org/designst/react-shinto)
-[![dependencies Status](https://david-dm.org/designst/react-shinto/status.svg)](https://david-dm.org/designst/react-shinto)
-[![devDependencies Status](https://david-dm.org/designst/react-shinto/dev-status.svg)](https://david-dm.org/designst/react-shinto?type=dev)
-[![Coverage Status](https://coveralls.io/repos/github/designst/react-shinto/badge.svg?branch=master)](https://coveralls.io/github/designst/react-shinto?branch=master)
+[![Build Status](https://travis-ci.org/react-shinto/react-shinto.svg?branch=master)](https://travis-ci.org/react-shinto/react-shinto)
+[![dependencies Status](https://david-dm.org/react-shinto/react-shinto/status.svg)](https://david-dm.org/react-shinto/react-shinto)
+[![devDependencies Status](https://david-dm.org/react-shinto/react-shinto/dev-status.svg)](https://david-dm.org/react-shinto/react-shinto?type=dev)
+[![Coverage Status](https://coveralls.io/repos/github/react-shinto/react-shinto/badge.svg?branch=master)](https://coveralls.io/github/react-shinto/react-shinto?branch=master)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/designst/react-shinto/master/LICENSE)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/react-shinto/react-shinto/master/LICENSE)
 
 Take the best of the best and make it even better.
 
@@ -22,7 +22,7 @@ Take the best of the best and make it even better.
 
 1. Clone the repository to your local machine:
    ```bash
-   git clone https://github.com/designst/react-shinto.git
+   git clone https://github.com/react-shinto/react-shinto.git
    cd react-shinto
    ```
 
