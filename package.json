@@ -214,25 +214,35 @@
     ]
   },
   "jest": {
-    "collectCoverageFrom": [
-      "app/**/*.{js,jsx,mjs}"
+    "verbose": true,
+    "globals": {
+      "__DEV__": true
+    },
+    "testMatch": [
+      "<rootDir>/app/**/__tests__/**/*.{js,jsx,mjs}",
+      "<rootDir>/app/**/?(*.)(spec|test).{js,jsx,mjs}"
     ],
     "setupFiles": [
       "raf/polyfill",
       "<rootDir>/config/jest/setup.js"
     ],
-    "testMatch": [
-      "<rootDir>/app/**/__tests__/**/*.{js,jsx,mjs}",
-      "<rootDir>/app/**/?(*.)(spec|test).{js,jsx,mjs}"
-    ],
-    "moduleDirectories": [
-      "app",
-      "node_modules"
+    "transform": {
+      "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/config/jest/transformers/cssTransform.js",
+      "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/transformers/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
     ],
     "moduleNameMapper": {
-      ".*\\.(css|less|styl|scss|sass)$": "<rootDir>/config/jest/mocks/cssModule.js",
-      ".*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir/config/jest/mocks/assetModule.js"
-    }
+      "^config(.*)$": "<rootDir>/app/config/$1",
+      "^providers(.*)$": "<rootDir>/app/providers/$1",
+      "^components(.*)$": "<rootDir>/app/components/$1",
+      "^containers(.*)$": "<rootDir>/app/containers/$1"
+    },
+    "collectCoverageFrom": [
+      "app/**/*.{js,jsx,mjs}"
+    ]
   },
   "nodemonConfig": {
     "watch": [

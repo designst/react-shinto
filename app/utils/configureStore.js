@@ -47,8 +47,8 @@ export default (history, initialState) => {
 
   // Extensions
   store.runSaga = sagaMiddleware.run;
-  store.injectSagas = {}; // Saga registry
-  store.injectReducers = {}; // Reducer registry
+  store.injectedSagas = {}; // Saga registry
+  store.injectedReducers = {}; // Reducer registry
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
