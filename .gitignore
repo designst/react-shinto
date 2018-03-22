@@ -1,6 +1,7 @@
 # Misc
 .DS_Store
 .idea
+.coveralls.yml
 
 # Logs
 logs
