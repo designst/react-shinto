@@ -24,6 +24,7 @@
     "build": "yarn clean:build && better-npm-run build",
     "analyze": "yarn clean:build && better-npm-run analyze",
     "extract-intl": "better-npm-run extract-intl",
+    "generate": "better-npm-run generate",
     "lint": "yarn lint:js && yarn lint:style",
     "lint:js": "better-npm-run lint:js",
     "lint:style": "better-npm-run lint:style",
@@ -67,6 +68,9 @@
     },
     "extract-intl": {
       "command": "babel-node -- ./scripts/extract-intl.js"
+    },
+    "generate": {
+      "command": "plop --plopfile ./scripts/generators/index.js"
     },
     "lint:js": {
       "command": "eslint --fix ./app ./config ./index.js"
@@ -269,10 +273,12 @@
     "express": "4.16.3",
     "helmet": "3.12.0",
     "history": "4.7.2",
+    "hoist-non-react-statics": "2.5.0",
     "hpp": "0.2.2",
     "http-proxy-middleware": "0.18.0",
     "humps": "2.0.1",
     "intl": "1.2.5",
+    "invariant": "2.2.4",
     "ip": "1.1.5",
     "loadable-components": "1.1.1",
     "lodash": "4.17.5",
@@ -344,6 +350,7 @@
     "ngrok": "3.0.1",
     "node-sass": "4.7.2",
     "nodemon": "1.17.2",
+    "plop": "2.0.0",
     "postcss-flexbugs-fixes": "3.3.0",
     "postcss-loader": "2.1.3",
     "prettier": "1.11.1",
