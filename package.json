@@ -23,6 +23,7 @@
     "start:production": "yarn build && yarn start:prod",
     "build": "yarn clean:build && better-npm-run build",
     "analyze": "yarn clean:build && better-npm-run analyze",
+    "extract-intl": "better-npm-run extract-intl",
     "lint": "yarn lint:js && yarn lint:style",
     "lint:js": "better-npm-run lint:js",
     "lint:style": "better-npm-run lint:style",
@@ -63,6 +64,9 @@
       "env": {
         "NODE_ENV": "analyze"
       }
+    },
+    "extract-intl": {
+      "command": "babel-node -- ./scripts/extract-intl.js"
     },
     "lint:js": {
       "command": "eslint --fix ./app ./config ./index.js"
@@ -268,6 +272,7 @@
     "hpp": "0.2.2",
     "http-proxy-middleware": "0.18.0",
     "humps": "2.0.1",
+    "intl": "1.2.5",
     "ip": "1.1.5",
     "loadable-components": "1.1.1",
     "lodash": "4.17.5",
