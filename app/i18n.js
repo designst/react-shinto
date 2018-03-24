@@ -16,7 +16,11 @@ import deTranslationMessages from './translations/de.json';
 addLocaleData(enLocaleData);
 addLocaleData(deLocaleData);
 
-export const appLocales = ['en', 'de'];
+// prettier-ignore
+export const appLocales = [
+  'en',
+  'de',
+];
 
 export const formatTranslationMessages = (locale, messages) => {
   const defaultFormattedMessages =

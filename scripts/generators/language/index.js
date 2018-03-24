@@ -1,6 +1,7 @@
 /**
  * Language Generator
  */
+
 const fs = require('fs');
 const { exec } = require('child_process');
 
@@ -74,18 +75,20 @@ module.exports = {
     });
     actions.push({
       type: 'modify',
-      path: '../../app/app.js',
+      path: '../../app/index.js',
       pattern: /(import\('intl\/locale-data\/jsonp\/[a-z]+\.js'\),\n)(?!.*import\('intl\/locale-data\/jsonp\/[a-z]+\.js'\),)/g,
       templateFile: './language/polyfill-intl-locale.hbs',
     });
     actions.push(() => {
-      const cmd = 'npm run extract-intl';
+      const cmd = 'yarn extract-intl';
+
       exec(cmd, (err, result, stderr) => {
         if (err || stderr) {
           throw err || stderr;
         }
         process.stdout.write(result);
       });
+
       return 'modify translation messages';
     });
 
