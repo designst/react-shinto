@@ -67,7 +67,7 @@ module.exports = {
   ],
   actions: data => {
     // Generate index.js and index.test.js
-    var componentTemplate; // eslint-disable-line no-var
+    let componentTemplate; // eslint-disable-line no-var
 
     switch (data.type) {
       case 'Stateless Function': {
@@ -96,6 +96,7 @@ module.exports = {
     ];
 
     // If component wants messages
+    // noinspection JSUnresolvedVariable
     if (data.wantMessages) {
       actions.push({
         type: 'add',
@@ -107,6 +108,7 @@ module.exports = {
 
     // If they want actions and a reducer, generate actions.js, constants.js,
     // reducer.js and the corresponding tests for actions and the reducer
+    // noinspection JSUnresolvedVariable
     if (data.wantActionsAndReducer) {
       // Actions
       actions.push({
@@ -163,6 +165,7 @@ module.exports = {
     }
 
     // Sagas
+    // noinspection JSUnresolvedVariable
     if (data.wantSaga) {
       actions.push({
         type: 'add',
@@ -172,16 +175,17 @@ module.exports = {
       });
       actions.push({
         type: 'add',
-        path: '../../app/containers/{{properCase name}}/__test__/saga.test.js',
+        path: '../../app/containers/{{properCase name}}/__tests__/saga.test.js',
         templateFile: './container/saga.test.js.hbs',
         abortOnFail: true,
       });
     }
 
+    // noinspection JSUnresolvedVariable
     if (data.wantLoadable) {
       actions.push({
         type: 'add',
-        path: '../../app/containers/{{properCase name}}/Loadable.js',
+        path: '../../app/containers/{{properCase name}}/loadable.js',
         templateFile: './component/loadable.js.hbs',
         abortOnFail: true,
       });
