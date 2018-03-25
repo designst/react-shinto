@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { StaticRouter } from 'react-router-dom';
 
-import { Home } from '../Home';
+import { Home } from '../index';
 
 describe('<Home />', () => {
   const mock = {};

@@ -1,11 +1,19 @@
-/* @flow */
+import React, { Component } from 'react';
+import { hot } from 'react-hot-loader';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-import loadable from 'loadable-components';
+import './styles.css';
 
-import Loading from 'components/Loading';
-import ErrorDisplay from 'components/ErrorDisplay';
+// Export this for unit testing more easily
+export class Home extends Component {
+  render() {
+    return <div className="Home">Home</div>;
+  }
+}
 
-export default loadable(() => import('./Home'), {
-  LoadingComponent: Loading,
-  ErrorComponent: ErrorDisplay,
-});
+const connector = connect(({ home }) => ({ home }));
+
+// Enable hot reloading for async component
+export default compose(hot(module), withRouter, connector)(Home);

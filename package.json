@@ -234,6 +234,7 @@
       "raf/polyfill",
       "<rootDir>/config/jest/setup.js"
     ],
+    "setupTestFrameworkScriptFile": "<rootDir>/config/jest/setup.test.js",
     "transform": {
       "^.+\\.(js|jsx|mjs)$": "<rootDir>/node_modules/babel-jest",
       "^.+\\.css$": "<rootDir>/config/jest/transformers/cssTransform.js",
@@ -305,6 +306,7 @@
     "asset-require-hook": "1.2.0",
     "assets-webpack-plugin": "3.5.1",
     "autoprefixer": "8.2.0",
+    "axios-mock-adapter": "1.14.1",
     "babel-cli": "6.26.0",
     "babel-core": "6.26.0",
     "babel-eslint": "8.2.2",

@@ -20,6 +20,7 @@ export default (history, initialState) => {
 
   let composeEnhancers = compose;
 
+  /* istanbul ignore next */
   if (process.env.NODE_ENV !== 'production' && typeof window === 'object') {
     const loggerMiddleware = createLogger();
     middlewares.push(loggerMiddleware);
@@ -50,6 +51,7 @@ export default (history, initialState) => {
   store.injectedSagas = {}; // Saga registry
   store.injectedReducers = {}; // Reducer registry
 
+  /* istanbul ignore next */
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept('./createReducer', () => {
