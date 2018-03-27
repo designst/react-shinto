@@ -299,6 +299,7 @@
     "redux-logger": "3.0.6",
     "redux-saga": "0.16.0",
     "redux-thunk": "2.2.0",
+    "redux-wait-for-action": "0.0.7",
     "reselect": "3.0.1",
     "serialize-javascript": "1.4.0",
     "serve-favicon": "2.4.5"
