@@ -1,11 +1,6 @@
-import hpp from 'hpp';
-import path from 'path';
 import chalk from 'chalk';
 import React from 'react';
-import morgan from 'morgan';
-import helmet from 'helmet';
 import Helmet from 'react-helmet';
-import favicon from 'serve-favicon';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
 import { renderToString } from 'react-dom/server';
@@ -18,32 +13,15 @@ import assets from '../../public/webpack-assets.json';
 import configureStore from '../../app/utils/configureStore';
 
 import renderHtml from '../renderHtml';
+import getSagaInjectors from '../../app/utils/sagaInjectors';
+import getReducerInjectors from '../../app/utils/reducerInjectors';
 
-const isProd = process.env.NODE_ENV === 'production';
-
-module.exports = (app, urls, port) => {
-  // Prevent HTTP parameter pollution.
-  app.use(hpp());
-  // Use helmet to secure Express with various HTTP headers
-  app.use(helmet());
-
-  // Use for http request debug (show errors only)
-  app.use(morgan('dev', { skip: (req, res) => res.statusCode < 400 }));
-  app.use(favicon(path.resolve(process.cwd(), 'public/favicon.ico')));
-
-  if (isProd) {
-    const addProdMiddleware = require('./addProdMiddleware');
-    const webpackConfig = require('../../config/webpack/webpack.prod.babel');
-    addProdMiddleware(app, webpackConfig);
-  } else {
-    const webpackConfig = require('../../config/webpack/webpack.dev.babel');
-    const addDevMiddleware = require('./addDevMiddleware');
-    addDevMiddleware(app, urls, port, webpackConfig);
-  }
-
+module.exports = app => {
   app.get('*', (req, res) => {
     const history = createHistory();
     const store = configureStore(history);
+    const sagaInjectors = getSagaInjectors(store);
+    const reducerInjectors = getReducerInjectors(store);
 
     const loadBranchData = () => {
       const branch = matchRoutes(routes, req.path);
@@ -52,8 +30,13 @@ module.exports = (app, urls, port) => {
         if (route.loadData) {
           return Promise.all(
             route
-              .loadData({ params: match.params, getState: store.getState })
-              .map(item => store.dispatch(item)),
+              .loadData({
+                store,
+                params: match.params,
+                sagaInjectors,
+                reducerInjectors,
+              })
+              .map(loadFn => loadFn()),
           );
         }
 

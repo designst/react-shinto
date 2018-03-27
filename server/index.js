@@ -13,6 +13,7 @@ import openBrowser from 'react-dev-utils/openBrowser';
 import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles';
 
 import paths from '../config/paths';
+import appMiddleware from './middlewares/appMiddleware';
 import proxyMiddleware from './middlewares/proxyMiddleware';
 import frontendMiddleware from './middlewares/frontendMiddleware';
 
@@ -35,10 +36,12 @@ choosePort(host, port)
 
     const urls = prepareUrls(protocol, host, port);
 
+    // APP Middleware
+    appMiddleware(app, urls, port);
     // Proxy Middleware
     proxyMiddleware(app, server);
     // Frontend Middleware
-    frontendMiddleware(app, urls, port);
+    frontendMiddleware(app);
 
     server.listen(port, host, (err) => {
       if (err) {
