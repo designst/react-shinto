@@ -3,6 +3,7 @@ import path from 'path';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import favicon from 'serve-favicon';
+import cookieParser from 'cookie-parser';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -11,6 +12,8 @@ module.exports = (app, urls, port) => {
   app.use(hpp());
   // Use helmet to secure Express with various HTTP headers
   app.use(helmet());
+  // Use cookie-parser
+  app.use(cookieParser());
 
   // Use for http request debug (show errors only)
   app.use(morgan('dev', { skip: (req, res) => res.statusCode < 400 }));

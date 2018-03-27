@@ -1,16 +1,22 @@
 import httpProxyMiddleware from 'http-proxy-middleware';
 
 import paths from '../../config/paths';
+import config from '../../app/config';
 
 const proxySetting = require(paths.appPackageJson).proxy;
 
-const setAuthorizationHeader = proxyReq => {
+const setAuthorizationHeader = (proxyReq, req) => {
   if (!proxyReq.hasHeader('Authorization')) {
-    // Get authorization token from localStorage/sessionStorage/cookie
-    const token = null;
+    let token = null;
+
+    if ('cookies' in req) {
+      if (config.auth.tokenCookie in req.cookies) {
+        token = req.cookies[config.auth.tokenCookie];
+      }
+    }
 
     if (token) {
-      proxyReq.setHeader('Authorization', `Bearer ${token}`);
+      proxyReq.setHeader('Authorization', `Token ${token}`);
     }
   }
 };
@@ -23,8 +29,8 @@ const handleProxyError = (err, req, res) => {
   res.end('Something went wrong. And we are reporting a custom error message.');
 };
 
-const handleProxyRequest = (proxyReq, req, res) => {
-  setAuthorizationHeader(proxyReq);
+const handleProxyRequest = (proxyReq, req) => {
+  setAuthorizationHeader(proxyReq, req);
 };
 
 const handleProxyResponse = (proxyRes, req, res) => {};

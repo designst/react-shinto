@@ -12,4 +12,7 @@ module.exports = {
       },
     ],
   },
+  auth: {
+    tokenCookie: 'shinto_auth_token',
+  },
 };
