@@ -1,10 +1,9 @@
 import path from 'path';
-import webpack from 'webpack';
-import AssetsPlugin from 'assets-webpack-plugin';
 import ImageminPlugin from 'imagemin-webpack-plugin';
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import SWPrecacheWebpackPlugin from 'sw-precache-webpack-plugin';
+import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 
 import paths from '../paths';
 import getClientEnvironment from '../env';
@@ -19,13 +18,16 @@ import {
   eslintRule,
   scriptRule,
   cssFileRule,
+  sassFileRule,
+  getCommonPlugins,
 } from './parts';
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
 const publicPath = paths.servedPath;
 // Source maps are resource heavy and can cause out of memory issue for large source files.
-const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
+const shouldUseSourceMap =
+  process.env.GENERATE_SOURCEMAP === 'true' || process.env.SHINTO_GENERATE_SOURCEMAP === 'true';
 // `publicUrl` is just like `publicPath`, but we will provide it to our app
 // as %PUBLIC_URL% in `index.html` and `process.env.PUBLIC_URL` in JavaScript.
 // Omit trailing slash as %PUBLIC_URL%/xyz looks better than %PUBLIC_URL%xyz.
@@ -38,9 +40,6 @@ const env = getClientEnvironment(publicUrl);
 if (env.stringified['process.env'].NODE_ENV !== '"production"') {
   throw new Error('Production builds must have NODE_ENV=production.');
 }
-
-// Note: defined here because it will be used more than once.
-const cssFilename = 'static/css/[name].[contenthash:8].css';
 
 module.exports = {
   mode: 'production',
@@ -84,7 +83,8 @@ module.exports = {
           scriptRule({
             compact: true,
           }),
-          cssFileRule(cssFilename, publicPath),
+          cssFileRule(),
+          sassFileRule(),
           finalRule(),
         ],
       },
@@ -93,25 +93,16 @@ module.exports = {
     ],
   },
   plugins: [
-    // Makes some environment variables available to the JS code, for example:
-    // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
-    // It is absolutely essential that NODE_ENV was set to production here.
-    // Otherwise React will be compiled in the very slow development mode.
-    new webpack.DefinePlugin(env.stringified),
-    // Note: this won't work without ExtractTextPlugin.extract(..) in `loaders`.
-    new ExtractTextPlugin({
-      filename: cssFilename,
-    }),
-    // Generate a manifest file which contains a mapping of all asset filenames
-    // to their corresponding output file so that tools can pick it up without
-    // having to parse `index.html`.
-    new AssetsPlugin({
-      path: paths.appPublic,
-    }),
+    ...getCommonPlugins(env),
     // Plugin to compress images with imagemin
     // Check "https://github.com/Klathmon/imagemin-webpack-plugin" for more configurations
     new ImageminPlugin({
       pngquant: { quality: '95-100' },
+    }),
+    new MiniCssExtractPlugin({
+      sourceMap: true,
+      filename: 'static/css/[name].[chunkhash:8].css',
+      chunkFilename: 'static/css/[name].[chunkhash:8].chunk.css',
     }),
     // Generate a service worker script that will precache, and keep up to date,
     // the HTML & assets that are part of the Webpack build.
@@ -141,14 +132,8 @@ module.exports = {
       // https://github.com/facebookincubator/create-react-app/issues/2237#issuecomment-302693219
       navigateFallbackWhitelist: [/^(?!\/__).*/],
       // Don't precache sourcemaps (they're large) and build asset manifest:
-      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+      staticFileGlobsIgnorePatterns: [/\.map$/, /webpack-assets\.json$/],
     }),
-    // Moment.js is an extremely popular library that bundles large locale files
-    // by default due to how Webpack interprets its code. This is a practical
-    // solution that requires the user to opt into importing specific locales.
-    // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
-    // You can remove this if you don't use Moment.js:
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
   ],
   node,
   resolve,
@@ -159,6 +144,7 @@ module.exports = {
         parallel: true,
         sourceMap: shouldUseSourceMap,
       }),
+      ...(shouldUseSourceMap ? [] : [new OptimizeCSSAssetsPlugin({})]),
     ],
   },
 };

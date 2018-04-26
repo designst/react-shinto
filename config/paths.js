@@ -43,6 +43,7 @@ module.exports = {
   appBuild: resolveApp('build'),
   appPublic: resolveApp('public'),
   appHtml: resolveApp('public/index.html'),
+  appAssets: resolveApp('public/webpack-assets.json'),
   appIndexJs: resolveApp('app/index.js'),
   appPackageJson: resolveApp('package.json'),
   appNodeModules: resolveApp('node_modules'),

@@ -1,9 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import webpack from 'webpack';
+import ManifestPlugin from 'webpack-manifest-plugin';
 import eslintFormatter from 'react-dev-utils/eslintFormatter';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import ModuleScopePlugin from 'react-dev-utils/ModuleScopePlugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 import paths from '../paths';
 
@@ -12,6 +13,10 @@ const pkg = require(paths.appPackageJson);
 const { dllPlugin } = pkg;
 
 const outputPath = path.join(paths.appPublic, dllPlugin.name);
+
+// Source maps are resource heavy and can cause out of memory issue for large source files.
+const shouldUseSourceMap =
+  process.env.GENERATE_SOURCEMAP === 'true' || process.env.SHINTO_GENERATE_SOURCEMAP === 'true';
 
 export const getEntry = (isDev, index) => {
   // We ship a few polyfills by default:
@@ -113,68 +118,26 @@ export const cssRule = options => ({
   ],
 });
 
-export const cssFileRule = (filename, publicPath) => {
-  // The notation here is somewhat confusing.
-  // "postcss" loader applies autoprefixer to our CSS.
-  // "css" loader resolves paths in CSS and adds assets as dependencies.
-  // "style" loader normally turns CSS into JS modules injecting <style>,
-  // but unlike in development configuration, we do something different.
-  // `ExtractTextPlugin` first applies the "postcss" and "css" loaders
-  // (second argument), then grabs the result CSS and puts it into a
-  // separate file in our build process. This way we actually ship
-  // a single CSS file in production instead of JS code injecting <style>
-  // tags. If you use code splitting, however, any async bundles will still
-  // use the "style" loader inside the async code so CSS from them won't be
-  // in the main CSS file.
-
-  // Source maps are resource heavy and can cause out of memory issue for large source files.
-  const shouldUseSourceMap = process.env.GENERATE_SOURCEMAP !== 'false';
-
-  // Some apps do not use client-side routing with pushState.
-  // For these, "homepage" can be set to "." to enable relative asset paths.
-  const shouldUseRelativeAssetPaths = publicPath === './';
-
-  // ExtractTextPlugin expects the build output to be flat.
-  // (See https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/27)
-  // However, our output is structured with css, js and media folders.
-  // To have this structure working with relative paths, we have to use custom options.
-  const extractTextPluginOptions = shouldUseRelativeAssetPaths
-    ? // Making sure that the publicPath goes back to to build folder.
-      { publicPath: Array(filename.split('/').length).join('../') }
-    : {};
-
-  return {
-    test: /\.css$/,
-    loader: ExtractTextPlugin.extract(
-      Object.assign(
-        {
-          fallback: {
-            loader: require.resolve('style-loader'),
-            options: {
-              hmr: false,
-            },
-          },
-          use: [
-            {
-              loader: require.resolve('css-loader'),
-              options: {
-                importLoaders: 1,
-                minimize: true,
-
-                sourceMap: shouldUseSourceMap,
-              },
-            },
-            {
-              loader: require.resolve('postcss-loader'),
-            },
-          ],
-        },
-        extractTextPluginOptions,
-      ),
-    ),
-    // Note: this won't work without `new ExtractTextPlugin()` in `plugins`.
-  };
-};
+export const cssFileRule = () => ({
+  test: /\.css$/,
+  use: [
+    MiniCssExtractPlugin.loader,
+    {
+      loader: require.resolve('css-loader'),
+      options: {
+        minimize: true,
+        sourceMap: shouldUseSourceMap,
+        importLoaders: 1,
+      },
+    },
+    {
+      loader: require.resolve('postcss-loader'),
+      options: {
+        sourceMap: shouldUseSourceMap,
+      },
+    },
+  ],
+});
 
 export const sassRule = options => ({
   test: /\.(scss|sass)$/,
@@ -189,6 +152,35 @@ export const sassRule = options => ({
     {
       loader: require.resolve('sass-loader'),
       options,
+    },
+  ],
+});
+
+export const sassFileRule = () => ({
+  test: /\.(scss|sass)$/,
+  use: [
+    MiniCssExtractPlugin.loader,
+    {
+      loader: 'css',
+      options: {
+        minimize: true,
+        sourceMap: shouldUseSourceMap,
+        importLoaders: 2,
+      },
+    },
+    {
+      loader: 'postcss',
+      options: {
+        sourceMap: shouldUseSourceMap,
+      },
+    },
+    {
+      loader: 'sass',
+      options: {
+        sourceMap: shouldUseSourceMap,
+        outputStyle: 'expanded',
+        sourceMapContents: shouldUseSourceMap,
+      },
     },
   ],
 });
@@ -261,6 +253,30 @@ export const node = {
   dgram: 'empty',
   child_process: 'empty',
 };
+
+export const getCommonPlugins = env => [
+  new ManifestPlugin({
+    fileName: paths.appAssets,
+    filter: file => file.isInitial,
+    writeToFileEmit: true,
+  }),
+  // Makes some environment variables available to the JS code, for example:
+  // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
+  // It is absolutely essential that NODE_ENV was set to production here.
+  // Otherwise React will be compiled in the very slow development mode.
+  new webpack.DefinePlugin({
+    ...env.stringified,
+    __DEV__: process.env.NODE_ENV === 'development',
+    __CLIENT__: true,
+    __SERVER__: false,
+  }),
+  // Moment.js is an extremely popular library that bundles large locale files
+  // by default due to how Webpack interprets its code. This is a practical
+  // solution that requires the user to opt into importing specific locales.
+  // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
+  // You can remove this if you don't use Moment.js:
+  new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+];
 
 /**
  * Select which plugins to use to optimize the bundle's handling of

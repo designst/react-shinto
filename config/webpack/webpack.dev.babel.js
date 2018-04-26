@@ -18,6 +18,7 @@ import {
   imageRule,
   eslintRule,
   scriptRule,
+  getCommonPlugins,
   dependencyHandlers,
 } from './parts';
 
@@ -88,16 +89,9 @@ module.exports = {
     ],
   },
   plugins: dependencyHandlers().concat([
+    ...getCommonPlugins(env),
     // Add module names to factory functions so they appear in browser profiler.
     new webpack.NamedModulesPlugin(),
-    // Makes some environment variables available to the JS code, for example:
-    // if (process.env.NODE_ENV === 'development') { ... }. See `./env.js`.
-    new webpack.DefinePlugin({
-      ...env.stringified,
-      __DEV__: process.env.NODE_ENV === 'development',
-      __CLIENT__: true,
-      __SERVER__: false,
-    }),
     // This is necessary to emit hot updates (currently CSS only):
     new webpack.HotModuleReplacementPlugin(),
     // Watcher doesn't work well if you mistype casing in a path so we use
@@ -109,12 +103,6 @@ module.exports = {
     // makes the discovery automatic so you don't have to restart.
     // See https://github.com/facebookincubator/create-react-app/issues/186
     // new WatchMissingNodeModulesPlugin(paths.appNodeModules),
-    // Moment.js is an extremely popular library that bundles large locale files
-    // by default due to how Webpack interprets its code. This is a practical
-    // solution that requires the user to opt into importing specific locales.
-    // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
-    // You can remove this if you don't use Moment.js:
-    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
     // Visualize all of the webpack bundles
     // Check "https://github.com/webpack-contrib/webpack-bundle-analyzer#options-for-plugin"
     // for more configurations

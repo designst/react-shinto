@@ -118,9 +118,7 @@ module.exports = app => {
 
           if (__DEV__) {
             assets = {
-              main: {
-                js: path.join(paths.servedPath, 'static/js/main.js'),
-              },
+              'main.js': path.join(paths.servedPath, 'static/js/main.js'),
             };
 
             const dllGlob = path.join(paths.appPublic, `${dllPlugin.name}/*.dll.js`);
@@ -128,9 +126,10 @@ module.exports = app => {
             glob.sync(dllGlob).forEach(dllPath => {
               const filename = path.basename(dllPath);
 
-              assets[filename] = {
-                js: path.join(paths.servedPath, `public/${dllPlugin.name}/${filename}`),
-              };
+              assets[filename] = path.join(
+                paths.servedPath,
+                `public/${dllPlugin.name}/${filename}`,
+              );
             });
           }
 

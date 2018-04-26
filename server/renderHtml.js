@@ -33,9 +33,9 @@ export default (
         ${Object.keys(assets)
           .map(
             key =>
-              assets[key].css
+              key.substr(key.length - 3) === 'css'
                 ? `<link href="${
-                    assets[key].css
+                    assets[key]
                   }" media="screen, projection" rel="stylesheet" type="text/css">`
                 : '',
           )
@@ -61,7 +61,10 @@ export default (
         <!-- Insert bundled scripts into <script> tag -->
         ${Object.keys(assets)
           .reverse() // Reverse scripts to get correct ordering
-          .map(key => `<script src="${assets[key].js}"></script>`)
+          .map(
+            key =>
+              key.substr(key.length - 2) === 'js' ? `<script src="${assets[key]}"></script>` : '',
+          )
           .join('')}
 
         ${head.script.toString()}
