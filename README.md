@@ -44,3 +44,9 @@ Take the best of the best and make it even better.
 | `start:production` | Bundle files to `./build` and run it on the production server at `http://localhost:8080`. |
 | `lint`             | Lint all `.js` `.css` and `.scss` files.                     |
 
+## Known Issues
+
+- react-dev-utils causes a deprecation warning like *DeprecationWarning: Tapable.plugin is deprecated. Use new API on `.hooks` instead*.
+
+  To show the deprecation trace run node with `--trace-deprecation`.
+
