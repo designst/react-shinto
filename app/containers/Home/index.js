@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { hot } from 'react-hot-loader';
+import React from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -7,7 +6,7 @@ import { withRouter } from 'react-router-dom';
 import './styles.css';
 
 // Export this for unit testing more easily
-export class Home extends Component {
+export class Home extends React.Component {
   render() {
     return <div className="Home">Home</div>;
   }
@@ -16,4 +15,4 @@ export class Home extends Component {
 const connector = connect(({ home }) => ({ home }));
 
 // Enable hot reloading for async component
-export default compose(hot(module), withRouter, connector)(Home);
+export default compose(withRouter, connector)(Home);
