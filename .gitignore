@@ -68,7 +68,6 @@ typings/
 /dist
 
 # Docs
-/docs
 
 # Webpack Assets
 public/react-shinto-dll
