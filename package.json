@@ -18,87 +18,27 @@
     }
   },
   "scripts": {
-    "start": "better-npm-run start",
-    "start:prod": "better-npm-run start:prod",
-    "start:production": "yarn build && yarn start:prod",
-    "build": "yarn clean:build && better-npm-run build",
-    "analyze": "yarn clean:build && better-npm-run analyze",
-    "extract-intl": "better-npm-run extract-intl",
-    "generate": "better-npm-run generate",
+    "start": "cross-env DEBUG=shinto:*,-shinto-verbose:* NODE_ENV=development NODE_PATH=./app nodemon ./index.js",
+    "start:production": "cross-env NODE_ENV=production NODE_PATH=./app node ./index.js",
+    "build": "yarn clean:build && cross-env NODE_ENV=production webpack --progress --hide-modules --config ./config/webpack/webpack.prod.babel.js",
+    "build:dll": "node ./scripts/dependencies.js",
+    "analyze": "yarn clean:build && cross-env NODE_ENV=analyze webpack --progress --hide-modules --config ./config/webpack/webpack.dev.babel.js",
+    "docs": "esdoc && open ./docs/index.html",
+    "extract-intl": "babel-node --presets env,stage-0 -- ./scripts/extract-intl.js",
+    "generate": "plop --plopfile scripts/generators/index.js",
     "lint": "yarn lint:js && yarn lint:style",
-    "lint:js": "better-npm-run lint:js",
-    "lint:style": "better-npm-run lint:style",
-    "flow": "better-npm-run flow",
-    "flow:stop": "better-npm-run flow:stop",
-    "test": "better-npm-run test",
+    "lint:js": "eslint --fix ./app ./config ./index.js",
+    "lint:style": "stylelint --fix \"./app/**/*.css\" \"./app/**/*.scss\"",
+    "flow": "flow",
+    "flow:stop": "flow stop",
+    "test": "cross-env NODE_ENV=test jest --coverage",
     "test:watch": "yarn test --watch",
     "clean:all": "yarn clean:build && yarn clean:test",
-    "clean:build": "better-npm-run clean:build",
-    "clean:test": "better-npm-run clean:test",
-    "coveralls": "better-npm-run coveralls && yarn clean:test"
-  },
-  "betterScripts": {
-    "start": {
-      "command": "nodemon ./index.js",
-      "env": {
-        "NODE_PATH": "./app",
-        "NODE_ENV": "development",
-        "PORT": 3000
-      }
-    },
-    "start:prod": {
-      "command": "node ./index.js",
-      "env": {
-        "NODE_PATH": "./app",
-        "NODE_ENV": "production",
-        "PORT": 8080
-      }
-    },
-    "build": {
-      "command": "webpack --progress --hide-modules --config ./config/webpack/webpack.prod.babel.js",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    },
-    "analyze": {
-      "command": "webpack --progress --hide-modules --config ./config/webpack/webpack.dev.babel.js",
-      "env": {
-        "NODE_ENV": "analyze"
-      }
-    },
-    "extract-intl": {
-      "command": "babel-node -- ./scripts/extract-intl.js"
-    },
-    "generate": {
-      "command": "plop --plopfile ./scripts/generators/index.js"
-    },
-    "lint:js": {
-      "command": "eslint --fix ./app ./config ./index.js"
-    },
-    "lint:style": {
-      "command": "stylelint --fix \"./app/**/*.css\" \"./app/**/*.scss\""
-    },
-    "flow": {
-      "command": "flow"
-    },
-    "flow:stop": {
-      "command": "flow stop"
-    },
-    "test": {
-      "command": "jest --coverage",
-      "env": {
-        "NODE_ENV": "test"
-      }
-    },
-    "clean:build": {
-      "command": "rimraf ./build"
-    },
-    "clean:test": {
-      "command": "rimraf ./coverage"
-    },
-    "coveralls": {
-      "command": "cat ./coverage/lcov.info | coveralls"
-    }
+    "clean:build": "rimraf ./build",
+    "clean:test": "rimraf ./coverage",
+    "coveralls": "cat ./coverage/lcov.info | coveralls && yarn clean:test",
+    "postsetup": "yarn build:dll",
+    "postinstall": "yarn build:dll"
   },
   "babel": {
     "env": {
@@ -221,6 +161,27 @@
       "stylelint-config-standard"
     ]
   },
+  "dllPlugin": {
+    "name": "react-shinto-dll",
+    "exclude": [
+      "chalk",
+      "compression",
+      "cookie-parser",
+      "cross-env",
+      "dotenv",
+      "express",
+      "http",
+      "http-proxy-middleware",
+      "ip",
+      "mockery",
+      "morgan",
+      "serve-favicon"
+    ],
+    "include": [
+      "core-js",
+      "lodash"
+    ]
+  },
   "jest": {
     "verbose": true,
     "globals": {
@@ -270,6 +231,8 @@
     "chalk": "2.3.2",
     "compression": "1.7.2",
     "cookie-parser": "1.4.3",
+    "cross-env": "5.1.4",
+    "debug": "3.1.0",
     "dotenv": "5.0.1",
     "dotenv-expand": "4.2.0",
     "express": "4.16.3",
@@ -327,7 +290,6 @@
     "babel-preset-flow": "6.23.0",
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-0": "6.24.1",
-    "better-npm-run": "0.1.0",
     "case-sensitive-paths-webpack-plugin": "2.1.2",
     "coveralls": "3.0.0",
     "css-loader": "0.28.11",
