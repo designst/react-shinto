@@ -2,15 +2,13 @@ import serialize from 'serialize-javascript';
 import { minify } from 'html-minifier';
 
 export default (
+  css: Object,
   head: Object,
   assets: Object,
   htmlContent: string,
   initialState: Object,
   loadableStateTag: string,
 ): string => {
-  // Use pre-defined assets for development to prevent html from inserting wrong styles / scripts
-  const envAssets = __DEV__ ? { main: { js: '/static/js/main.js' } } : assets;
-
   const html = `
     <!doctype html>
     <html ${head.htmlAttributes.toString()}>
@@ -28,21 +26,27 @@ export default (
         ${head.base.toString()}
         ${head.meta.toString()}
         ${head.link.toString()}
+        
+        <noscript id="jss-insertion-point"></noscript>
 
         <!-- Insert bundled styles into <link> tag -->
-        ${Object.keys(envAssets).map(
-          key =>
-            envAssets[key].css
-              ? `<link href="${
-                  envAssets[key].css
-                }" media="screen, projection" rel="stylesheet" type="text/css">`
-              : '',
-        )}
+        ${Object.keys(assets)
+          .map(
+            key =>
+              assets[key].css
+                ? `<link href="${
+                    assets[key].css
+                  }" media="screen, projection" rel="stylesheet" type="text/css">`
+                : '',
+          )
+          .join('')}
 
       </head>
       <body>
         <!-- Insert the router, which passed from server-side -->
         <div id="root">${htmlContent}</div>
+        
+        <style id="jss-server-side">${css}</style>
 
         <!-- Insert loadableState's script tag into page (loadable-components setup) -->
         ${loadableStateTag}
@@ -55,9 +59,10 @@ export default (
         </script>
 
         <!-- Insert bundled scripts into <script> tag -->
-        ${Object.keys(envAssets)
+        ${Object.keys(assets)
           .reverse() // Reverse scripts to get correct ordering
-          .map(key => `<script src="${envAssets[key].js}"></script>`)}
+          .map(key => `<script src="${assets[key].js}"></script>`)
+          .join('')}
 
         ${head.script.toString()}
       </body>

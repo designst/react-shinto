@@ -21,9 +21,11 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
   process.exit(1);
 }
 
-const host = process.env.HOST || '0.0.0.0';
-const port = parseInt(process.env.PORT, 10) || 3000;
-const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
+const host = process.env.HOST || process.env.SHINTO_HOST || '0.0.0.0';
+const port = parseInt(process.env.PORT, 10) || parseInt(process.env.SHINTO_PORT, 10) || 3000;
+const protocol = process.env.HTTPS === 'true' || process.env.SHINTO_HTTPS === 'true' ?
+  'https' :
+  'http';
 
 const app = express();
 const server = http.createServer(app);
@@ -48,7 +50,9 @@ choosePort(host, port)
         return console.error(chalk.red(err.message));
       }
 
-      openBrowser(urls.localUrlForBrowser);
+      if (process.env.SHINTO_OPEN_BROWSER === 'true') {
+        openBrowser(urls.localUrlForBrowser);
+      }
     });
   })
   .catch(err => {

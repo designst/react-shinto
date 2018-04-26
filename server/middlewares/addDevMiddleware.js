@@ -1,5 +1,7 @@
 import fs from 'fs';
+import path from 'path';
 import chalk from 'chalk';
+import express from 'express';
 import webpack from 'webpack';
 import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
@@ -11,6 +13,8 @@ const { name } = require(paths.appPackageJson);
 const useYarn = fs.existsSync(paths.yarnLockFile);
 
 const ngrok = process.env.ENABLE_TUNNEL ? require('ngrok') : false;
+
+const showWebpackStats = process.env.SHINTO_SHOW_WEBPACK_STATS === 'true';
 
 module.exports = (app, urls, port, webpackConfig) => {
   const compiler = createCompiler(webpack, webpackConfig, name, urls, useYarn);
@@ -38,10 +42,13 @@ module.exports = (app, urls, port, webpackConfig) => {
       hot: true,
       quiet: true, // Turn it on for friendly-errors-webpack-plugin
       noInfo: true,
-      stats: 'minimal',
+      stats: showWebpackStats ? { colors: true } : 'minimal',
       serverSideRender: true,
     }),
   );
+
+  // Add /public route to serve static files in public app directory
+  app.use(path.join(webpackConfig.output.publicPath, 'public'), express.static(paths.appPublic));
 
   app.use(
     webpackHotMiddleware(compiler, {

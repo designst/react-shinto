@@ -60,10 +60,15 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+.env.local
+.env.*.local
 
 # Build
-build/
+/build
+/dist
+
+# Docs
+/docs
 
 # Webpack Assets
 public/react-shinto-dll

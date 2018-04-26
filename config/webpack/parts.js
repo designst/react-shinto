@@ -236,12 +236,12 @@ export const resolve = {
     // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
     'react-native': 'react-native-web',
     app: paths.appSrc,
+    public: paths.appPublic,
 
     components: `${paths.appSrc}/components`,
     config: `${paths.appSrc}/config`,
     containers: `${paths.appSrc}/containers`,
     providers: `${paths.appSrc}/providers`,
-    public: paths.appPublic,
     utils: `${paths.appSrc}/utils`,
   },
   plugins: [

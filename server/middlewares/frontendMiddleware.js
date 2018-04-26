@@ -1,3 +1,5 @@
+import glob from 'glob';
+import path from 'path';
 import chalk from 'chalk';
 import React from 'react';
 import Helmet from 'react-helmet';
@@ -8,35 +10,60 @@ import createHistory from 'history/createMemoryHistory';
 import { getLoadableState } from 'loadable-components/server';
 import { renderRoutes, matchRoutes } from 'react-router-config';
 
-import routes from '../../app/routes';
-import assets from '../../public/webpack-assets.json';
-import configureStore from '../../app/utils/configureStore';
+// JSS
+import { SheetsRegistry } from 'react-jss/lib/jss';
+import JssProvider from 'react-jss/lib/JssProvider';
+import { MuiThemeProvider, createGenerateClassName } from 'material-ui/styles';
 
+import configureStore from 'utils/configureStore';
+
+import getSagaInjectors from 'utils/sagaInjectors';
+import getModelInjectors from 'utils/modelInjectors';
+import getReducerInjectors from 'utils/reducerInjectors';
+
+import paths from '../../config/paths';
+import theme from '../../app/theme';
+import routes from '../../app/routes';
 import renderHtml from '../renderHtml';
-import getSagaInjectors from '../../app/utils/sagaInjectors';
-import getReducerInjectors from '../../app/utils/reducerInjectors';
+import webpackAssets from '../../public/webpack-assets.json';
+
+const { dllPlugin } = require(paths.appPackageJson);
 
 module.exports = app => {
   app.get('*', (req, res) => {
     const history = createHistory();
-    const store = configureStore(history);
+    const store = configureStore(history, {});
+
     const sagaInjectors = getSagaInjectors(store);
+    const modelInjectors = getModelInjectors(store);
     const reducerInjectors = getReducerInjectors(store);
+
+    // Create a sheeetsRegistry instance.
+    const sheetsRegistry = new SheetsRegistry();
+
+    const generateClassName = createGenerateClassName();
 
     const loadBranchData = () => {
       const branch = matchRoutes(routes, req.path);
 
       const promises = branch.map(({ route, match }) => {
-        if (route.loadData) {
+        if (route.dataLoaders) {
           return Promise.all(
             route
-              .loadData({
+              .dataLoaders({
                 store,
                 params: match.params,
                 sagaInjectors,
                 reducerInjectors,
               })
-              .map(loadFn => loadFn()),
+              .map(dataLoader =>
+                dataLoader({
+                  store,
+                  sagaInjectors,
+                  modelInjectors,
+                  reducerInjectors,
+                }),
+              ),
           );
         }
 
@@ -53,12 +80,16 @@ module.exports = app => {
 
         const staticContext = {};
         const AppComponent = (
-          <Provider store={store}>
-            {/* Setup React-Router server-side rendering */}
-            <StaticRouter context={staticContext} location={req.path}>
-              {renderRoutes(routes)}
-            </StaticRouter>
-          </Provider>
+          <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
+            <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
+              <Provider store={store}>
+                {/* Setup React-Router server-side rendering */}
+                <StaticRouter context={staticContext} location={req.path}>
+                  {renderRoutes(routes)}
+                </StaticRouter>
+              </Provider>
+            </MuiThemeProvider>
+          </JssProvider>
         );
 
         // Check if the render result contains a redirect, if so we need to set
@@ -72,6 +103,8 @@ module.exports = app => {
 
         // Extract loadable state from application tree (loadable-components setup)
         getLoadableState(AppComponent).then(loadableState => {
+          // Grab the CSS from our sheetsRegistry.
+          const css = sheetsRegistry.toString();
           // noinspection JSUnresolvedFunction
           const head = Helmet.renderStatic();
           const htmlContent = renderToString(AppComponent);
@@ -81,23 +114,35 @@ module.exports = app => {
           // Check page status
           const status = staticContext.status === '404' ? 404 : 200;
 
+          let assets = webpackAssets;
+
+          if (__DEV__) {
+            assets = {
+              main: {
+                js: path.join(paths.servedPath, 'static/js/main.js'),
+              },
+            };
+
+            const dllGlob = path.join(paths.appPublic, `${dllPlugin.name}/*.dll.js`);
+
+            glob.sync(dllGlob).forEach(dllPath => {
+              const filename = path.basename(dllPath);
+
+              assets[filename] = {
+                js: path.join(paths.servedPath, `public/${dllPlugin.name}/${filename}`),
+              };
+            });
+          }
+
           // Pass the route and initial state into html template
           res
             .status(status)
-            .send(
-              renderHtml(
-                head,
-                assets,
-                htmlContent,
-                initialState,
-                loadableStateTag,
-              ),
-            );
+            .send(renderHtml(css, head, assets, htmlContent, initialState, loadableStateTag));
         });
       } catch (err) {
         res.status(404).send('Not Found :(');
 
-        console.error(chalk.red(`==> 😭  Rendering routes error: ${err}`));
+        console.error(chalk.red(`==> Rendering routes error: ${err}`));
       }
     })();
   });

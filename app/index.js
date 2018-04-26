@@ -1,18 +1,24 @@
 /* @flow */
 
 import React from 'react';
+import { create } from 'jss';
 import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 import { renderRoutes } from 'react-router-config';
 import { loadComponents } from 'loadable-components';
 import { ConnectedRouter } from 'react-router-redux';
+import JssProvider from 'react-jss/lib/JssProvider';
 import createHistory from 'history/createBrowserHistory';
 
+import configureStore from 'utils/configureStore';
+import registerServiceWorker from 'utils/registerServiceWorker';
+import ConnectedLanguageProvider from 'providers/Language';
+
+import { jssPreset, MuiThemeProvider, createGenerateClassName } from 'material-ui/styles';
+
+import theme from './theme';
 import routes from './routes';
-import configureStore from './utils/configureStore';
-import registerServiceWorker from './utils/registerServiceWorker';
-import ConnectedLanguageProvider from './providers/Language';
 
 import { translationMessages } from './i18n';
 
@@ -23,14 +29,23 @@ const initialState = window.__INITIAL_STATE__;
 const history = createHistory();
 const store = configureStore(history, initialState);
 
+const jss = create(jssPreset());
+jss.options.insertionPoint = document.getElementById('jss-insertion-point');
+
+const generateClassName = createGenerateClassName();
+
 const render = (Routes: Array<Object>, messages) => {
   hydrate(
     <AppContainer>
-      <Provider store={store}>
-        <ConnectedLanguageProvider messages={messages}>
-          <ConnectedRouter history={history}>{renderRoutes(Routes)}</ConnectedRouter>
-        </ConnectedLanguageProvider>
-      </Provider>
+      <JssProvider jss={jss} generateClassName={generateClassName}>
+        <MuiThemeProvider theme={theme}>
+          <Provider store={store}>
+            <ConnectedLanguageProvider messages={messages}>
+              <ConnectedRouter history={history}>{renderRoutes(Routes)}</ConnectedRouter>
+            </ConnectedLanguageProvider>
+          </Provider>
+        </MuiThemeProvider>
+      </JssProvider>
     </AppContainer>,
     document.getElementById('root'),
   );

@@ -1,5 +1,3 @@
-import Debug from 'debug';
-
 import invariant from 'invariant';
 import isEmpty from 'lodash/isEmpty';
 import isString from 'lodash/isString';

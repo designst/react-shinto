@@ -1,4 +1,5 @@
 import React from 'react';
+import { hot } from 'react-hot-loader';
 import { Helmet } from 'react-helmet';
 import { renderRoutes } from 'react-router-config';
 
@@ -9,22 +10,40 @@ import logo from './logo.svg';
 
 type Props = { route: Object };
 
-const App = ({ route }: Props) => (
-  <div className="App">
-    <Helmet {...config.app} />
+class App extends React.Component {
+  componentDidMount() {
+    // Remove the server-side injected CSS.
+    const jssStyles = document.getElementById('jss-server-side');
 
-    <header className="App-header">
-      <img src={logo} alt="logo" className="App-logo" />
+    /* istanbul ignore next */
+    if (jssStyles && jssStyles.parentNode) {
+      jssStyles.parentNode.removeChild(jssStyles);
+    }
+  }
 
-      <h1 className="App-title">{config.app.title}</h1>
-    </header>
+  props: Props;
 
-    <p className="App-intro">
-      To get started, edit <code>app/containers/App/index.js</code> and save to reload.
-    </p>
+  render() {
+    const { route } = this.props;
 
-    {renderRoutes(route.routes)}
-  </div>
-);
+    return (
+      <div className="App">
+        <Helmet {...config.app} />
 
-export default App;
+        <header className="App-header">
+          <img src={logo} alt="logo" className="App-logo" />
+
+          <h1 className="App-title">{config.app.title}</h1>
+        </header>
+
+        <p className="App-intro">
+          To get started, edit <code>app/containers/App/index.js</code> and save to reload.
+        </p>
+
+        {renderRoutes(route.routes)}
+      </div>
+    );
+  }
+}
+
+export default hot(module)(App);
