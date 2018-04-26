@@ -12,6 +12,8 @@ import {
 import openBrowser from 'react-dev-utils/openBrowser';
 import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles';
 
+// Import env to prepare all SHINTO_* env variables
+import '../config/env';
 import paths from '../config/paths';
 import appMiddleware from './middlewares/appMiddleware';
 import proxyMiddleware from './middlewares/proxyMiddleware';
