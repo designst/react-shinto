@@ -17,7 +17,7 @@ const { name } = pkg.dllPlugin;
 const outputPath = path.join(paths.appPublic, name);
 
 /**
- * I use node_modules/lux-dll by default just because
+ * I use node_modules/react-shinto-dll by default just because
  * it isn't going to be version controlled and babel wont try to parse it.
  */
 mkdirp(outputPath);

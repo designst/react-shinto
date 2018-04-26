@@ -1,6 +1,6 @@
-import fs from 'fs';
-import url from 'url';
-import path from 'path';
+const fs = require('fs');
+const url = require('url');
+const path = require('path');
 
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebookincubator/create-react-app/issues/637

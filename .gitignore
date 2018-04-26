@@ -66,4 +66,5 @@ typings/
 build/
 
 # Webpack Assets
+public/react-shinto-dll
 public/webpack-assets.json
