@@ -29,11 +29,17 @@ module.exports = () => {
   require('asset-require-hook')({
     extensions: ['gif', 'jpg', 'jpeg', 'png', 'webp'],
     limit: 10240,
+    name: '[name].[hash:8].[ext]',
+    // Must use the same "publicPath" with webpack configuration
+    publicPath: paths.servedPath,
   });
 
   // Fonts
   require('asset-require-hook')({
     extensions: ['woff', 'woff2', 'ttf', 'eot', 'svg'],
     limit: 10240,
+    name: '[name].[hash:8].[ext]',
+    // Must use the same "publicPath" with webpack configuration
+    publicPath: paths.servedPath,
   });
 };

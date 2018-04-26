@@ -318,7 +318,6 @@
     "flow-bin": "0.70.0",
     "glob": "7.1.2",
     "html-minifier": "3.5.15",
-    "image-webpack-loader": "4.2.0",
     "imagemin-webpack-plugin": "2.1.1",
     "jest": "latest",
     "mkdirp": "0.5.1",

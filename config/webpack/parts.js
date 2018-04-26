@@ -65,16 +65,12 @@ export const imageRule = options => ({
   // A missing `test` is equivalent to a match.
   test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
   // Any image below or equal to 10K will be converted to inline base64 instead
-  use: [
-    {
-      loader: require.resolve('url-loader'),
-      options: {
-        limit: 10240,
-        name: 'static/media/[name].[hash].[ext]',
-        ...options,
-      },
-    },
-  ],
+  loader: require.resolve('url-loader'),
+  options: {
+    limit: 10240,
+    name: '[name].[hash:8].[ext]',
+    ...options,
+  },
 });
 
 export const fontRule = options => ({
@@ -82,6 +78,7 @@ export const fontRule = options => ({
   loader: require.resolve('url-loader'),
   options: {
     limit: 10240,
+    name: '[name].[hash:8].[ext]',
     ...options,
   },
 });
