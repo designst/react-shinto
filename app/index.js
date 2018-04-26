@@ -28,9 +28,7 @@ const render = (Routes: Array<Object>, messages) => {
     <AppContainer>
       <Provider store={store}>
         <ConnectedLanguageProvider messages={messages}>
-          <ConnectedRouter history={history}>
-            {renderRoutes(Routes)}
-          </ConnectedRouter>
+          <ConnectedRouter history={history}>{renderRoutes(Routes)}</ConnectedRouter>
         </ConnectedLanguageProvider>
       </Provider>
     </AppContainer>,

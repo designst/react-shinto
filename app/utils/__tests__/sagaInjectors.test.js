@@ -6,10 +6,7 @@ import { put } from 'redux-saga/effects';
 import { memoryHistory } from 'react-router-dom';
 
 import configureStore from '../configureStore';
-import getInjectors, {
-  ejectSagaFactory,
-  injectSagaFactory,
-} from '../sagaInjectors';
+import getInjectors, { ejectSagaFactory, injectSagaFactory } from '../sagaInjectors';
 
 import { DAEMON, ONCE_TILL_UNMOUNT, RESTART_ON_REMOUNT } from '../constants';
 
@@ -146,19 +143,11 @@ describe('injectors', () => {
     it("should validate saga's descriptor", () => {
       expect(() => injectSaga('test')).toThrow();
       expect(() => injectSaga('test', { saga: 1 })).toThrow();
-      expect(() =>
-        injectSaga('test', { saga: testSaga, mode: 'testMode' }),
-      ).toThrow();
+      expect(() => injectSaga('test', { saga: testSaga, mode: 'testMode' })).toThrow();
       expect(() => injectSaga('test', { saga: testSaga, mode: 1 })).toThrow();
-      expect(() =>
-        injectSaga('test', { saga: testSaga, mode: RESTART_ON_REMOUNT }),
-      ).not.toThrow();
-      expect(() =>
-        injectSaga('test', { saga: testSaga, mode: DAEMON }),
-      ).not.toThrow();
-      expect(() =>
-        injectSaga('test', { saga: testSaga, mode: ONCE_TILL_UNMOUNT }),
-      ).not.toThrow();
+      expect(() => injectSaga('test', { saga: testSaga, mode: RESTART_ON_REMOUNT })).not.toThrow();
+      expect(() => injectSaga('test', { saga: testSaga, mode: DAEMON })).not.toThrow();
+      expect(() => injectSaga('test', { saga: testSaga, mode: ONCE_TILL_UNMOUNT })).not.toThrow();
     });
 
     it('should pass args to saga.run', () => {

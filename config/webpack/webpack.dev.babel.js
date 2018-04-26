@@ -76,11 +76,7 @@ module.exports = {
             // It enables caching results in ./node_modules/.cache/babel-loader/
             // directory for faster rebuilds.
             cacheDirectory: true,
-            plugins: [
-              'lodash',
-              'react-hot-loader/babel',
-              'loadable-components/babel',
-            ],
+            plugins: ['lodash', 'react-hot-loader/babel', 'loadable-components/babel'],
           }),
           cssRule(),
           sassRule(),

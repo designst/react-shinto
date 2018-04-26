@@ -122,6 +122,7 @@
         "error",
         {
           "parser": "flow",
+          "printWidth": 99,
           "singleQuote": true,
           "trailingComma": "all"
         }
@@ -225,6 +226,8 @@
     "last 2 versions"
   ],
   "dependencies": {
+    "@rematch/core": "1.0.0-alpha.2",
+    "@rematch/loading": "1.0.0-alpha.0",
     "axios": "0.18.0",
     "babel-polyfill": "6.26.0",
     "babel-register": "6.26.0",

@@ -9,12 +9,23 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import globalReducer from 'containers/App/reducer';
 import languageProviderReducer from 'providers/Language/reducer';
 
-/*
+/**
+ * authReducer
+ *
+ * Handles the authentication state.
+ */
+const authInitialState = {
+  token: null,
+  isAuthenticated: null,
+};
+
+const authReducer = (state = authInitialState) => state;
+
+/**
  * routeReducer
  *
  * The reducer merges route location changes into our immutable state.
  * The change is necessitated by moving to react-router-redux@5
- *
  */
 
 // Initial routing state
@@ -23,7 +34,7 @@ const routeInitialState = {
 };
 
 /**
- * Merge route into the global application state
+ * Merge route into the global application state.
  */
 const routeReducer = (state = routeInitialState, action) => {
   switch (action.type) {
@@ -37,13 +48,75 @@ const routeReducer = (state = routeInitialState, action) => {
   }
 };
 
+export const rootReducers = {
+  auth: authReducer,
+  route: routeReducer,
+  global: globalReducer,
+  language: languageProviderReducer,
+};
+
 /**
- * Creates the main reducer with the dynamically injected ones
+ * Creates model reducers for each injected rematch model definition.
+ *
+ * Source: https://github.com/rematch/rematch/blob/master/src/redux.ts
+ *
+ * @param {Object} injectedModels - A map of injected rematch models.
  */
-export default injectedReducers =>
-  combineReducers({
-    route: routeReducer,
-    global: globalReducer,
-    language: languageProviderReducer,
-    ...injectedReducers,
+export const createModelReducers = injectedModels => {
+  const modelReducers = {};
+
+  Object.keys(injectedModels).forEach(injectedModelKey => {
+    const injectedModel = injectedModels[injectedModelKey];
+    const injectedModelReducers = {};
+
+    Object.keys(injectedModel.reducers).forEach(modelReducerKey => {
+      const modelReducer = injectedModel.reducers[modelReducerKey];
+
+      const action = `${injectedModelKey}/${modelReducerKey}`;
+
+      injectedModelReducers[action] = modelReducer;
+    });
+
+    modelReducers[injectedModelKey] = (state = injectedModel.state, action) => {
+      if (typeof injectedModelReducers[action.type] === 'function') {
+        return injectedModelReducers[action.type](state, action.payload, action.meta);
+      }
+
+      return state;
+    };
   });
+
+  return modelReducers;
+};
+
+/**
+ * Creates the main reducer with the dynamically injected ones.
+ */
+export default (injectedModels, injectedReducers, initialStateReducers) => {
+  const modelReducers = createModelReducers(injectedModels);
+
+  injectedReducers = Object.keys(injectedReducers)
+    .filter(injectedReducer => !Object.keys(injectedModels).includes(injectedReducer))
+    .reduce((obj, key) => {
+      obj[key] = injectedReducers[key];
+      return obj;
+    }, {});
+
+  initialStateReducers = Object.keys(initialStateReducers)
+    .filter(
+      initialStateReducer =>
+        !Object.keys(injectedModels).includes(initialStateReducer) &&
+        !Object.keys(injectedReducers).includes(initialStateReducer),
+    )
+    .reduce((obj, key) => {
+      obj[key] = initialStateReducers[key];
+      return obj;
+    }, {});
+
+  return combineReducers({
+    ...rootReducers,
+    ...modelReducers,
+    ...injectedReducers,
+    ...initialStateReducers,
+  });
+};

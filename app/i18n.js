@@ -29,9 +29,7 @@ export const formatTranslationMessages = (locale, messages) => {
       : {};
   return Object.keys(messages).reduce((formattedMessages, key) => {
     const formattedMessage =
-      !messages[key] && locale !== DEFAULT_LOCALE
-        ? defaultFormattedMessages[key]
-        : messages[key];
+      !messages[key] && locale !== DEFAULT_LOCALE ? defaultFormattedMessages[key] : messages[key];
     return Object.assign(formattedMessages, { [key]: formattedMessage });
   }, {});
 };

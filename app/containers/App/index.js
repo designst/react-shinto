@@ -20,8 +20,7 @@ const App = ({ route }: Props) => (
     </header>
 
     <p className="App-intro">
-      To get started, edit <code>app/containers/App/index.js</code> and save to
-      reload.
+      To get started, edit <code>app/containers/App/index.js</code> and save to reload.
     </p>
 
     {renderRoutes(route.routes)}

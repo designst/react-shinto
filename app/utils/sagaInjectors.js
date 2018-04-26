@@ -1,3 +1,5 @@
+import Debug from 'debug';
+
 import invariant from 'invariant';
 import isEmpty from 'lodash/isEmpty';
 import isString from 'lodash/isString';
@@ -50,10 +52,7 @@ export function injectSagaFactory(store, isValid) {
       }
     }
 
-    if (
-      !hasSaga ||
-      (hasSaga && mode !== DAEMON && mode !== ONCE_TILL_UNMOUNT)
-    ) {
+    if (!hasSaga || (hasSaga && mode !== DAEMON && mode !== ONCE_TILL_UNMOUNT)) {
       store.injectedSagas[key] = {
         ...newDescriptor,
         task: store.runSaga(saga, args),

@@ -323,9 +323,7 @@ export const dependencyHandlers = () => {
     if (!fs.existsSync(path)) {
       if (!fs.existsSync(manifestPath)) {
         console.log(
-          `The following Webpack DLL manifest is missing: ${path.basename(
-            manifestPath,
-          )}`,
+          `The following Webpack DLL manifest is missing: ${path.basename(manifestPath)}`,
         );
         console.log(`Expected to find it in ${outputPath}`);
         console.log('Please run: yarn build:dll');
