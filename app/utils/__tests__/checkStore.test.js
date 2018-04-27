@@ -9,13 +9,15 @@ describe('checkStore', () => {
 
   beforeEach(() => {
     store = {
+      runSaga: () => {},
+      getState: () => {},
       dispatch: () => {},
       subscribe: () => {},
-      getState: () => {},
-      replaceReducer: () => {},
-      runSaga: () => {},
-      injectedReducers: {},
       injectedSagas: {},
+      injectedModels: {},
+      replaceReducer: () => {},
+      injectedReducers: {},
+      initialStateReducers: {},
     };
   });
 
@@ -27,7 +29,9 @@ describe('checkStore', () => {
     expect(() => checkStore({})).toThrow();
     expect(() => checkStore({ ...store, runSaga: null })).toThrow();
     expect(() => checkStore({ ...store, injectedSagas: null })).toThrow();
+    expect(() => checkStore({ ...store, injectedModels: null })).toThrow();
     expect(() => checkStore({ ...store, replaceReducer: null })).toThrow();
     expect(() => checkStore({ ...store, injectedReducers: null })).toThrow();
+    expect(() => checkStore({ ...store, initialStateReducers: null })).toThrow();
   });
 });

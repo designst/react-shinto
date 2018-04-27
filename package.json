@@ -186,7 +186,9 @@
   "jest": {
     "verbose": true,
     "globals": {
-      "__DEV__": true
+      "__DEV__": false,
+      "__CLIENT__": true,
+      "__SERVER__": true
     },
     "testMatch": [
       "<rootDir>/app/**/__tests__/**/*.{js,jsx,mjs}",
@@ -212,7 +214,8 @@
       "^containers(.*)$": "<rootDir>/app/containers/$1"
     },
     "collectCoverageFrom": [
-      "app/**/*.{js,jsx,mjs}"
+      "app/**/*.{js,jsx,mjs}",
+      "!app/utils/registerServiceWorker.js"
     ]
   },
   "nodemonConfig": {

@@ -16,7 +16,7 @@ const dataLoader = ({
     // Check if isAuthenticated is true and
     // do not load data if it's not.
     const state = store.getState();
-    const { isAuthenticated } = state.me;
+    const { isAuthenticated } = state.auth;
 
     if (!isAuthenticated) {
       return Promise.all(promises);

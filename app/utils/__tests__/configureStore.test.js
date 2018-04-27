@@ -1,8 +1,11 @@
 import createHistory from 'history/createBrowserHistory';
 
-import configureStore from '../configureStore';
+import configureStore, { createFakeReducers } from '../configureStore';
 
 const history = createHistory();
+
+global.__DEV__ = true;
+global.__CLIENT__ = true;
 
 describe('configureStore', () => {
   let store;
@@ -23,20 +26,46 @@ describe('configureStore', () => {
     });
   });
 
+  describe('injectedModels', () => {
+    it('should contain an object for models', () => {
+      expect(typeof store.injectedModels).toBe('object');
+    });
+  });
+
   describe('injectedReducers', () => {
     it('should contain an object for reducers', () => {
       expect(typeof store.injectedReducers).toBe('object');
     });
   });
+
+  describe('initialStateReducers', () => {
+    it('should contain an object for initial state reducers', () => {
+      expect(typeof store.initialStateReducers).toBe('object');
+    });
+  });
 });
 
-describe('configureStore params', () => {
-  it('should call window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__', () => {
-    /* eslint-disable no-underscore-dangle */
-    const compose = jest.fn();
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ = () => compose;
-    configureStore(history, undefined);
-    expect(compose).toHaveBeenCalled();
-    /* eslint-enable */
+describe('createFakeReducers', () => {
+  it('should handle a default state', () => {
+    expect(createFakeReducers({})).toEqual({});
+  });
+
+  it('should have a fake reducer for initial state', () => {
+    let state = {
+      auth: jest.fn(),
+      fake: undefined,
+    };
+
+    expect(typeof state.auth).toBe('function');
+    expect(typeof state.fake).toBe('undefined');
+
+    state = createFakeReducers(state);
+
+    expect(typeof state.fake).toBe('function');
+
+    const fakeState = { fake: 'fake' };
+
+    expect(state.fake()).toEqual({});
+    expect(state.fake(fakeState)).toBe(fakeState);
   });
 });
