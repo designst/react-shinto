@@ -1,0 +1,35 @@
+import fp from 'lodash/fp';
+
+export const {{ camelCase name }} = {
+  state: {},
+
+  reducers: {
+    load{{ properCase name }}Request: state =>
+      fp.assign(state, {
+        isLoading: true,
+      }),
+    load{{ properCase name }}Success: (state, payload) =>
+      fp.assign(state, {
+        data: payload.data,
+        isLoading: false,
+      }),
+    load{{ properCase name }}Failure: state =>
+      fp.assign(state, {
+        isLoading: false,
+      }),
+  },
+
+  effects: {
+    async load{{ properCase name }}(payload, state, meta) {
+      try {
+        this.load{{ properCase name }}Request();
+
+        const data = await meta.apiService.get('/');
+
+        this.load{{ properCase name }}Success(data);
+      } catch (err) {
+        this.load{{ properCase name }}Failure(err);
+      }
+    },
+  },
+};

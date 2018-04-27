@@ -41,7 +41,11 @@ class ApiService {
 
   post = url => ApiRequest.post(url).catch(this.handleError);
 
-  handleError = error => this.store.dispatch(error);
+  handleError = error => {
+    this.store.dispatch(error);
+
+    throw error;
+  };
 }
 
 export const createApiServicePlugin = apiService => ({

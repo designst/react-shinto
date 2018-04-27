@@ -1,7 +1,5 @@
 /**
- *
  * {{ properCase name }}
- *
  */
 
 import React from 'react';
@@ -21,12 +19,18 @@ import { createStructuredSelector } from 'reselect';
 {{#if wantSaga}}
 import injectSaga from 'utils/injectSaga';
 {{/if}}
+{{#if wantModels}}
+import injectModels from 'utils/injectModels';
+{{/if}}
 {{#if wantActionsAndReducer}}
 import injectReducer from 'utils/injectReducer';
 {{/if}}
 
 {{#if wantSaga}}
 import saga from './saga';
+{{/if}}
+{{#if wantModels}}
+import * as models from './models';
 {{/if}}
 {{#if wantActionsAndReducer}}
 import reducer from './reducer';
@@ -65,16 +69,20 @@ const mapDispatchToProps = dispatch => ({
   dispatch,
 });
 
-{{#if wantActionsAndReducer}}
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: '{{ lowerCase name }}', reducer });
-{{else}}
-const withConnect = connect(null, mapDispatchToProps);
-{{/if}}
-
 {{#if wantSaga}}
 const withSaga = injectSaga({ key: '{{ lowerCase name }}', saga });
 {{/if}}
 
-export default compose({{#if wantSaga}}withSaga, {{/if}}{{#if wantActionsAndReducer}}withReducer, {{/if}}withConnect)({{ properCase name }});
+{{#if wantModels}}
+const withModels = injectModels(models);
+{{/if}}
+
+{{#if wantActionsAndReducer}}
+const withReducer = injectReducer({ key: '{{ lowerCase name }}', reducer });
+
+const withConnect = connect(mapStateToProps, mapDispatchToProps);
+{{else}}
+const withConnect = connect(null, mapDispatchToProps);
+{{/if}}
+
+export default compose({{#if wantSaga}}withSaga, {{/if}}{{#if wantModels}}withModels, {{/if}}{{#if wantActionsAndReducer}}withReducer, {{/if}}withConnect)({{ properCase name }});

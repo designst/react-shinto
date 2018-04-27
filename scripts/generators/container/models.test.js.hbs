@@ -1,0 +1,79 @@
+import MockAdapter from 'axios-mock-adapter';
+import configureStore from 'utils/configureStore';
+import { memoryHistory } from 'react-router-dom';
+
+import { ApiRequest } from 'utils/apiService';
+
+import { {{ camelCase name }} } from '../models';
+
+describe('{{ camelCase name }} reducers', () => {
+  it('should handle request action', () => {
+    const result = {{ camelCase name }}.reducers.load{{ properCase name }}Request();
+
+    expect(result).toEqual({ isLoading: true });
+  });
+
+  it('should handle success action', () => {
+    const data = {
+      data: 'data',
+    };
+
+    const result = {{ camelCase name }}.reducers.load{{ properCase name }}Success({}, data);
+
+    expect(result).toEqual({ data: 'data', isLoading: false });
+  });
+
+  it('should handle failure action', () => {
+    const result = {{ camelCase name }}.reducers.load{{ properCase name }}Failure();
+
+    expect(result).toEqual({ isLoading: false });
+  });
+});
+
+describe('{{ camelCase name }} effects', () => {
+  let store;
+  let mockAdapter;
+
+  beforeEach(() => {
+    store = configureStore(
+      memoryHistory,
+      {},
+      {
+        models: {
+          {{ camelCase name }},
+        },
+      },
+    );
+
+    mockAdapter = new MockAdapter(ApiRequest);
+  });
+
+  afterEach(() => {
+    mockAdapter.reset();
+  });
+
+  it('should handle action successfully', async () => {
+    mockAdapter.onGet('/').reply(200, 'data');
+
+    await store.dispatch.{{ camelCase name }}.load{{ properCase name }}();
+
+    const data = store.getState().{{ camelCase name }};
+
+    expect(data).toEqual({
+      data: 'data',
+      isLoading: false,
+    });
+  });
+
+  it('should handle action unsuccessfully', async () => {
+    mockAdapter.onGet('/').reply(500);
+
+    await store.dispatch.{{ camelCase name }}.load{{ properCase name }}();
+
+    const data = store.getState().{{ camelCase name }};
+
+    expect(data).toEqual({
+      isLoading: false,
+    });
+  });
+});

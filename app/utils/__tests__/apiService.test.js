@@ -80,37 +80,45 @@ describe('ApiService', () => {
     it('should handle client get request', async () => {
       apiService.isServerSide = false;
 
-      const response = await apiService.get('/request');
-
-      expect(response.type).toEqual('API_ERROR');
-      expect(response.status).toEqual(500);
+      try {
+        await apiService.get('/request');
+      } catch (error) {
+        expect(error.type).toEqual('API_ERROR');
+        expect(error.status).toEqual(500);
+      }
     });
 
     it('should handle client post request', async () => {
       apiService.isServerSide = false;
 
-      const response = await apiService.post('/request');
-
-      expect(response.type).toEqual('API_ERROR');
-      expect(response.status).toEqual(500);
+      try {
+        await apiService.post('/request');
+      } catch (error) {
+        expect(error.type).toEqual('API_ERROR');
+        expect(error.status).toEqual(500);
+      }
     });
 
     it('should handle server get request', async () => {
       apiService.isServerSide = true;
 
-      const response = await apiService.get('/request');
-
-      expect(response.type).toEqual('API_ERROR');
-      expect(response.status).toEqual(500);
+      try {
+        await apiService.get('/request');
+      } catch (error) {
+        expect(error.type).toEqual('API_ERROR');
+        expect(error.status).toEqual(500);
+      }
     });
 
     it('should handle server post request', async () => {
       apiService.isServerSide = true;
 
-      const response = await apiService.post('/request');
-
-      expect(response.type).toEqual('API_ERROR');
-      expect(response.status).toEqual(500);
+      try {
+        await apiService.post('/request');
+      } catch (error) {
+        expect(error.type).toEqual('API_ERROR');
+        expect(error.status).toEqual(500);
+      }
     });
   });
 
@@ -128,37 +136,45 @@ describe('ApiService', () => {
     it('should handle client get request', async () => {
       apiService.isServerSide = false;
 
-      const response = await apiService.get('/request');
-
-      expect(response.type).toEqual('API_AUTH_ERROR');
-      expect(response.status).toEqual(403);
+      try {
+        await apiService.get('/request');
+      } catch (error) {
+        expect(error.type).toEqual('API_AUTH_ERROR');
+        expect(error.status).toEqual(403);
+      }
     });
 
     it('should handle client post request', async () => {
       apiService.isServerSide = false;
 
-      const response = await apiService.post('/request');
-
-      expect(response.type).toEqual('API_AUTH_ERROR');
-      expect(response.status).toEqual(403);
+      try {
+        await apiService.post('/request');
+      } catch (error) {
+        expect(error.type).toEqual('API_AUTH_ERROR');
+        expect(error.status).toEqual(403);
+      }
     });
 
     it('should handle server get request', async () => {
       apiService.isServerSide = true;
 
-      const response = await apiService.get('/request');
-
-      expect(response.type).toEqual('API_AUTH_ERROR');
-      expect(response.status).toEqual(403);
+      try {
+        await apiService.get('/request');
+      } catch (error) {
+        expect(error.type).toEqual('API_AUTH_ERROR');
+        expect(error.status).toEqual(403);
+      }
     });
 
     it('should handle server post request', async () => {
       apiService.isServerSide = true;
 
-      const response = await apiService.post('/request');
-
-      expect(response.type).toEqual('API_AUTH_ERROR');
-      expect(response.status).toEqual(403);
+      try {
+        await apiService.post('/request');
+      } catch (error) {
+        expect(error.type).toEqual('API_AUTH_ERROR');
+        expect(error.status).toEqual(403);
+      }
     });
   });
 });

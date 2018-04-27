@@ -12,11 +12,7 @@ module.exports = {
       name: 'type',
       message: 'Select the base component type:',
       default: 'Stateless Function',
-      choices: () => [
-        'Stateless Function',
-        'React.PureComponent',
-        'React.Component',
-      ],
+      choices: () => ['Stateless Function', 'React.PureComponent', 'React.Component'],
     },
     {
       type: 'input',
@@ -41,16 +37,21 @@ module.exports = {
     },
     {
       type: 'confirm',
-      name: 'wantActionsAndReducer',
-      default: true,
-      message:
-        'Do you want an actions/constants/selectors/reducer tuple for this container?',
-    },
-    {
-      type: 'confirm',
       name: 'wantSaga',
       default: true,
       message: 'Do you want sagas for asynchronous flows? (e.g. fetching data)',
+    },
+    {
+      type: 'confirm',
+      name: 'wantModels',
+      default: false,
+      message: 'Do you want rematch models for this container?',
+    },
+    {
+      type: 'confirm',
+      name: 'wantActionsAndReducer',
+      default: true,
+      message: 'Do you want an actions/constants/selectors/reducer tuple for this container?',
     },
     {
       type: 'confirm',
@@ -88,20 +89,42 @@ module.exports = {
       },
       {
         type: 'add',
-        path:
-          '../../app/containers/{{properCase name}}/__tests__/index.test.js',
+        path: '../../app/containers/{{properCase name}}/__tests__/index.test.js',
         templateFile: './container/test.js.hbs',
         abortOnFail: true,
       },
     ];
 
-    // If component wants messages
+    // Sagas
     // noinspection JSUnresolvedVariable
-    if (data.wantMessages) {
+    if (data.wantSaga) {
       actions.push({
         type: 'add',
-        path: '../../app/containers/{{properCase name}}/messages.js',
-        templateFile: './container/messages.js.hbs',
+        path: '../../app/containers/{{properCase name}}/saga.js',
+        templateFile: './container/saga.js.hbs',
+        abortOnFail: true,
+      });
+      actions.push({
+        type: 'add',
+        path: '../../app/containers/{{properCase name}}/__tests__/saga.test.js',
+        templateFile: './container/saga.test.js.hbs',
+        abortOnFail: true,
+      });
+    }
+
+    // Rematch Models
+    // noinspection JSUnresolvedVariable
+    if (data.wantModels) {
+      actions.push({
+        type: 'add',
+        path: '../../app/containers/{{properCase name}}/models.js',
+        templateFile: './container/models.js.hbs',
+        abortOnFail: true,
+      });
+      actions.push({
+        type: 'add',
+        path: '../../app/containers/{{properCase name}}/__tests__/models.test.js',
+        templateFile: './container/models.test.js.hbs',
         abortOnFail: true,
       });
     }
@@ -119,8 +142,7 @@ module.exports = {
       });
       actions.push({
         type: 'add',
-        path:
-          '../../app/containers/{{properCase name}}/__tests__/actions.test.js',
+        path: '../../app/containers/{{properCase name}}/__tests__/actions.test.js',
         templateFile: './container/actions.test.js.hbs',
         abortOnFail: true,
       });
@@ -142,8 +164,7 @@ module.exports = {
       });
       actions.push({
         type: 'add',
-        path:
-          '../../app/containers/{{properCase name}}/__tests__/selectors.test.js',
+        path: '../../app/containers/{{properCase name}}/__tests__/selectors.test.js',
         templateFile: './container/selectors.test.js.hbs',
         abortOnFail: true,
       });
@@ -157,26 +178,19 @@ module.exports = {
       });
       actions.push({
         type: 'add',
-        path:
-          '../../app/containers/{{properCase name}}/__tests__/reducer.test.js',
+        path: '../../app/containers/{{properCase name}}/__tests__/reducer.test.js',
         templateFile: './container/reducer.test.js.hbs',
         abortOnFail: true,
       });
     }
 
-    // Sagas
+    // If component wants messages
     // noinspection JSUnresolvedVariable
-    if (data.wantSaga) {
+    if (data.wantMessages) {
       actions.push({
         type: 'add',
-        path: '../../app/containers/{{properCase name}}/saga.js',
-        templateFile: './container/saga.js.hbs',
-        abortOnFail: true,
-      });
-      actions.push({
-        type: 'add',
-        path: '../../app/containers/{{properCase name}}/__tests__/saga.test.js',
-        templateFile: './container/saga.test.js.hbs',
+        path: '../../app/containers/{{properCase name}}/messages.js',
+        templateFile: './container/messages.js.hbs',
         abortOnFail: true,
       });
     }

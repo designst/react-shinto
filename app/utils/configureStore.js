@@ -1,5 +1,6 @@
 /* @flow */
 
+import fp from 'lodash/fp';
 import thunk from 'redux-thunk';
 import { init } from '@rematch/core';
 import { createLogger } from 'redux-logger';
@@ -26,7 +27,7 @@ export const createFakeReducers = initialState => {
     }, {});
 };
 
-export default (history, initialState) => {
+export default (history, initialState, configuration = {}) => {
   // Create the store with three middlewares
   // 1. thunkMiddleware: Makes thunk work
   // 2. sagaMiddleware: Makes redux-sagas work
@@ -55,31 +56,36 @@ export default (history, initialState) => {
   // The created fakeReducers will be replaced after client-side reducers are injected.
   const initialStateReducers = createFakeReducers(initialState);
 
-  const store = init({
-    redux: {
-      middlewares,
-      initialState,
-      reducers: rootReducers,
-      combineReducers: rematchReducers => {
-        const { injectedReducers = {} } = store || {};
-        // Override rematch combineReducers to handle the fakeReducers which are reducers
-        // not already known but expected by the initialState object and to handle the
-        // already injectedReducers.
+  const store = init(
+    fp.assign(
+      {
+        redux: {
+          middlewares,
+          initialState,
+          reducers: rootReducers,
+          combineReducers: rematchReducers => {
+            const { injectedReducers = {} } = store || {};
+            // Override rematch combineReducers to handle the fakeReducers which are reducers
+            // not already known but expected by the initialState object and to handle the
+            // already injectedReducers.
 
-        return createReducer(
-          // injected modelReducers are already created by the rematch model function,
-          // so we can ignore them here to avoid additional loops.
-          {},
-          {
-            ...rematchReducers,
-            ...injectedReducers,
+            return createReducer(
+              // injected modelReducers are already created by the rematch model function,
+              // so we can ignore them here to avoid additional loops.
+              {},
+              {
+                ...rematchReducers,
+                ...injectedReducers,
+              },
+              initialStateReducers,
+            );
           },
-          initialStateReducers,
-        );
+        },
+        plugins: [loadingPlugin, createApiServicePlugin(apiService)],
       },
-    },
-    plugins: [loadingPlugin, createApiServicePlugin(apiService)],
-  });
+      configuration,
+    ),
+  );
 
   apiService.store = store;
 
