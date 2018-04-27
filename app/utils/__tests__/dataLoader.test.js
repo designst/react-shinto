@@ -90,8 +90,6 @@ describe('dataLoader', () => {
         mockObject({ auth: { isAuthenticated: true } }),
       );
 
-      console.log(data);
-
       expect(data).toEqual(undefined);
     });
   });

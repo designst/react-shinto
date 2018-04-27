@@ -78,6 +78,7 @@ export const createModelReducers = injectedModels => {
     });
 
     modelReducers[injectedModelKey] = (state = injectedModel.state, action) => {
+      console.log(action);
       if (typeof injectedModelReducers[action.type] === 'function') {
         return injectedModelReducers[action.type](state, action.payload, action.meta);
       }

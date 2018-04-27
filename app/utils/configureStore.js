@@ -9,6 +9,7 @@ import { routerMiddleware } from 'react-router-redux';
 import createWaitForActionMiddleware from 'redux-wait-for-action';
 
 import createReducer, { rootReducers } from './createReducer';
+import createApiService, { createApiServicePlugin } from './apiService';
 
 const loadingPluginOptions = {};
 const loadingPlugin = createLoadingPlugin(loadingPluginOptions);
@@ -30,7 +31,15 @@ export default (history, initialState) => {
   // 1. thunkMiddleware: Makes thunk work
   // 2. sagaMiddleware: Makes redux-sagas work
   // 3. routerMiddleware: Syncs the location/URL path to the state
-  const sagaMiddleware = createSagaMiddleware();
+
+  const { auth: { token } = {} } = initialState;
+  const apiService = createApiService(token);
+
+  const sagaMiddleware = createSagaMiddleware({
+    context: {
+      apiService,
+    },
+  });
 
   const waitForActionMiddleware = createWaitForActionMiddleware();
 
@@ -69,8 +78,10 @@ export default (history, initialState) => {
         );
       },
     },
-    plugins: [loadingPlugin],
+    plugins: [loadingPlugin, createApiServicePlugin(apiService)],
   });
+
+  apiService.store = store;
 
   // Extensions
   store.runSaga = sagaMiddleware.run;
