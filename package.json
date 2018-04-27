@@ -208,6 +208,7 @@
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
     ],
     "moduleNameMapper": {
+      "^utils(.*)$": "<rootDir>/app/utils/$1",
       "^config(.*)$": "<rootDir>/app/config/$1",
       "^providers(.*)$": "<rootDir>/app/providers/$1",
       "^components(.*)$": "<rootDir>/app/components/$1",
@@ -215,6 +216,9 @@
     },
     "collectCoverageFrom": [
       "app/**/*.{js,jsx,mjs}",
+      "!app/index.js",
+      "!app/theme.js",
+      "!app/routes/**",
       "!app/utils/registerServiceWorker.js"
     ]
   },

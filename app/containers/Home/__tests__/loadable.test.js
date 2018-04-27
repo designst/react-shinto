@@ -5,15 +5,15 @@ import { browserHistory, StaticRouter } from 'react-router-dom';
 
 import configureStore from 'utils/configureStore';
 
-import ConnectedHome from '../index';
+import LoadableHome from '../loadable';
 
-describe('<Home />', () => {
+describe('<LoadableHome />', () => {
   const store = configureStore(browserHistory, {});
   const tree = renderer
     .create(
       <Provider store={store}>
         <StaticRouter context={{}}>
-          <ConnectedHome />
+          <LoadableHome />
         </StaticRouter>
       </Provider>,
     )

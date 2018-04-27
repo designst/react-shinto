@@ -1,6 +1,6 @@
-import App from './containers/App';
-import NotFound from './containers/NotFound';
-import LoadableHome from './containers/Home/loadable';
+import App from 'containers/App';
+import NotFound from 'containers/NotFound';
+import LoadableHome from 'containers/Home/loadable';
 
 export default [
   {
