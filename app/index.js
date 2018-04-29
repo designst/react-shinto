@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { create } from 'jss';
-import { hydrate } from 'react-dom';
 import { Provider } from 'react-redux';
+import { render, hydrate } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import { renderRoutes } from 'react-router-config';
 import { loadComponents } from 'loadable-components';
@@ -33,9 +33,12 @@ const jss = create(jssPreset());
 jss.options.insertionPoint = document.getElementById('jss-insertion-point');
 
 const generateClassName = createGenerateClassName();
+const serverSideRenderingEnabled = process.env.SHINTO_SERVER_SIDE_RENDERING_ENABLED === 'true';
 
-const render = (Routes: Array<Object>, messages) => {
-  hydrate(
+const renderMethod = serverSideRenderingEnabled ? hydrate : render;
+
+const renderApp = (Routes: Array<Object>, messages) => {
+  renderMethod(
     <AppContainer>
       <JssProvider jss={jss} generateClassName={generateClassName}>
         <MuiThemeProvider theme={theme}>
@@ -65,12 +68,12 @@ loadComponents().then(() => {
           import('intl/locale-data/jsonp/de.js'),
         ]),
       )
-      .then(() => render(routes, translationMessages))
+      .then(() => renderApp(routes, translationMessages))
       .catch(error => {
         console.error(`==> Messages hot reloading error ${error}`);
       });
   } else {
-    render(routes, translationMessages);
+    renderApp(routes, translationMessages);
   }
 });
 
@@ -78,7 +81,7 @@ if (module.hot) {
   module.hot.accept(['./i18n', './routes'], () => {
     try {
       const nextRoutes = require('./routes').default;
-      render(nextRoutes, require('./i18n').translationMessages);
+      renderApp(nextRoutes, require('./i18n').translationMessages);
     } catch (error) {
       console.error(`==> Routes hot reloading error ${error}`);
     }

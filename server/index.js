@@ -42,8 +42,12 @@ choosePort(host, port)
 
     // APP Middleware
     appMiddleware(app, urls, port);
-    // Proxy Middleware
-    proxyMiddleware(app, server);
+
+    if (process.env.SHINTO_USE_PROXY_MIDDLEWARE === 'true') {
+      // Proxy Middleware
+      proxyMiddleware(app, server);
+    }
+
     // Frontend Middleware
     frontendMiddleware(app);
 

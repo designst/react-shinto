@@ -25,9 +25,10 @@ import paths from '../../config/paths';
 import theme from '../../app/theme';
 import routes from '../../app/routes';
 import renderHtml from '../renderHtml';
-import webpackAssets from '../../public/webpack-assets';
+import webpackAssets from '../../public/webpack-assets.json';
 
 const { dllPlugin } = require(paths.appPackageJson);
+const serverSideRenderingEnabled = process.env.SHINTO_SERVER_SIDE_RENDERING_ENABLED === 'true';
 
 module.exports = app => {
   app.get('*', (req, res) => {
@@ -47,7 +48,9 @@ module.exports = app => {
       const branch = matchRoutes(routes, req.path);
 
       const promises = branch.map(({ route, match }) => {
+        // noinspection JSUnresolvedVariable
         if (route.dataLoaders) {
+          // noinspection JSUnresolvedFunction
           return Promise.all(
             route
               .dataLoaders({
@@ -75,8 +78,10 @@ module.exports = app => {
 
     (async () => {
       try {
-        // Load data from server-side first
-        await loadBranchData();
+        if (serverSideRenderingEnabled) {
+          // Load data from server-side first
+          await loadBranchData();
+        }
 
         const staticContext = {};
         const AppComponent = (
@@ -107,7 +112,6 @@ module.exports = app => {
           const css = sheetsRegistry.toString();
           // noinspection JSUnresolvedFunction
           const head = Helmet.renderStatic();
-          const htmlContent = renderToString(AppComponent);
           const initialState = store.getState();
           const loadableStateTag = loadableState.getScriptTag();
 
@@ -115,6 +119,7 @@ module.exports = app => {
           const status = staticContext.status === '404' ? 404 : 200;
 
           let assets = webpackAssets;
+          let htmlContent = '';
 
           if (__DEV__) {
             assets = {
@@ -131,6 +136,10 @@ module.exports = app => {
                 `public/${dllPlugin.name}/${filename}`,
               );
             });
+          }
+
+          if (serverSideRenderingEnabled) {
+            htmlContent = renderToString(AppComponent);
           }
 
           // Pass the route and initial state into html template
