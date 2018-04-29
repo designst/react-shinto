@@ -82,6 +82,14 @@ module.exports = {
           fontRule(),
           scriptRule({
             compact: true,
+            plugins: [
+              'lodash',
+              'transform-remove-console',
+              'loadable-components/babel',
+              'transform-react-remove-prop-types',
+              '@babel/transform-react-inline-elements',
+              '@babel/transform-react-constant-elements',
+            ],
           }),
           cssFileRule(),
           sassFileRule(),

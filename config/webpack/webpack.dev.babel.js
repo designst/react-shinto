@@ -73,25 +73,6 @@ module.exports = {
           imageRule(),
           fontRule(),
           scriptRule({
-            babelrc: false,
-            presets: [
-              [
-                '@babel/preset-env',
-                {
-                  modules: false,
-                  useBuiltIns: 'usage',
-                },
-              ],
-              '@babel/preset-flow',
-              '@babel/preset-react',
-              '@babel/preset-es2015',
-              [
-                '@babel/preset-stage-0',
-                {
-                  decoratorsLegacy: true,
-                },
-              ],
-            ],
             plugins: ['lodash', 'react-hot-loader/babel', 'loadable-components/babel'],
             // This is a feature of `babel-loader` for webpack (not Babel itself).
             // It enables caching results in ./node_modules/.cache/babel-loader/

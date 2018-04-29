@@ -93,7 +93,28 @@ export const scriptRule = options => ({
   test: /\.(js|jsx|mjs)$/,
   include: paths.appSrc,
   loader: require.resolve('babel-loader'),
-  options,
+  options: {
+    babelrc: false,
+    presets: [
+      [
+        '@babel/preset-env',
+        {
+          modules: false,
+          useBuiltIns: 'usage',
+        },
+      ],
+      '@babel/preset-flow',
+      '@babel/preset-react',
+      '@babel/preset-es2015',
+      [
+        '@babel/preset-stage-0',
+        {
+          decoratorsLegacy: true,
+        },
+      ],
+    ],
+    ...options,
+  },
 });
 
 export const cssRule = options => ({
