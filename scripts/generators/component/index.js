@@ -7,6 +7,7 @@
 'use strict';
 
 const componentExists = require('../utils/componentExists');
+const getComponentPath = require('../utils/getComponentPath');
 
 module.exports = {
   description: 'Add an unconnected component',
@@ -48,6 +49,7 @@ module.exports = {
   ],
   actions: data => {
     // Generate index.js and index.test.js
+    let componentPath = getComponentPath(data);
     let componentTemplate;
 
     switch (data.type) {
@@ -60,16 +62,22 @@ module.exports = {
       }
     }
 
+    if (componentPath) {
+      componentPath = `../../app/components/${componentPath}/{{ properCase name }}`;
+    } else {
+      componentPath = `../../app/components/{{ properCase name }}`;
+    }
+
     const actions = [
       {
         type: 'add',
-        path: '../../app/components/{{properCase name}}/index.js',
+        path: `${componentPath}/index.js`,
         templateFile: componentTemplate,
         abortOnFail: true,
       },
       {
         type: 'add',
-        path: '../../app/components/{{properCase name}}/__tests__/index.test.js',
+        path: `${componentPath}/__tests__/index.test.js`,
         templateFile: './component/test.js.hbs',
         abortOnFail: true,
       },
@@ -80,7 +88,7 @@ module.exports = {
     if (data.wantMessages) {
       actions.push({
         type: 'add',
-        path: '../../app/components/{{properCase name}}/messages.js',
+        path: `${componentPath}/messages.js`,
         templateFile: './component/messages.js.hbs',
         abortOnFail: true,
       });
@@ -91,7 +99,7 @@ module.exports = {
     if (data.wantLoadable) {
       actions.push({
         type: 'add',
-        path: '../../app/components/{{properCase name}}/loadable.js',
+        path: `${componentPath}/loadable.js`,
         templateFile: './component/loadable.js.hbs',
         abortOnFail: true,
       });
