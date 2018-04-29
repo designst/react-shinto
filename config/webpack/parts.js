@@ -20,7 +20,7 @@ const shouldUseSourceMap =
 
 export const getEntry = (isDev, index) => {
   // We ship a few polyfills by default:
-  const entry = [require.resolve('babel-polyfill')];
+  const entry = [require.resolve('@babel/polyfill')];
 
   if (isDev) {
     // Include an alternative client for WebpackDevServer. A client's job is to
