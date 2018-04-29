@@ -69,7 +69,7 @@ module.exports = {
   ],
   actions: data => {
     // Generate index.js and index.test.js
-    let componentPath = getComponentPath(data);
+    let componentPath;
     let componentTemplate; // eslint-disable-line no-var
 
     switch (data.type) {
@@ -82,8 +82,10 @@ module.exports = {
       }
     }
 
-    if (componentPath) {
-      componentPath = `../../app/containers/${componentPath}/{{ properCase name }}`;
+    data.parent = getComponentPath(data);
+
+    if (data.parent) {
+      componentPath = `../../app/containers/${data.parent}/{{ properCase name }}`;
     } else {
       componentPath = `../../app/containers/{{ properCase name }}`;
     }

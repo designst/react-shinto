@@ -49,7 +49,7 @@ module.exports = {
   ],
   actions: data => {
     // Generate index.js and index.test.js
-    let componentPath = getComponentPath(data);
+    let componentPath;
     let componentTemplate;
 
     switch (data.type) {
@@ -62,8 +62,10 @@ module.exports = {
       }
     }
 
-    if (componentPath) {
-      componentPath = `../../app/components/${componentPath}/{{ properCase name }}`;
+    data.parent = getComponentPath(data);
+
+    if (data.parent) {
+      componentPath = `../../app/components/${data.parent}/{{ properCase name }}`;
     } else {
       componentPath = `../../app/components/{{ properCase name }}`;
     }
