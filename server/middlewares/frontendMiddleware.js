@@ -25,7 +25,7 @@ import paths from '../../config/paths';
 import theme from '../../app/theme';
 import routes from '../../app/routes';
 import renderHtml from '../renderHtml';
-import webpackAssets from '../../public/webpack-assets.json';
+import webpackAssets from '../../public/webpack-assets';
 
 const { dllPlugin } = require(paths.appPackageJson);
 

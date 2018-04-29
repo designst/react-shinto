@@ -13,7 +13,7 @@ module.exports = () => {
     // Must use the same pattern with your webpack config
     generateScopedName: '[name]__[local]__[hash:base64:5]',
     extensions: ['.css', '.scss', '.sass'],
-    prepend: [require('autoprefixer')],
+    prepend: [require('autoprefixer')({ grid: true })],
     preprocessCss: (data, filename) =>
       sass.renderSync({
         data: data.replace('~', `${paths.appNodeModules}/`),
