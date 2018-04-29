@@ -3,12 +3,12 @@ module.exports = {
     htmlAttributes: {
       lang: 'en',
     },
-    title: 'React.js Boilerplate',
-    titleTemplate: '%s - React.js Boilerplate',
+    title: 'React Shintõ',
+    titleTemplate: '%s - React Shintõ',
     meta: [
       {
         name: 'description',
-        content: 'A React.js Boilerplate application',
+        content: 'A React Shintõ application',
       },
     ],
   },
