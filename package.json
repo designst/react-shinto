@@ -45,14 +45,14 @@
       "production": {
         "plugins": [
           "transform-remove-console",
-          "transform-react-inline-elements",
-          "transform-react-constant-elements",
-          "transform-react-remove-prop-types"
+          "transform-react-remove-prop-types",
+          "@babel/transform-react-inline-elements",
+          "@babel/transform-react-constant-elements"
         ]
       },
       "test": {
         "plugins": [
-          "transform-es2015-modules-commonjs"
+          "@babel/plugin-transform-modules-commonjs"
         ]
       }
     },
@@ -310,8 +310,9 @@
     "asset-require-hook": "1.2.0",
     "autoprefixer": "8.4.1",
     "axios-mock-adapter": "1.15.0",
+    "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "8.2.3",
-    "babel-jest": "23.0.0-alpha.0",
+    "babel-jest": "23.0.0-beta.2",
     "babel-loader": "8.0.0-beta.2",
     "babel-plugin-dynamic-import-node": "1.2.0",
     "babel-plugin-lodash": "3.3.2",
@@ -340,7 +341,7 @@
     "glob": "7.1.2",
     "html-minifier": "3.5.15",
     "imagemin-webpack-plugin": "2.1.1",
-    "jest": "latest",
+    "jest": "23.0.0-beta.2",
     "mini-css-extract-plugin": "0.4.0",
     "mkdirp": "0.5.1",
     "ngrok": "3.0.1",
