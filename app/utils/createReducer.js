@@ -5,6 +5,7 @@
 import fp from 'lodash/fp';
 import { combineReducers } from 'redux';
 import { LOCATION_CHANGE } from 'react-router-redux';
+import { reducer as formReducer } from 'redux-form';
 
 import globalReducer from 'containers/App/reducer';
 import languageProviderReducer from 'providers/Language/reducer';
@@ -50,6 +51,7 @@ const routeReducer = (state = routeInitialState, action) => {
 
 export const rootReducers = {
   auth: authReducer,
+  form: formReducer,
   route: routeReducer,
   global: globalReducer,
   language: languageProviderReducer,
