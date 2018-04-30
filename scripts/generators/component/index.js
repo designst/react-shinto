@@ -36,6 +36,12 @@ module.exports = {
     },
     {
       type: 'confirm',
+      name: 'wantForm',
+      default: false,
+      message: 'Do you want a form?',
+    },
+    {
+      type: 'confirm',
       name: 'wantMessages',
       default: true,
       message: 'Do you want i18n messages (i.e. will this component use text)?',
@@ -84,6 +90,16 @@ module.exports = {
         abortOnFail: true,
       },
     ];
+
+    // noinspection JSUnresolvedVariable
+    if (data.wantForm) {
+      actions.push({
+        type: 'add',
+        path: `${componentPath}/form.js`,
+        templateFile: './component/form.js.hbs',
+        abortOnFail: true,
+      });
+    }
 
     // If they want a i18n messages file
     // noinspection JSUnresolvedVariable

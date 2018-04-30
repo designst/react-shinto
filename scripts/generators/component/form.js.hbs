@@ -1,0 +1,24 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Field, reduxForm } from 'redux-form';
+
+import Button from 'material-ui/Button';
+import { TextField } from 'redux-form-material-ui';
+
+const {{ properCase name }}Form = ({ handleSubmit }) => (
+  <form onSubmit={handleSubmit}>
+    <Field name="username" component={TextField} placeholder="Username" />
+
+    <Button type="submit" color="primary" variant="raised">
+      Submit
+    </Button>
+  </form>
+);
+
+{{ properCase name }}Form.propTypes = {
+  handleSubmit: PropTypes.func.isRequired,
+};
+
+export default reduxForm({
+  form: '{{ camelCase name }}',
+})({{ properCase name }}Form);
