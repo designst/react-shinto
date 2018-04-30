@@ -1,6 +1,13 @@
 import axios from 'axios';
 import { camelizeKeys } from 'humps';
 
+import {
+  API_ERROR,
+  API_AUTH_ERROR,
+  API_SERVER_ERROR,
+  API_NOT_FOUND_ERROR,
+} from 'providers/Error/constants';
+
 export const ApiRequest = axios.create();
 
 ApiRequest.interceptors.response.use(
@@ -14,10 +21,21 @@ ApiRequest.interceptors.response.use(
     const { message, response } = error;
     const { status, statusText } = response;
 
-    let errorType = 'API_ERROR';
+    let errorType;
 
-    if (status === 403) {
-      errorType = 'API_AUTH_ERROR';
+    switch (status) {
+      case 403:
+        errorType = API_AUTH_ERROR;
+        break;
+      case 404:
+        errorType = API_NOT_FOUND_ERROR;
+        break;
+      case 500:
+        errorType = API_SERVER_ERROR;
+        break;
+      default:
+        errorType = API_ERROR;
+        break;
     }
 
     const err = {
