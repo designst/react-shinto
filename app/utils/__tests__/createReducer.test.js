@@ -8,6 +8,7 @@ describe('createReducer', () => {
 
   const rootReducer = {
     auth: expect.any(Object),
+    form: expect.any(Object),
     route: expect.any(Object),
     global: expect.any(Object),
     language: expect.any(Object),

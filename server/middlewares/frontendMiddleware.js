@@ -32,8 +32,22 @@ const serverSideRenderingEnabled = process.env.SHINTO_SERVER_SIDE_RENDERING_ENAB
 
 module.exports = app => {
   app.get('*', (req, res) => {
+    // Get auth token from cookie
+    let token = null;
+
+    if (req.cookies && process.env.SHINTO_AUTH_TOKEN_COOKIE) {
+      token = req.cookies[process.env.SHINTO_AUTH_TOKEN_COOKIE];
+    }
+
+    // Create history
     const history = createHistory();
-    const store = configureStore(history, {});
+
+    // Create store with initial state
+    const store = configureStore(history, {
+      auth: {
+        token,
+      },
+    });
 
     const sagaInjectors = getSagaInjectors(store);
     const modelInjectors = getModelInjectors(store);

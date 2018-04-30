@@ -17,7 +17,7 @@ import languageProviderReducer from 'providers/Language/reducer';
  */
 const authInitialState = {
   token: null,
-  isAuthenticated: null,
+  isAuthenticated: false,
 };
 
 const authReducer = (state = authInitialState) => state;
