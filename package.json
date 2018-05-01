@@ -25,7 +25,7 @@
     "build:dll": "node ./scripts/dependencies.js",
     "analyze": "yarn clean:build && cross-env NODE_ENV=analyze webpack --progress --hide-modules --config ./config/webpack/webpack.dev.babel.js",
     "docs": "esdoc && open ./docs/index.html",
-    "extract-intl": "babel-node --presets env,stage-0 -- ./scripts/extract-intl.js",
+    "extract-intl": "babel-node --presets @babel/preset-env,@babel/preset-stage-0 -- ./scripts/extract-intl.js",
     "generate": "plop --plopfile scripts/generators/index.js",
     "lint": "yarn lint:js && yarn lint:style",
     "lint:js": "eslint --fix ./app ./config ./index.js",
@@ -302,6 +302,7 @@
   "devDependencies": {
     "@babel/cli": "7.0.0-beta.46",
     "@babel/core": "7.0.0-beta.46",
+    "@babel/node": "7.0.0-beta.46",
     "@babel/plugin-transform-modules-commonjs": "7.0.0-beta.46",
     "@babel/plugin-transform-react-constant-elements": "7.0.0-beta.46",
     "@babel/plugin-transform-react-inline-elements": "7.0.0-beta.46",

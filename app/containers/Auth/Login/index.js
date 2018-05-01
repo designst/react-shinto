@@ -1,9 +1,16 @@
-import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 
-class Login extends React.Component {
-  render() {
-    return <div>Login</div>;
-  }
-}
+import Login from 'components/Auth/Login';
 
-export default Login;
+import { loginRequest } from './actions';
+
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = {
+  onSubmit: loginRequest,
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(connector)(Login);

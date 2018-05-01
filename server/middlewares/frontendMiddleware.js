@@ -20,12 +20,15 @@ import configureStore from 'utils/configureStore';
 import getSagaInjectors from 'utils/sagaInjectors';
 import getModelInjectors from 'utils/modelInjectors';
 import getReducerInjectors from 'utils/reducerInjectors';
+import ConnectedLanguageProvider from 'providers/Language';
 
 import paths from '../../config/paths';
 import theme from '../../app/theme';
 import routes from '../../app/routes';
 import renderHtml from '../renderHtml';
 import webpackAssets from '../../public/webpack-assets.json';
+
+import { translationMessages } from '../../app/i18n';
 
 const { dllPlugin } = require(paths.appPackageJson);
 const serverSideRenderingEnabled = process.env.SHINTO_SERVER_SIDE_RENDERING_ENABLED === 'true';
@@ -102,10 +105,12 @@ module.exports = app => {
           <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
             <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
               <Provider store={store}>
-                {/* Setup React-Router server-side rendering */}
-                <StaticRouter context={staticContext} location={req.path}>
-                  {renderRoutes(routes)}
-                </StaticRouter>
+                <ConnectedLanguageProvider messages={translationMessages}>
+                  {/* Setup React-Router server-side rendering */}
+                  <StaticRouter context={staticContext} location={req.path}>
+                    {renderRoutes(routes)}
+                  </StaticRouter>
+                </ConnectedLanguageProvider>
               </Provider>
             </MuiThemeProvider>
           </JssProvider>

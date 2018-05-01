@@ -258,6 +258,18 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
+"@babel/node@7.0.0-beta.46":
+  version "7.0.0-beta.46"
+  resolved "https://registry.yarnpkg.com/@babel/node/-/node-7.0.0-beta.46.tgz#88ec3ca630b93829fa9422af4bd8ba964c2ddd76"
+  dependencies:
+    "@babel/polyfill" "7.0.0-beta.46"
+    "@babel/register" "7.0.0-beta.46"
+    commander "^2.8.1"
+    fs-readdir-recursive "^1.0.0"
+    lodash "^4.2.0"
+    output-file-sync "^2.0.0"
+    v8flags "^3.0.0"
+
 "@babel/plugin-proposal-async-generator-functions@7.0.0-beta.46":
   version "7.0.0-beta.46"
   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-async-generator-functions/-/plugin-proposal-async-generator-functions-7.0.0-beta.46.tgz#395330d1d5d7fb76c33b7bd99750adeafc37c68c"
@@ -12309,6 +12321,12 @@ v8flags@^2.0.10:
   resolved "https://registry.yarnpkg.com/v8flags/-/v8flags-2.1.1.tgz#aab1a1fa30d45f88dd321148875ac02c0b55e5b4"
   dependencies:
     user-home "^1.1.1"
+
+v8flags@^3.0.0:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/v8flags/-/v8flags-3.0.2.tgz#ad6a78a20a6b23d03a8debc11211e3cc23149477"
+  dependencies:
+    homedir-polyfill "^1.0.1"
 
 vali-date@^1.0.0:
   version "1.0.0"
