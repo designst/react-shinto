@@ -1,6 +1,7 @@
 import glob from 'glob';
 import path from 'path';
 import chalk from 'chalk';
+import Debug from 'debug';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Provider } from 'react-redux';
@@ -30,7 +31,11 @@ import webpackAssets from '../../public/webpack-assets.json';
 
 import { translationMessages } from '../../app/i18n';
 
+const debug = new Debug('shinto:server:middlewares:frontend-middleware');
+
 const { dllPlugin } = require(paths.appPackageJson);
+
+const authRequired = process.env.SHINTO_AUTH_REQUIRED === 'true';
 const serverSideRenderingEnabled = process.env.SHINTO_SERVER_SIDE_RENDERING_ENABLED === 'true';
 
 module.exports = app => {
@@ -94,6 +99,17 @@ module.exports = app => {
     };
 
     (async () => {
+      if (authRequired) {
+        try {
+          debug('Authentication is required');
+
+          const authActions = await import('containers/Auth/actions');
+          await store.dispatch(authActions.checkAuthRequestWait(token));
+        } catch (error) {
+          debug(error);
+        }
+      }
+
       try {
         if (serverSideRenderingEnabled) {
           // Load data from server-side first
