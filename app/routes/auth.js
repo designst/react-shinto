@@ -1,6 +1,8 @@
-import Auth from 'components/Auth';
+import Auth from 'containers/Auth';
 import LoadableLogin from 'containers/Auth/Login/loadable';
 import LoadableRegister from 'containers/Auth/Register/loadable';
+
+import { userIsNotAuthenticatedRedirect } from '../auth';
 
 const basePath = '/auth';
 
@@ -12,7 +14,7 @@ export default [
       {
         path: `${basePath}/login`,
         exact: true,
-        component: LoadableLogin,
+        component: userIsNotAuthenticatedRedirect(LoadableLogin),
       },
       {
         path: `${basePath}/register`,

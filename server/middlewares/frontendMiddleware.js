@@ -104,7 +104,7 @@ module.exports = app => {
           debug('Authentication is required');
 
           const authActions = await import('containers/Auth/actions');
-          await store.dispatch(authActions.checkAuthRequestWait(token));
+          await authActions.checkAuthRequestWait();
         } catch (error) {
           debug(error);
         }
