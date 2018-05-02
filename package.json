@@ -19,6 +19,7 @@
   },
   "scripts": {
     "start": "cross-env DEBUG=shinto:*,-shinto-verbose:* NODE_ENV=development NODE_PATH=./app nodemon ./index.js",
+    "start:api": "cross-env DEBUG=shinto:* NODE_ENV=development NODE_PATH=./api node ./api/index.js",
     "start:prod": "yarn build && yarn start:production",
     "start:production": "cross-env NODE_ENV=production NODE_PATH=./app node ./index.js",
     "build": "yarn clean:build && cross-env NODE_ENV=production webpack --progress --hide-modules --config ./config/webpack/webpack.prod.babel.js",

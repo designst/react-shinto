@@ -103,8 +103,15 @@ module.exports = app => {
         try {
           debug('Authentication is required');
 
+          const authSaga = await import('containers/Auth/saga');
           const authActions = await import('containers/Auth/actions');
-          await authActions.checkAuthRequestWait();
+
+          store.runSaga(authSaga.default);
+
+          const test = await store.dispatch(authActions.checkAuthRequestWait());
+          debug('test: %o', test);
+          const data = await Promise.all(store.dispatch(authActions.checkAuthRequestWait()));
+          debug('data: %o', data);
         } catch (error) {
           debug(error);
         }

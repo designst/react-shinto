@@ -6,12 +6,14 @@ export const checkAuthRequest = () => ({
   type: CHECK_AUTH_REQUEST,
 });
 
-export const checkAuthSuccess = () => ({
+export const checkAuthSuccess = data => ({
   type: CHECK_AUTH_SUCCESS,
+  data,
 });
 
-export const checkAuthFailure = () => ({
+export const checkAuthFailure = error => ({
   type: CHECK_AUTH_FAILURE,
+  error,
 });
 
 export const checkAuthRequestWait = () => ({

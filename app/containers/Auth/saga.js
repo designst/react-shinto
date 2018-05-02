@@ -14,10 +14,14 @@ export function* checkAuth() {
 
   const apiService = yield getContext('apiService');
 
+  debug(apiService);
+  debug(token);
+
   try {
     const data = yield call(apiService.get(process.env.SHINTO_AUTH_CHECK_API_ENDPOINT, { token }));
     yield put(checkAuthSuccess(data));
   } catch (err) {
+    debug(err);
     yield put(checkAuthFailure(err));
   }
 }

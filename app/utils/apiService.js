@@ -1,4 +1,6 @@
+import url from 'url';
 import axios from 'axios';
+import Debug from 'debug';
 import { camelizeKeys } from 'humps';
 
 import {
@@ -7,6 +9,8 @@ import {
   API_SERVER_ERROR,
   API_NOT_FOUND_ERROR,
 } from 'providers/Error/constants';
+
+const debug = new Debug('shinto:app:utils:api-service');
 
 export const ApiRequest = axios.create();
 
@@ -55,9 +59,15 @@ class ApiService {
     this.isServerSide = __SERVER__;
   }
 
-  get = url => ApiRequest.get(url).catch(this.handleError);
+  get = (requestUrl, params) => {
+    debug('GET: %s', requestUrl);
+    return ApiRequest.get(url.resolve('/api', requestUrl), params).catch(this.handleError);
+  };
 
-  post = url => ApiRequest.post(url).catch(this.handleError);
+  post = (requestUrl, data) => {
+    debug('POST: %s', requestUrl);
+    return ApiRequest.post(url.resolve('/api', requestUrl), data).catch(this.handleError);
+  };
 
   handleError = error => {
     this.store.dispatch(error);
