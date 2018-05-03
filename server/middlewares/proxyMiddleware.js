@@ -1,8 +1,11 @@
 import httpProxyMiddleware from 'http-proxy-middleware';
 
+import createLogger from 'utils/createLogger';
+
 import paths from '../../config/paths';
 import config from '../../app/config';
 
+const logger = createLogger(__filename);
 const proxySetting = require(paths.appPackageJson).proxy;
 
 const setAuthorizationHeader = (proxyReq, req) => {
@@ -30,6 +33,7 @@ const handleProxyError = (err, req, res) => {
 };
 
 const handleProxyRequest = (proxyReq, req) => {
+  logger('Handle Proxy Request: %s', req.path);
   setAuthorizationHeader(proxyReq, req);
 };
 

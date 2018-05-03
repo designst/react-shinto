@@ -12,6 +12,8 @@ import {
 import openBrowser from 'react-dev-utils/openBrowser';
 import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles';
 
+import createLogger from 'utils/createLogger';
+
 // Import env to prepare all SHINTO_* env variables
 import '../config/env';
 import paths from '../config/paths';
@@ -31,6 +33,7 @@ const protocol = process.env.HTTPS === 'true' || process.env.SHINTO_HTTPS === 't
 
 const app = express();
 const server = http.createServer(app);
+const logger = createLogger(__filename);
 
 choosePort(host, port)
   .then(port => {
@@ -38,17 +41,22 @@ choosePort(host, port)
       return console.error(chalk.red('No port found.'));
     }
 
+    logger('Prepare Urls');
+
     const urls = prepareUrls(protocol, host, port);
 
     // APP Middleware
+    logger('Initialize App Middleware');
     appMiddleware(app, urls, port);
 
     if (process.env.SHINTO_USE_PROXY_MIDDLEWARE === 'true') {
       // Proxy Middleware
+      logger('Initialize Proxy Middleware');
       proxyMiddleware(app, server);
     }
 
     // Frontend Middleware
+    logger('Initialize Frontend Middleware');
     frontendMiddleware(app);
 
     server.listen(port, host, (err) => {

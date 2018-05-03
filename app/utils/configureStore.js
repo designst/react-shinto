@@ -3,14 +3,17 @@
 import fp from 'lodash/fp';
 import thunk from 'redux-thunk';
 import { init } from '@rematch/core';
-import { createLogger } from 'redux-logger';
 import createSagaMiddleware from 'redux-saga';
 import createLoadingPlugin from '@rematch/loading';
 import { routerMiddleware } from 'react-router-redux';
 import createWaitForActionMiddleware from 'redux-wait-for-action';
+import { createLogger as createLoggerMiddleware } from 'redux-logger';
 
-import createReducer, { rootReducers } from './createReducer';
-import createApiService, { createApiServicePlugin } from './apiService';
+import createLogger from 'utils/createLogger';
+import createReducer, { rootReducers } from 'utils/createReducer';
+import createApiService, { createApiServicePlugin } from 'utils/apiService';
+
+const logger = createLogger(__filename);
 
 const loadingPluginOptions = {};
 const loadingPlugin = createLoadingPlugin(loadingPluginOptions);
@@ -33,8 +36,14 @@ export default (history, initialState, configuration = {}) => {
   // 2. sagaMiddleware: Makes redux-sagas work
   // 3. routerMiddleware: Syncs the location/URL path to the state
 
-  const { auth: { token } = {} } = initialState;
-  const apiService = createApiService(token);
+  // const {
+  //   auth: { token },
+  //   route: { baseUrl },
+  // } = initialState;
+  const token = '';
+  const baseUrl = '';
+  logger('Create API Service: token=%s baseUrl=%s', token, baseUrl);
+  const apiService = createApiService(token, baseUrl);
 
   const sagaMiddleware = createSagaMiddleware({
     context: {
@@ -47,7 +56,7 @@ export default (history, initialState, configuration = {}) => {
   const middlewares = [thunk, sagaMiddleware, waitForActionMiddleware, routerMiddleware(history)];
 
   if (__DEV__ && __CLIENT__) {
-    const loggerMiddleware = createLogger();
+    const loggerMiddleware = createLoggerMiddleware();
     middlewares.push(loggerMiddleware);
   }
 

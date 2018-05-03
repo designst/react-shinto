@@ -1,7 +1,9 @@
 import url from 'url';
+import path from 'path';
 import axios from 'axios';
-import Debug from 'debug';
 import { camelizeKeys } from 'humps';
+
+import createLogger from 'utils/createLogger';
 
 import {
   API_ERROR,
@@ -10,7 +12,7 @@ import {
   API_NOT_FOUND_ERROR,
 } from 'providers/Error/constants';
 
-const debug = new Debug('shinto:app:utils:api-service');
+const logger = createLogger(__filename);
 
 export const ApiRequest = axios.create();
 
@@ -53,19 +55,32 @@ ApiRequest.interceptors.response.use(
 );
 
 class ApiService {
-  constructor(token) {
+  constructor(token, baseUrl) {
     this.token = token;
     this.store = null;
+    this.baseUrl = baseUrl;
     this.isServerSide = __SERVER__;
   }
 
   get = (requestUrl, params) => {
-    debug('GET: %s', requestUrl);
-    return ApiRequest.get(url.resolve('/api', requestUrl), params).catch(this.handleError);
+    requestUrl = path.join('/api', requestUrl);
+
+    if (this.isServerSide) {
+      requestUrl = url.resolve(this.baseUrl, requestUrl);
+    }
+
+    logger('GET: %s', requestUrl);
+
+    return ApiRequest.get(requestUrl, params).catch(this.handleError);
   };
 
   post = (requestUrl, data) => {
-    debug('POST: %s', requestUrl);
+    if (this.isServerSide) {
+      requestUrl = url.resolve(this.baseUrl, requestUrl);
+    }
+
+    logger('POST: %s', requestUrl);
+
     return ApiRequest.post(url.resolve('/api', requestUrl), data).catch(this.handleError);
   };
 
@@ -86,4 +101,4 @@ export const createApiServicePlugin = apiService => ({
   },
 });
 
-export default token => new ApiService(token);
+export default (token, baseUrl) => new ApiService(token, baseUrl);

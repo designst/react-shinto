@@ -1,7 +1,6 @@
 import glob from 'glob';
 import path from 'path';
 import chalk from 'chalk';
-import Debug from 'debug';
 import React from 'react';
 import Helmet from 'react-helmet';
 import { Provider } from 'react-redux';
@@ -16,6 +15,7 @@ import { SheetsRegistry } from 'react-jss/lib/jss';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { MuiThemeProvider, createGenerateClassName } from 'material-ui/styles';
 
+import createLogger from 'utils/createLogger';
 import configureStore from 'utils/configureStore';
 
 import getSagaInjectors from 'utils/sagaInjectors';
@@ -31,7 +31,7 @@ import webpackAssets from '../../public/webpack-assets.json';
 
 import { translationMessages } from '../../app/i18n';
 
-const debug = new Debug('shinto:server:middlewares:frontend-middleware');
+const logger = createLogger(__filename);
 
 const { dllPlugin } = require(paths.appPackageJson);
 
@@ -47,6 +47,8 @@ module.exports = app => {
       token = req.cookies[process.env.SHINTO_AUTH_TOKEN_COOKIE];
     }
 
+    const baseUrl = `${req.protocol}://${req.headers.host}`;
+
     // Create history
     const history = createHistory();
 
@@ -54,6 +56,9 @@ module.exports = app => {
     const store = configureStore(history, {
       auth: {
         token,
+      },
+      route: {
+        baseUrl,
       },
     });
 
@@ -101,7 +106,7 @@ module.exports = app => {
     (async () => {
       if (authRequired) {
         try {
-          debug('Authentication is required');
+          logger('Authentication is required');
 
           const authSaga = await import('containers/Auth/saga');
           const authActions = await import('containers/Auth/actions');
@@ -109,11 +114,11 @@ module.exports = app => {
           store.runSaga(authSaga.default);
 
           const test = await store.dispatch(authActions.checkAuthRequestWait());
-          debug('test: %o', test);
+          logger('test: %o', test);
           const data = await Promise.all(store.dispatch(authActions.checkAuthRequestWait()));
-          debug('data: %o', data);
+          logger('data: %o', data);
         } catch (error) {
-          debug(error);
+          logger(error);
         }
       }
 
@@ -183,6 +188,8 @@ module.exports = app => {
           if (serverSideRenderingEnabled) {
             htmlContent = renderToString(AppComponent);
           }
+
+          logger('__INITIAL_STATE__: %o', initialState);
 
           // Pass the route and initial state into html template
           res

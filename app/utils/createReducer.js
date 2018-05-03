@@ -7,21 +7,9 @@ import { combineReducers } from 'redux';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { reducer as formReducer } from 'redux-form';
 
+import authReducer from 'containers/Auth/reducer';
 import globalReducer from 'containers/App/reducer';
 import languageProviderReducer from 'providers/Language/reducer';
-
-/**
- * authReducer
- *
- * Handles the authentication state.
- */
-const authInitialState = {
-  token: null,
-  isAuthenticated: false,
-  isAuthenticating: false,
-};
-
-const authReducer = (state = authInitialState) => state;
 
 /**
  * routeReducer
@@ -32,6 +20,7 @@ const authReducer = (state = authInitialState) => state;
 
 // Initial routing state
 const routeInitialState = {
+  baseUrl: '',
   location: null,
 };
 
