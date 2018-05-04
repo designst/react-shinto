@@ -13,12 +13,8 @@ export function* checkAuth() {
 
   const apiService = yield getContext('apiService');
 
-  const url = process.env.SHINTO_AUTH_CHECK_API_ENDPOINT;
-
-  logger('checkAuth: %s', url);
-
   try {
-    const data = yield call(apiService.get(url, { token }));
+    const data = yield call(apiService.get, process.env.SHINTO_AUTH_CHECK_API_ENDPOINT, { token });
     yield put(checkAuthSuccess(data));
   } catch (err) {
     logger(err);

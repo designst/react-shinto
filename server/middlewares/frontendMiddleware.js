@@ -2,6 +2,7 @@ import glob from 'glob';
 import path from 'path';
 import chalk from 'chalk';
 import React from 'react';
+import fp from 'lodash/fp';
 import Helmet from 'react-helmet';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
@@ -23,6 +24,9 @@ import getModelInjectors from 'utils/modelInjectors';
 import getReducerInjectors from 'utils/reducerInjectors';
 import ConnectedLanguageProvider from 'providers/Language';
 
+import { authInitialState } from 'containers/Auth/reducer';
+import { routeInitialState } from 'utils/createReducer';
+
 import paths from '../../config/paths';
 import theme from '../../app/theme';
 import routes from '../../app/routes';
@@ -40,6 +44,8 @@ const serverSideRenderingEnabled = process.env.SHINTO_SERVER_SIDE_RENDERING_ENAB
 
 module.exports = app => {
   app.get('*', (req, res) => {
+    logger('Handle Request: %s', req.path);
+
     // Get auth token from cookie
     let token = null;
 
@@ -52,15 +58,17 @@ module.exports = app => {
     // Create history
     const history = createHistory();
 
-    // Create store with initial state
-    const store = configureStore(history, {
-      auth: {
+    const initialState = {
+      auth: fp.assign(authInitialState, {
         token,
-      },
-      route: {
+      }),
+      route: fp.assign(routeInitialState, {
         baseUrl,
-      },
-    });
+      }),
+    };
+
+    // Create store with initial state
+    const store = configureStore(history, initialState);
 
     const sagaInjectors = getSagaInjectors(store);
     const modelInjectors = getModelInjectors(store);
@@ -113,10 +121,7 @@ module.exports = app => {
 
           store.runSaga(authSaga.default);
 
-          const test = await store.dispatch(authActions.checkAuthRequestWait());
-          logger('test: %o', test);
-          const data = await Promise.all(store.dispatch(authActions.checkAuthRequestWait()));
-          logger('data: %o', data);
+          await store.dispatch(authActions.checkAuthRequestWait());
         } catch (error) {
           logger(error);
         }

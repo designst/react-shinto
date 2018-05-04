@@ -19,7 +19,7 @@ import languageProviderReducer from 'providers/Language/reducer';
  */
 
 // Initial routing state
-const routeInitialState = {
+export const routeInitialState = {
   baseUrl: '',
   location: null,
 };

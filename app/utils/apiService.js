@@ -69,7 +69,7 @@ class ApiService {
       requestUrl = url.resolve(this.baseUrl, requestUrl);
     }
 
-    logger('GET: %s', requestUrl);
+    logger('GET: %s %o', requestUrl, params);
 
     return ApiRequest.get(requestUrl, params).catch(this.handleError);
   };

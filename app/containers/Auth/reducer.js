@@ -12,14 +12,15 @@ import { CHECK_AUTH_FAILURE, CHECK_AUTH_REQUEST, CHECK_AUTH_SUCCESS } from './co
 
 const logger = createLogger(__filename);
 
-const initialState = {
+export const authInitialState = {
   token: null,
-  isAuthenticated2: null,
-  isAuthenticating2: null,
+  isAuthenticated: null,
+  isAuthenticating: null,
 };
 
-export default (state = initialState, action) => {
-  logger('Initialize: %o', state);
+export default (state = authInitialState, action) => {
+  logger('Handle Action: %s %o', action.type, state);
+
   switch (action.type) {
     /* eslint-disable-next-line */
     case CHECK_AUTH_REQUEST:
