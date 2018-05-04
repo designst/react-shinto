@@ -1,3 +1,5 @@
-export const LOGIN_REQUEST = '@shinto/containers/auth/login/LOGIN_REQUEST';
-export const LOGIN_SUCCESS = '@shinto/containers/auth/login/LOGIN_SUCCESS';
-export const LOGIN_FAILURE = '@shinto/containers/auth/login/LOGIN_FAILURE';
+import createConstant from 'utils/createConstant';
+
+export const LOGIN_REQUEST = createConstant(__filename, 'LOGIN_REQUEST');
+export const LOGIN_SUCCESS = createConstant(__filename, 'LOGIN_SUCCESS');
+export const LOGIN_FAILURE = createConstant(__filename, 'LOGIN_FAILURE');

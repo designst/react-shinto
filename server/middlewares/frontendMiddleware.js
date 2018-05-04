@@ -112,22 +112,18 @@ module.exports = app => {
     };
 
     (async () => {
-      if (authRequired) {
-        try {
+      try {
+        if (authRequired) {
           logger('Authentication is required');
 
-          const authSaga = await import('containers/Auth/saga');
-          const authActions = await import('containers/Auth/actions');
+          const checkAuthSaga = await import('containers/Auth/Check/saga');
+          const checkAuthActions = await import('containers/Auth/Check/actions');
 
-          store.runSaga(authSaga.default);
+          store.runSaga(checkAuthSaga.default);
 
-          await store.dispatch(authActions.checkAuthRequestWait());
-        } catch (error) {
-          logger(error);
+          await store.dispatch(checkAuthActions.checkAuthRequestWait());
         }
-      }
 
-      try {
         if (serverSideRenderingEnabled) {
           // Load data from server-side first
           await loadBranchData();

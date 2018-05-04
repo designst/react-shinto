@@ -31,15 +31,15 @@ export const createFakeReducers = initialState => {
 };
 
 export default (history, initialState, configuration = {}) => {
-  logger('Initialize Store: %o', initialState);
-
   // Create the store with three middlewares
   // 1. thunkMiddleware: Makes thunk work
   // 2. sagaMiddleware: Makes redux-sagas work
   // 3. routerMiddleware: Syncs the location/URL path to the state
 
+  logger('Configure Store: %o', initialState);
+
   const { auth: { token } = {}, route: { baseUrl } = {} } = initialState;
-  logger('Create API Service: token=%s baseUrl=%s', token, baseUrl);
+
   const apiService = createApiService(token, baseUrl);
 
   const sagaMiddleware = createSagaMiddleware({
