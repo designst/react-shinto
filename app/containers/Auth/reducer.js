@@ -8,6 +8,7 @@ import fp from 'lodash/fp';
 
 import createLogger from 'utils/createLogger';
 
+import { CHECK_AUTH_SUCCESS, CHECK_AUTH_FAILURE } from './Check/constants';
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from './Login/constants';
 
 const logger = createLogger(__filename);
@@ -34,6 +35,14 @@ export default (state = authInitialState, action) => {
     case LOGIN_FAILURE:
       return fp.assign(state, {
         isAuthenticating: false,
+      });
+    case CHECK_AUTH_SUCCESS:
+      return fp.assign(state, {
+        isAuthenticated: true,
+      });
+    case CHECK_AUTH_FAILURE:
+      return fp.assign(state, {
+        isAuthenticated: false,
       });
     default:
       return state;

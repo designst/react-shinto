@@ -58,17 +58,15 @@ module.exports = app => {
     // Create history
     const history = createHistory();
 
-    const initialState = {
+    // Create store with initial state
+    const store = configureStore(history, {
       auth: fp.assign(authInitialState, {
         token,
       }),
       route: fp.assign(routeInitialState, {
         baseUrl,
       }),
-    };
-
-    // Create store with initial state
-    const store = configureStore(history, initialState);
+    });
 
     const sagaInjectors = getSagaInjectors(store);
     const modelInjectors = getModelInjectors(store);
@@ -112,8 +110,8 @@ module.exports = app => {
     };
 
     (async () => {
-      try {
-        if (authRequired) {
+      if (authRequired) {
+        try {
           logger('Authentication is required');
 
           const checkAuthSaga = await import('containers/Auth/Check/saga');
@@ -122,8 +120,12 @@ module.exports = app => {
           store.runSaga(checkAuthSaga.default);
 
           await store.dispatch(checkAuthActions.checkAuthRequestWait());
+        } catch (err) {
+          logger('Authentication failed.');
         }
+      }
 
+      try {
         if (serverSideRenderingEnabled) {
           // Load data from server-side first
           await loadBranchData();

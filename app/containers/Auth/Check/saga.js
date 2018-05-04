@@ -13,15 +13,19 @@ const checkAuthUrl = process.env.SHINTO_AUTH_CHECK_API_ENDPOINT;
 export function* checkAuth() {
   const token = yield select(makeSelectToken());
 
-  const apiService = yield getContext('apiService');
+  if (token) {
+    const apiService = yield getContext('apiService');
 
-  logger('Check Auth: %s', token);
+    logger('Check Auth: %s', token);
 
-  try {
-    const data = yield call(apiService.get, checkAuthUrl, { token });
-    yield put(checkAuthSuccess(data));
-  } catch (err) {
-    yield put(checkAuthFailure(err));
+    try {
+      const data = yield call(apiService.get, checkAuthUrl, { token });
+      yield put(checkAuthSuccess(data));
+    } catch (err) {
+      yield put(checkAuthFailure(err));
+    }
+  } else {
+    yield put(checkAuthFailure());
   }
 }
 
