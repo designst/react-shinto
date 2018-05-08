@@ -16,7 +16,8 @@ const outputPath = path.join(paths.appPublic, dllPlugin.name);
 
 // Source maps are resource heavy and can cause out of memory issue for large source files.
 const shouldUseSourceMap =
-  process.env.GENERATE_SOURCEMAP === 'true' || process.env.SHINTO_GENERATE_SOURCEMAP === 'true';
+  process.env.GENERATE_SOURCEMAP === 'true' ||
+  process.env.SHINTO_WEBPACK_GENERATE_SOURCEMAP === 'true';
 
 export const getEntry = (isDev, index) => {
   // We ship a few polyfills by default:

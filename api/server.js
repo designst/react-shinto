@@ -19,6 +19,13 @@ const server = http.createServer(app);
 
 const debug = new Debug('shinto:api:server');
 
+const secretToken = 'secret';
+
+const apiPath = process.env.SHINTO_PROXY_API_PATH;
+const checkEndpoint = `${apiPath}${process.env.SHINTO_AUTH_CHECK_API_ENDPOINT}`;
+const loginEndpoint = `${apiPath}${process.env.SHINTO_AUTH_LOGIN_API_ENDPOINT}`;
+const logoutEndpoint = `${apiPath}${process.env.SHINTO_AUTH_LOGOUT_API_ENDPOINT}`;
+
 choosePort(host, port)
   .then(appPort => {
     if (appPort == null) {
@@ -33,29 +40,29 @@ choosePort(host, port)
       }
 
       app.use(express.json());
-      app.use(express.urlencoded());
+      app.use(express.urlencoded({ extended: true }));
 
-      app.use('/api/auth/check', (req, res) => {
+      app.use(checkEndpoint, (req, res) => {
         const { token } = req.body;
 
-        debug('/api/auth/check: %s', token);
+        debug('%s: %s', checkEndpoint, token);
 
-        if (token === 'secret') {
-          debug('/api/auth/check: 200');
+        if (token === secretToken) {
+          debug('%s: 200', checkEndpoint);
           return res.status(200).send('Authorized');
         }
 
-        debug('/api/auth/check: 403');
+        debug('%s: 403', checkEndpoint);
         return res.status(401).send('Unauthorized');
       });
 
-      app.use('/api/auth/login', (req, res) => {
+      app.use(loginEndpoint, (req, res) => {
         const { username, password } = req.body;
 
-        debug('/api/auth/login: %s', username);
+        debug('%s: %s', loginEndpoint, username);
 
         if (username === 'john' && password === 'doe') {
-          const token = 'secret';
+          const token = secretToken;
 
           return res
             .cookie(process.env.SHINTO_AUTH_TOKEN_COOKIE, token)
@@ -68,8 +75,8 @@ choosePort(host, port)
         return res.status(401).send('Unauthorized');
       });
 
-      app.use('/api/auth/logout', (req, res) => {
-        debug('/api/auth/logout');
+      app.use(logoutEndpoint, (req, res) => {
+        debug(logoutEndpoint);
 
         return res
           .clearCookie(process.env.SHINTO_AUTH_TOKEN_COOKIE)
@@ -77,9 +84,16 @@ choosePort(host, port)
           .send('Unauthorized');
       });
 
-      app.use('/api', (req, res) => {
-        debug('/api');
-        res.status(200).send('API');
+      app.use(apiPath, (req, res) => {
+        debug(apiPath);
+
+        const authorization = req.get('authorization');
+
+        if (authorization === `${process.env.SHINTO_PROXY_API_AUTH_HEADER} ${secretToken}`) {
+          return res.status(200).send('Authorized');
+        }
+
+        return res.status(403).send('Unauthorized');
       });
 
       if (process.env.SHINTO_OPEN_BROWSER === 'true') {

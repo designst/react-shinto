@@ -14,7 +14,7 @@ const useYarn = fs.existsSync(paths.yarnLockFile);
 
 const ngrok = process.env.ENABLE_TUNNEL ? require('ngrok') : false;
 
-const showWebpackStats = process.env.SHINTO_SHOW_WEBPACK_STATS === 'true';
+const showWebpackStats = process.env.SHINTO_WEBPACK_SHOW_STATS === 'true';
 
 module.exports = (app, urls, port, webpackConfig) => {
   const compiler = createCompiler(webpack, webpackConfig, name, urls, useYarn);

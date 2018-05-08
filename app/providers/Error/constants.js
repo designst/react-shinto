@@ -1,4 +1,6 @@
-export const API_ERROR = '@shinto/providers/error/API_ERROR';
-export const API_AUTH_ERROR = '@shinto/providers/error/API_AUTH_ERROR';
-export const API_SERVER_ERROR = '@shinto/providers/error/API_SERVER_ERROR';
-export const API_NOT_FOUND_ERROR = '@shinto/providers/error/API_NOT_FOUND_ERROR';
+import createConstant from 'utils/createConstant';
+
+export const API_ERROR = createConstant(__filename, 'API_ERROR');
+export const API_AUTH_ERROR = createConstant(__filename, 'API_AUTH_ERROR');
+export const API_SERVER_ERROR = createConstant(__filename, 'API_SERVER_ERROR');
+export const API_NOT_FOUND_ERROR = createConstant(__filename, 'API_NOT_FOUND_ERROR');

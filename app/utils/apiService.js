@@ -62,8 +62,10 @@ class ApiService {
     this.isServerSide = __SERVER__;
   }
 
+  getRequestUrl = requestUrl => path.join(process.env.SHINTO_PROXY_API_PATH, requestUrl);
+
   get = (requestUrl, params) => {
-    requestUrl = path.join('/api', requestUrl);
+    requestUrl = this.getRequestUrl(requestUrl);
 
     if (this.isServerSide) {
       requestUrl = url.resolve(this.baseUrl, requestUrl);
@@ -75,7 +77,7 @@ class ApiService {
   };
 
   post = (requestUrl, data) => {
-    requestUrl = path.join('/api', requestUrl);
+    requestUrl = this.getRequestUrl(requestUrl);
 
     if (this.isServerSide) {
       requestUrl = url.resolve(this.baseUrl, requestUrl);
@@ -87,6 +89,8 @@ class ApiService {
   };
 
   handleError = error => {
+    logger('handleError: %o', error);
+
     this.store.dispatch(error);
 
     throw error;
