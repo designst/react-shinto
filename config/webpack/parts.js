@@ -273,6 +273,8 @@ export const node = {
   tls: 'empty',
   dgram: 'empty',
   child_process: 'empty',
+  __dirname: true,
+  __filename: true,
 };
 
 export const getCommonPlugins = env => [
