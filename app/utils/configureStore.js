@@ -9,6 +9,7 @@ import { routerMiddleware } from 'react-router-redux';
 import createWaitForActionMiddleware from 'redux-wait-for-action';
 import { createLogger as createLoggerMiddleware } from 'redux-logger';
 
+import rootSaga from 'utils/createSaga';
 import createLogger from 'utils/createLogger';
 import createReducer, { rootReducers } from 'utils/createReducer';
 import createApiService, { createApiServicePlugin } from 'utils/apiService';
@@ -101,6 +102,8 @@ export default (history, initialState, configuration = {}) => {
   store.injectedModels = {}; // Model registry
   store.injectedReducers = {}; // Reducer registry
   store.initialStateReducers = initialStateReducers;
+
+  sagaMiddleware.run(rootSaga);
 
   /* istanbul ignore next */
   if (module.hot) {
