@@ -242,6 +242,7 @@
   },
   "nodemonConfig": {
     "watch": [
+      "app/routes/**",
       "server/",
       "server/middlewares/"
     ]

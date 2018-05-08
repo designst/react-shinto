@@ -75,13 +75,15 @@ class ApiService {
   };
 
   post = (requestUrl, data) => {
+    requestUrl = path.join('/api', requestUrl);
+
     if (this.isServerSide) {
       requestUrl = url.resolve(this.baseUrl, requestUrl);
     }
 
     logger('POST: %s', requestUrl);
 
-    return ApiRequest.post(url.resolve('/api', requestUrl), data).catch(this.handleError);
+    return ApiRequest.post(requestUrl, data).catch(this.handleError);
   };
 
   handleError = error => {

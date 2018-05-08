@@ -1,17 +1,17 @@
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from './constants';
+import { AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_FAILURE } from './constants';
 
 export const loginRequest = ({ username, password }) => ({
-  type: LOGIN_REQUEST,
+  type: AUTH_LOGIN_REQUEST,
   username,
   password,
 });
 
 export const loginSuccess = data => ({
-  type: LOGIN_SUCCESS,
+  type: AUTH_LOGIN_SUCCESS,
   data,
 });
 
 export const loginFailure = error => ({
-  type: LOGIN_FAILURE,
+  type: AUTH_LOGIN_FAILURE,
   error,
 });

@@ -1,23 +1,23 @@
 import { ERROR_ACTION, WAIT_FOR_ACTION } from 'redux-wait-for-action';
 
-import { CHECK_AUTH_REQUEST, CHECK_AUTH_SUCCESS, CHECK_AUTH_FAILURE } from './constants';
+import { AUTH_CHECK_REQUEST, AUTH_CHECK_SUCCESS, AUTH_CHECK_FAILURE } from './constants';
 
 export const checkAuthRequest = () => ({
-  type: CHECK_AUTH_REQUEST,
+  type: AUTH_CHECK_REQUEST,
 });
 
 export const checkAuthSuccess = data => ({
-  type: CHECK_AUTH_SUCCESS,
+  type: AUTH_CHECK_SUCCESS,
   data,
 });
 
 export const checkAuthFailure = error => ({
-  type: CHECK_AUTH_FAILURE,
+  type: AUTH_CHECK_FAILURE,
   error,
 });
 
 export const checkAuthRequestWait = () => ({
   ...checkAuthRequest(),
-  [WAIT_FOR_ACTION]: CHECK_AUTH_SUCCESS,
-  [ERROR_ACTION]: CHECK_AUTH_FAILURE,
+  [WAIT_FOR_ACTION]: AUTH_CHECK_SUCCESS,
+  [ERROR_ACTION]: AUTH_CHECK_FAILURE,
 });

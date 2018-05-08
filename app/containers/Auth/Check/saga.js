@@ -2,25 +2,25 @@ import { call, put, select, takeLatest, getContext } from 'redux-saga/effects';
 
 import createLogger from 'utils/createLogger';
 
-import { makeSelectToken } from 'containers/Auth/Check/selectors';
-import { CHECK_AUTH_REQUEST } from 'containers/Auth/Check/constants';
+import { makeSelectToken } from 'containers/Auth/selectors';
+import { AUTH_CHECK_REQUEST } from 'containers/Auth/Check/constants';
 import { checkAuthSuccess, checkAuthFailure } from 'containers/Auth/Check/actions';
 
 const logger = createLogger(__filename);
 
-const checkAuthUrl = process.env.SHINTO_AUTH_CHECK_API_ENDPOINT;
+const authCheckUrl = process.env.SHINTO_AUTH_CHECK_API_ENDPOINT;
 
-export function* checkAuth() {
+export function* authCheck() {
   const token = yield select(makeSelectToken());
 
   if (token) {
     const apiService = yield getContext('apiService');
 
-    logger('Check Auth: %s', token);
+    logger('Check: %s', token);
 
     try {
-      const data = yield call(apiService.get, checkAuthUrl, { token });
-      yield put(checkAuthSuccess(data));
+      const response = yield call(apiService.post, authCheckUrl, { token });
+      yield put(checkAuthSuccess(response.data));
     } catch (err) {
       yield put(checkAuthFailure(err));
     }
@@ -29,6 +29,6 @@ export function* checkAuth() {
   }
 }
 
-export default function* checkAuthData() {
-  yield takeLatest(CHECK_AUTH_REQUEST, checkAuth);
+export default function* authCheckData() {
+  yield takeLatest(AUTH_CHECK_REQUEST, authCheck);
 }
