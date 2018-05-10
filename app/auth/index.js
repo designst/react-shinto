@@ -6,7 +6,7 @@ import Loading from 'components/Loading';
 
 const locationHelper = createLocationHelper({});
 
-const userIsAuthenticatedDefaults = {
+export const userIsAuthenticatedDefaults = {
   wrapperDisplayName: 'UserIsAuthenticated',
   authenticatedSelector: state => state.auth.isAuthenticated,
   authenticatingSelector: state => state.auth.isAuthenticating,
@@ -20,7 +20,7 @@ export const userIsAuthenticatedRedirect = connectedRouterRedirect({
   AuthenticatingComponent: Loading,
 });
 
-const userIsNotAuthenticatedDefaults = {
+export const userIsNotAuthenticatedDefaults = {
   wrapperDisplayName: 'UserIsNotAuthenticated',
   // Want to redirect the user when they are done loading and authenticated
   authenticatedSelector: state =>
@@ -31,6 +31,7 @@ export const userIsNotAuthenticated = connectedAuthWrapper(userIsNotAuthenticate
 
 export const userIsNotAuthenticatedRedirect = connectedRouterRedirect({
   ...userIsNotAuthenticatedDefaults,
-  redirectPath: (state, ownProps) => locationHelper.getRedirectQueryParam(ownProps) || '/',
+  redirectPath: /* istanbul ignore next */ (state, ownProps) =>
+    locationHelper.getRedirectQueryParam(ownProps) || '/',
   allowRedirectBack: false,
 });
