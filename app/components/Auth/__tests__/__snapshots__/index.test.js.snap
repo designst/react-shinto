@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Auth /> renders 1`] = `
+<div
+  className="MuiGrid-container-2 MuiGrid-align-items-xs-center-10 MuiGrid-justify-xs-center-19"
+>
+  <div
+    className="MuiGrid-item-3"
+  >
+    <div
+      className="MuiPaper-root-92 MuiPaper-elevation2-96 MuiPaper-rounded-93 Auth-root-1"
+    />
+  </div>
+</div>
+`;

@@ -232,6 +232,7 @@
       "!app/index.js",
       "!app/theme.js",
       "!app/routes/**",
+      "!app/**/messages.js",
       "!app/utils/registerServiceWorker.js"
     ]
   },
