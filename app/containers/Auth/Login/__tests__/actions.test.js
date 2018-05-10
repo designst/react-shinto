@@ -1,6 +1,6 @@
 import { loginRequest, loginSuccess, loginFailure } from '../actions';
 
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from '../constants';
+import { AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_FAILURE } from '../constants';
 
 describe('Login actions', () => {
   describe('loginRequest', () => {
@@ -9,7 +9,7 @@ describe('Login actions', () => {
       const password = 'passoword';
 
       expect(loginRequest({ username, password })).toEqual({
-        type: LOGIN_REQUEST,
+        type: AUTH_LOGIN_REQUEST,
         username,
         password,
       });
@@ -19,7 +19,7 @@ describe('Login actions', () => {
   describe('loginSuccess', () => {
     it('should return the correct type', () => {
       expect(loginSuccess()).toEqual({
-        type: LOGIN_SUCCESS,
+        type: AUTH_LOGIN_SUCCESS,
       });
     });
   });
@@ -27,7 +27,7 @@ describe('Login actions', () => {
   describe('loginFailure', () => {
     it('should return the correct type', () => {
       expect(loginFailure()).toEqual({
-        type: LOGIN_FAILURE,
+        type: AUTH_LOGIN_FAILURE,
       });
     });
   });

@@ -17,9 +17,11 @@ describe('ApiService', () => {
   let mockAdapter;
 
   beforeEach(() => {
+    process.env.SHINTO_PROXY_API_PATH = '/api';
+
     mockAdapter = new MockAdapter(ApiRequest);
 
-    apiService = createApiService('token');
+    apiService = createApiService('token', '');
     store = configureStore(memoryHistory, {});
 
     apiService.store = store;
@@ -31,11 +33,11 @@ describe('ApiService', () => {
 
   describe('handle success response', () => {
     beforeEach(() => {
-      mockAdapter.onGet('/request').reply(200, {
+      mockAdapter.onGet('/api/request').reply(200, {
         is_success: true,
       });
 
-      mockAdapter.onPost('/request').reply(200, {
+      mockAdapter.onPost('/api/request').reply(200, {
         is_success: true,
       });
     });
@@ -75,11 +77,11 @@ describe('ApiService', () => {
 
   describe('handle failure response', () => {
     beforeEach(() => {
-      mockAdapter.onGet('/request').reply(500, {
+      mockAdapter.onGet('/api/request').reply(500, {
         is_success: false,
       });
 
-      mockAdapter.onPost('/request').reply(500, {
+      mockAdapter.onPost('/api/request').reply(500, {
         is_success: false,
       });
     });
@@ -131,11 +133,11 @@ describe('ApiService', () => {
 
   describe('handle unauthorized response', () => {
     beforeEach(() => {
-      mockAdapter.onGet('/request').reply(403, {
+      mockAdapter.onGet('/api/request').reply(403, {
         is_success: false,
       });
 
-      mockAdapter.onPost('/request').reply(403, {
+      mockAdapter.onPost('/api/request').reply(403, {
         is_success: false,
       });
     });
@@ -187,11 +189,11 @@ describe('ApiService', () => {
 
   describe('handle default failure response', () => {
     beforeEach(() => {
-      mockAdapter.onGet('/request').reply(400, {
+      mockAdapter.onGet('/api/request').reply(400, {
         is_success: false,
       });
 
-      mockAdapter.onPost('/request').reply(400, {
+      mockAdapter.onPost('/api/request').reply(400, {
         is_success: false,
       });
     });
@@ -243,11 +245,11 @@ describe('ApiService', () => {
 
   describe('handle not found response', () => {
     beforeEach(() => {
-      mockAdapter.onGet('/request').reply(404, {
+      mockAdapter.onGet('/api/request').reply(404, {
         is_success: false,
       });
 
-      mockAdapter.onPost('/request').reply(404, {
+      mockAdapter.onPost('/api/request').reply(404, {
         is_success: false,
       });
     });

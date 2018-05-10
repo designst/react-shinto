@@ -4,6 +4,37 @@ exports[`<Home /> renders 1`] = `
 <div
   className="Home"
 >
-  Home
+  <button
+    className="MuiButtonBase-root-16 MuiButton-root-1 MuiButton-raised-6 MuiButton-raisedSecondary-8"
+    disabled={false}
+    margin="normal"
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+    onMouseDown={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    onTouchEnd={[Function]}
+    onTouchMove={[Function]}
+    onTouchStart={[Function]}
+    style={
+      Object {
+        "margin": 10,
+      }
+    }
+    tabIndex="0"
+    type="button"
+  >
+    <span
+      className="MuiButton-label-2"
+    >
+      API
+    </span>
+    <span
+      className="MuiTouchRipple-root-18"
+    />
+  </button>
 </div>
 `;
