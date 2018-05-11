@@ -18,6 +18,7 @@ export function* authApi() {
 
   try {
     const response = yield call(apiService.get, '/');
+    console.log(response.data);
     yield put(authApiSuccess(response.data));
   } catch (err) {
     yield put(authApiFailure(err));

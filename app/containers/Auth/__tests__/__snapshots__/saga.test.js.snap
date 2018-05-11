@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`authApiData should dispatch the authApiFailure action if it requests the data unsuccessfully 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "GET_CONTEXT": "apiService",
+}
+`;
+
+exports[`authApiData should dispatch the authApiSuccess action if it requests the data successfully 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "GET_CONTEXT": "apiService",
+}
+`;
