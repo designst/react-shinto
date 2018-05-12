@@ -28,11 +28,10 @@ export class Home extends React.Component {
           color="secondary"
           variant="raised"
           margin="normal"
-          onClick={() => api()}
+          onClick={/* istanbul ignore next */ () => api()}
         >
           API
         </Button>
-
         {isAuthenticated && (
           <Button
             style={{
@@ -41,7 +40,7 @@ export class Home extends React.Component {
             color="primary"
             variant="raised"
             margin="normal"
-            onClick={() => logout()}
+            onClick={/* istanbul ignore next */ () => logout()}
           >
             Logout
           </Button>

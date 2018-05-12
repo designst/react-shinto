@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`authLogoutData should dispatch the authLogoutFailure action if it requests the data unsuccessfully 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "GET_CONTEXT": "apiService",
+}
+`;
+
+exports[`authLogoutData should dispatch the authLogoutSuccess action if it requests the data successfully 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "GET_CONTEXT": "apiService",
+}
+`;

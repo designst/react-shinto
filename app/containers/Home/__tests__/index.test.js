@@ -8,18 +8,55 @@ import configureStore from 'utils/configureStore';
 import ConnectedHome from '../index';
 
 describe('<Home />', () => {
-  const store = configureStore(browserHistory, {});
-  const tree = renderer
-    .create(
-      <Provider store={store}>
-        <StaticRouter context={{}}>
-          <ConnectedHome />
-        </StaticRouter>
-      </Provider>,
-    )
-    .toJSON();
+  test('renders authenticated', () => {
+    const store = configureStore(browserHistory, {
+      auth: {
+        isAuthenticated: true,
+      },
+    });
 
-  test('renders', () => {
+    const tree = renderer
+      .create(
+        <Provider store={store}>
+          <StaticRouter context={{}}>
+            <ConnectedHome />
+          </StaticRouter>
+        </Provider>,
+      )
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  test('renders not authenticated', () => {
+    const store = configureStore(browserHistory, {});
+
+    const tree = renderer
+      .create(
+        <Provider store={store}>
+          <StaticRouter context={{}}>
+            <ConnectedHome />
+          </StaticRouter>
+        </Provider>,
+      )
+      .toJSON();
+
+    expect(tree).toMatchSnapshot();
+  });
+
+  test('renders not authenticated', () => {
+    const store = configureStore(browserHistory, {});
+
+    const tree = renderer
+      .create(
+        <Provider store={store}>
+          <StaticRouter context={{}}>
+            <ConnectedHome api={jest.fn()} />
+          </StaticRouter>
+        </Provider>,
+      )
+      .toJSON();
+
     expect(tree).toMatchSnapshot();
   });
 });

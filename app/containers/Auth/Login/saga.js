@@ -9,7 +9,7 @@ const logger = createLogger(__filename);
 
 const authLoginUrl = process.env.SHINTO_AUTH_LOGIN_API_ENDPOINT;
 
-export function* authLogin({ username, password }) {
+export function* authLogin(username, password) {
   const apiService = yield getContext('apiService');
 
   logger('Login: %s', username);
