@@ -25,6 +25,7 @@ const apiPath = process.env.SHINTO_PROXY_API_PATH;
 const checkEndpoint = `${apiPath}${process.env.SHINTO_AUTH_CHECK_API_ENDPOINT}`;
 const loginEndpoint = `${apiPath}${process.env.SHINTO_AUTH_LOGIN_API_ENDPOINT}`;
 const logoutEndpoint = `${apiPath}${process.env.SHINTO_AUTH_LOGOUT_API_ENDPOINT}`;
+const registerEndpoint = `${apiPath}${process.env.SHINTO_AUTH_REGISTER_API_ENDPOINT}`;
 
 choosePort(host, port)
   .then(appPort => {
@@ -82,6 +83,27 @@ choosePort(host, port)
           .clearCookie(process.env.SHINTO_AUTH_TOKEN_COOKIE)
           .status(200)
           .send('Unauthorized');
+      });
+
+      app.use(registerEndpoint, (req, res) => {
+        const { email, username, password, passwordConfirm } = req.body;
+
+        debug('%s: %s', registerEndpoint, email);
+
+        const token = secretToken;
+
+        if (password === passwordConfirm) {
+          return res
+            .cookie(process.env.SHINTO_AUTH_TOKEN_COOKIE, token)
+            .status(200)
+            .send({
+              token,
+              email,
+              username,
+            });
+        }
+
+        return res.status(401).send('Unauthorized');
       });
 
       app.use(apiPath, (req, res) => {

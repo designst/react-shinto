@@ -19,7 +19,7 @@ export default [
       {
         path: `${basePath}/register`,
         exact: true,
-        component: LoadableRegister,
+        component: userIsNotAuthenticatedRedirect(LoadableRegister),
       },
     ],
   },

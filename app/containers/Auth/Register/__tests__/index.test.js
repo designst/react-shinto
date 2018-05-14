@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { IntlProvider } from 'react-intl';
 import renderer from 'react-test-renderer';
 import { browserHistory, StaticRouter } from 'react-router-dom';
 
@@ -12,9 +13,11 @@ describe('<Login />', () => {
   const tree = renderer
     .create(
       <Provider store={store}>
-        <StaticRouter context={{}}>
-          <ConnectedRegister />
-        </StaticRouter>
+        <IntlProvider locale="en">
+          <StaticRouter context={{}}>
+            <ConnectedRegister />
+          </StaticRouter>
+        </IntlProvider>
       </Provider>,
     )
     .toJSON();

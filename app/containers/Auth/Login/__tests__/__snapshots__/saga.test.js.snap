@@ -3,13 +3,27 @@
 exports[`authLoginData should dispatch the authLoginFailure action if it requests the data unsuccessfully 1`] = `
 Object {
   "@@redux-saga/IO": true,
-  "GET_CONTEXT": "apiService",
+  "FORK": Object {
+    "args": Array [
+      "@shinto/app/containers/auth/login/constants/AUTH_LOGIN_REQUEST",
+      [Function],
+    ],
+    "context": null,
+    "fn": [Function],
+  },
 }
 `;
 
 exports[`authLoginData should dispatch the authLoginSuccess action if it requests the data successfully 1`] = `
 Object {
   "@@redux-saga/IO": true,
-  "GET_CONTEXT": "apiService",
+  "FORK": Object {
+    "args": Array [
+      "@shinto/app/containers/auth/login/constants/AUTH_LOGIN_REQUEST",
+      [Function],
+    ],
+    "context": null,
+    "fn": [Function],
+  },
 }
 `;

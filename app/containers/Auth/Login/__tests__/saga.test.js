@@ -1,30 +1,32 @@
 import { expectSaga } from 'redux-saga-test-plan';
 
 import authReducer from 'containers/Auth/reducer';
-import { authLogin } from 'containers/Auth/Login/saga';
+import authLoginData from 'containers/Auth/Login/saga';
+import { AUTH_LOGIN_REQUEST } from 'containers/Auth/Login/constants';
 
 describe('authLoginData', () => {
   let authLoginGenerator;
 
   beforeEach(() => {
-    authLoginGenerator = authLogin();
+    authLoginGenerator = authLoginData();
 
     const selectDescriptor = authLoginGenerator.next().value;
     expect(selectDescriptor).toMatchSnapshot();
   });
 
   it('should dispatch the authLoginSuccess action if it requests the data successfully', () => {
+    const token = 'token';
     const username = 'username';
     const password = 'password';
 
-    return expectSaga(authLogin, username, password)
+    return expectSaga(authLoginData)
       .provide({
         getContext: () => ({
           post: url =>
             url === '/auth/login'
               ? {
                   data: {
-                    token: 'token',
+                    token,
                     isAuthenticated: true,
                     isAuthenticating: false,
                   },
@@ -32,9 +34,16 @@ describe('authLoginData', () => {
               : {},
         }),
       })
+      .dispatch({
+        type: AUTH_LOGIN_REQUEST,
+        payload: {
+          username,
+          password,
+        },
+      })
       .withReducer(authReducer)
       .hasFinalState({
-        token: 'token',
+        token,
         isAuthenticated: true,
         isAuthenticating: false,
       })
@@ -45,7 +54,14 @@ describe('authLoginData', () => {
     const username = 'username';
     const password = 'password';
 
-    return expectSaga(authLogin, username, password)
+    return expectSaga(authLoginData)
+      .dispatch({
+        type: AUTH_LOGIN_REQUEST,
+        payload: {
+          username,
+          password,
+        },
+      })
       .withReducer(authReducer)
       .run();
   });

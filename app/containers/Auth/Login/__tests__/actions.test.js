@@ -5,13 +5,14 @@ import { AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_FAILURE } from '../c
 describe('Login actions', () => {
   describe('loginRequest', () => {
     it('should return the correct type', () => {
-      const username = 'username';
-      const password = 'passoword';
+      const payload = {
+        username: 'username',
+        password: 'password',
+      };
 
-      expect(loginRequest({ username, password })).toEqual({
+      expect(loginRequest(payload)).toEqual({
         type: AUTH_LOGIN_REQUEST,
-        username,
-        password,
+        payload,
       });
     });
   });

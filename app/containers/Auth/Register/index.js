@@ -1,9 +1,16 @@
-import React from 'react';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
 
-class Register extends React.Component {
-  render() {
-    return <div>Register</div>;
-  }
-}
+import Register from 'components/Auth/Register';
 
-export default Register;
+import { registerRequest } from './actions';
+
+const mapStateToProps = () => ({});
+
+const mapDispatchToProps = {
+  onSubmit: registerRequest,
+};
+
+const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default compose(connector)(Register);

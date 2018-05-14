@@ -3,6 +3,7 @@ import { all, call, put, fork, takeLatest, getContext } from 'redux-saga/effects
 import authCheckSaga from 'containers/Auth/Check/saga';
 import authLoginSaga from 'containers/Auth/Login/saga';
 import authLogoutSaga from 'containers/Auth/Logout/saga';
+import authRegisterSaga from 'containers/Auth/Register/saga';
 
 import createLogger from 'utils/createLogger';
 
@@ -30,5 +31,11 @@ export function* authApiData() {
 }
 
 export default function* authData() {
-  yield all([fork(authApiData), fork(authCheckSaga), fork(authLoginSaga), fork(authLogoutSaga)]);
+  yield all([
+    fork(authApiData),
+    fork(authCheckSaga),
+    fork(authLoginSaga),
+    fork(authLogoutSaga),
+    fork(authRegisterSaga),
+  ]);
 }

@@ -24,6 +24,12 @@ import {
   AUTH_LOGOUT_FAILURE,
 } from 'containers/Auth/Logout/constants';
 
+import {
+  AUTH_REGISTER_REQUEST,
+  AUTH_REGISTER_SUCCESS,
+  AUTH_REGISTER_FAILURE,
+} from 'containers/Auth/Register/constants';
+
 const logger = createLogger(__filename);
 
 export const authInitialState = {
@@ -73,6 +79,12 @@ export default (state = authInitialState, action) => {
       return fp.assign(state, {
         isAuthenticated: false,
       });
+    case AUTH_REGISTER_REQUEST:
+      return state;
+    case AUTH_REGISTER_SUCCESS:
+      return state;
+    case AUTH_REGISTER_FAILURE:
+      return state;
     default:
       return state;
   }

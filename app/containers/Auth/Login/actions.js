@@ -1,9 +1,8 @@
 import { AUTH_LOGIN_REQUEST, AUTH_LOGIN_SUCCESS, AUTH_LOGIN_FAILURE } from './constants';
 
-export const loginRequest = ({ username, password }) => ({
+export const loginRequest = payload => ({
   type: AUTH_LOGIN_REQUEST,
-  username,
-  password,
+  payload,
 });
 
 export const loginSuccess = data => ({
