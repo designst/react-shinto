@@ -4,7 +4,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
+
+import Button from 'material-ui/Button';
 
 import RegisterForm from './form';
 import messages from './messages';
@@ -14,6 +17,10 @@ const Register = ({ onSubmit }) => (
     <FormattedMessage {...messages.header} />
 
     <RegisterForm onSubmit={onSubmit} />
+
+    <Link to="/auth/login">
+      <Button type="link">Login</Button>
+    </Link>
   </div>
 );
 

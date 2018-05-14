@@ -131,5 +131,35 @@ exports[`<PasswordReset /> renders 1`] = `
       />
     </button>
   </form>
+  <a
+    href="/auth/login"
+    onClick={[Function]}
+  >
+    <button
+      className="MuiButtonBase-root-47 MuiButton-root-32"
+      disabled={false}
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex="0"
+      type="link"
+    >
+      <span
+        className="MuiButton-label-33"
+      >
+        Login
+      </span>
+      <span
+        className="MuiTouchRipple-root-49"
+      />
+    </button>
+  </a>
 </div>
 `;
