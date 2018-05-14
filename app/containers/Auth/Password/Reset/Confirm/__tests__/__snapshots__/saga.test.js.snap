@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`authPasswordResetConfirmData should dispatch the authPasswordResetConfirmFailure action if it requests the data unsuccessfully 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "FORK": Object {
+    "args": Array [
+      "@shinto/app/containers/auth/password/reset/confirm/constants/AUTH_PASSWORD_RESET_CONFIRM_REQUEST",
+      [Function],
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`authPasswordResetConfirmData should dispatch the authPasswordResetConfirmSuccess action if it requests the data successfully 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "FORK": Object {
+    "args": Array [
+      "@shinto/app/containers/auth/password/reset/confirm/constants/AUTH_PASSWORD_RESET_CONFIRM_REQUEST",
+      [Function],
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;

@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`authPasswordChangeData should dispatch the authPasswordChangeFailure action if it requests the data unsuccessfully 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "FORK": Object {
+    "args": Array [
+      "@shinto/app/containers/auth/password/change/constants/AUTH_PASSWORD_CHANGE_REQUEST",
+      [Function],
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
+
+exports[`authPasswordChangeData should dispatch the authPasswordChangeSuccess action if it requests the data successfully 1`] = `
+Object {
+  "@@redux-saga/IO": true,
+  "FORK": Object {
+    "args": Array [
+      "@shinto/app/containers/auth/password/change/constants/AUTH_PASSWORD_CHANGE_REQUEST",
+      [Function],
+    ],
+    "context": null,
+    "fn": [Function],
+  },
+}
+`;
