@@ -16,6 +16,12 @@ import {
   AUTH_LOGOUT_FAILURE,
 } from 'containers/Auth/Logout/constants';
 
+import {
+  AUTH_REGISTER_REQUEST,
+  AUTH_REGISTER_SUCCESS,
+  AUTH_REGISTER_FAILURE,
+} from 'containers/Auth/Register/constants';
+
 import authReducer, { authInitialState } from '../reducer';
 
 describe('authReducer', () => {
@@ -110,6 +116,30 @@ describe('authReducer', () => {
     expect(
       authReducer(undefined, {
         type: AUTH_CHECK_FAILURE,
+      }),
+    ).toEqual(authInitialState);
+  });
+
+  it('should handle AUTH_REGISTER_REQUEST', () => {
+    expect(
+      authReducer(undefined, {
+        type: AUTH_REGISTER_REQUEST,
+      }),
+    ).toEqual(authInitialState);
+  });
+
+  it('should handle AUTH_REGISTER_SUCCESS', () => {
+    expect(
+      authReducer(undefined, {
+        type: AUTH_REGISTER_SUCCESS,
+      }),
+    ).toEqual(authInitialState);
+  });
+
+  it('should handle AUTH_REGISTER_FAILURE', () => {
+    expect(
+      authReducer(undefined, {
+        type: AUTH_REGISTER_FAILURE,
       }),
     ).toEqual(authInitialState);
   });
