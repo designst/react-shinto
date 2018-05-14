@@ -20,12 +20,26 @@ const server = http.createServer(app);
 const debug = new Debug('shinto:api:server');
 
 const secretToken = 'secret';
+const confirmToken = 'confirm';
 
 const apiPath = process.env.SHINTO_PROXY_API_PATH;
+
 const checkEndpoint = `${apiPath}${process.env.SHINTO_AUTH_CHECK_API_ENDPOINT}`;
+
 const loginEndpoint = `${apiPath}${process.env.SHINTO_AUTH_LOGIN_API_ENDPOINT}`;
 const logoutEndpoint = `${apiPath}${process.env.SHINTO_AUTH_LOGOUT_API_ENDPOINT}`;
+
 const registerEndpoint = `${apiPath}${process.env.SHINTO_AUTH_REGISTER_API_ENDPOINT}`;
+const registerConfirmEndpoint = `${apiPath}${
+  process.env.SHINTO_AUTH_REGISTER_CONFIRM_API_ENDPOINT
+}`;
+
+const passwordChangeEndpoint = `${apiPath}${process.env.SHINTO_AUTH_PASSWORD_CHANGE_API_ENDPOINT}`;
+
+const passwordResetEndpoint = `${apiPath}${process.env.SHINTO_AUTH_PASSWORD_RESET_API_ENDPOINT}`;
+const passwordResetConfirmEndpoint = `${apiPath}${
+  process.env.SHINTO_AUTH_PASSWORD_RESET_CONFIRM_API_ENDPOINT
+}`;
 
 choosePort(host, port)
   .then(appPort => {
@@ -43,6 +57,7 @@ choosePort(host, port)
       app.use(express.json());
       app.use(express.urlencoded({ extended: true }));
 
+      // Check Endpoint
       app.use(checkEndpoint, (req, res) => {
         const { token } = req.body;
 
@@ -57,6 +72,7 @@ choosePort(host, port)
         return res.status(401).send('Unauthorized');
       });
 
+      // Login Endpoint
       app.use(loginEndpoint, (req, res) => {
         const { username, password } = req.body;
 
@@ -76,6 +92,7 @@ choosePort(host, port)
         return res.status(401).send('Unauthorized');
       });
 
+      // Logout Endpoint
       app.use(logoutEndpoint, (req, res) => {
         debug(logoutEndpoint);
 
@@ -85,6 +102,7 @@ choosePort(host, port)
           .send('Unauthorized');
       });
 
+      // Register Endpoint
       app.use(registerEndpoint, (req, res) => {
         const { email, username, password, passwordConfirm } = req.body;
 
@@ -106,6 +124,61 @@ choosePort(host, port)
         return res.status(401).send('Unauthorized');
       });
 
+      // Register Confirm Endpoint
+      app.use(registerConfirmEndpoint, (req, res) => {
+        const { token } = req.body;
+
+        debug('%s: %s', registerConfirmEndpoint, token);
+
+        if (token === confirmToken) {
+          return res.status(200).send({
+            token: secretToken,
+          });
+        }
+
+        return res.status(401).send('Unauthorized');
+      });
+
+      // Password Change Endpoint
+      app.use(passwordChangeEndpoint, (req, res) => {
+        const { oldPassword, newPassword, newPasswordConfirm } = req.body;
+
+        debug(passwordChangeEndpoint);
+
+        if (oldPassword && newPassword === newPasswordConfirm) {
+          return res.status(200).send('Authorized');
+        }
+
+        return res.status(401).send('Unauthorized');
+      });
+
+      // Password Reset Endpoint
+      app.use(passwordResetEndpoint, (req, res) => {
+        const { email, username } = req.body;
+
+        debug('%s: %s %s', passwordResetEndpoint, email, username);
+
+        if (email || username) {
+          return res.status(200).send('Authorized');
+        }
+
+        return res.status(401).send('Unauthorized');
+      });
+
+      // Password Reset Confirm Endpoint
+      app.use(passwordResetConfirmEndpoint, (req, res) => {
+        const { token } = req.body;
+
+        debug('%s: %s', passwordResetConfirmEndpoint, token);
+
+        if (token === confirmToken) {
+          return res.status(200).send('Authorized');
+        }
+
+        return res.status(401).send('Unauthorized');
+      });
+
+      // API Endpoint
       app.use(apiPath, (req, res) => {
         debug(apiPath);
 
