@@ -1,8 +1,11 @@
 import Auth from 'containers/Auth';
 import LoadableLogin from 'containers/Auth/Login/loadable';
 import LoadableRegister from 'containers/Auth/Register/loadable';
+import LoadablePasswordReset from 'containers/Auth/Password/Reset/loadable';
+import LoadablePasswordChange from 'containers/Auth/Password/Change/loadable';
+import LoadablePasswordResetConfirm from 'containers/Auth/Password/Reset/Confirm/loadable';
 
-import { userIsNotAuthenticatedRedirect } from '../auth';
+import { userIsAuthenticatedRedirect, userIsNotAuthenticatedRedirect } from '../auth';
 
 const basePath = '/auth';
 
@@ -20,6 +23,21 @@ export default [
         path: `${basePath}/register`,
         exact: true,
         component: userIsNotAuthenticatedRedirect(LoadableRegister),
+      },
+      {
+        path: `${basePath}/password/change`,
+        exact: true,
+        component: userIsAuthenticatedRedirect(LoadablePasswordChange),
+      },
+      {
+        path: `${basePath}/password/reset`,
+        exact: true,
+        component: userIsNotAuthenticatedRedirect(LoadablePasswordReset),
+      },
+      {
+        path: `${basePath}/password/reset/confirm/:token`,
+        exact: true,
+        component: userIsNotAuthenticatedRedirect(LoadablePasswordResetConfirm),
       },
     ],
   },
