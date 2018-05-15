@@ -11,7 +11,7 @@ import styles from './styles';
 
 const Auth = ({ route, classes }) => (
   <Grid container justify="center" alignItems="center">
-    <Grid item>
+    <Grid item xs={12} sm={6} md={4} lg={3}>
       <Paper className={classes.root}>{renderRoutes(route.routes)}</Paper>
     </Grid>
   </Grid>

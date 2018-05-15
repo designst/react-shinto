@@ -23,6 +23,59 @@ exports[`<Register /> renders 1`] = `
         data-shrink={false}
         htmlFor={undefined}
       >
+        E-Mail
+        <span
+          className="MuiFormLabel-asterisk-14"
+        >
+           *
+        </span>
+      </label>
+      <div
+        className="MuiInput-root-15 MuiInput-fullWidth-22 MuiInput-formControl-16 MuiInput-underline-19"
+      >
+        <input
+          aria-invalid={false}
+          aria-required={true}
+          autoComplete={undefined}
+          autoFocus={undefined}
+          className="MuiInput-input-23 MuiInput-inputType-26"
+          defaultValue={undefined}
+          disabled={false}
+          id={undefined}
+          name="email"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyDown={undefined}
+          onKeyUp={undefined}
+          placeholder="E-Mail"
+          readOnly={undefined}
+          required={true}
+          rows={undefined}
+          type="email"
+          value=""
+        />
+      </div>
+      <p
+        className="MuiFormHelperText-root-28"
+        id={undefined}
+      >
+        Please enter your email
+      </p>
+    </div>
+    <div
+      aria-describedby={undefined}
+      className="MuiFormControl-root-1 MuiFormControl-marginNormal-2 MuiFormControl-fullWidth-4"
+      onBlur={[Function]}
+      onDragStart={[Function]}
+      onDrop={[Function]}
+      onFocus={[Function]}
+    >
+      <label
+        className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
+        data-shrink={false}
+        htmlFor={undefined}
+      >
         Username
       </label>
       <div
@@ -71,62 +124,19 @@ exports[`<Register /> renders 1`] = `
         data-shrink={false}
         htmlFor={undefined}
       >
-        E-Mail
-      </label>
-      <div
-        className="MuiInput-root-15 MuiInput-fullWidth-22 MuiInput-formControl-16 MuiInput-underline-19"
-      >
-        <input
-          aria-invalid={false}
-          aria-required={false}
-          autoComplete={undefined}
-          autoFocus={undefined}
-          className="MuiInput-input-23 MuiInput-inputType-26"
-          defaultValue={undefined}
-          disabled={false}
-          id={undefined}
-          name="email"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onFocus={[Function]}
-          onKeyDown={undefined}
-          onKeyUp={undefined}
-          placeholder="E-Mail"
-          readOnly={undefined}
-          required={undefined}
-          rows={undefined}
-          type="email"
-          value=""
-        />
-      </div>
-      <p
-        className="MuiFormHelperText-root-28"
-        id={undefined}
-      >
-        Please enter your email
-      </p>
-    </div>
-    <div
-      aria-describedby={undefined}
-      className="MuiFormControl-root-1 MuiFormControl-marginNormal-2 MuiFormControl-fullWidth-4"
-      onBlur={[Function]}
-      onDragStart={[Function]}
-      onDrop={[Function]}
-      onFocus={[Function]}
-    >
-      <label
-        className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
-        data-shrink={false}
-        htmlFor={undefined}
-      >
         Password
+        <span
+          className="MuiFormLabel-asterisk-14"
+        >
+           *
+        </span>
       </label>
       <div
         className="MuiInput-root-15 MuiInput-fullWidth-22 MuiInput-formControl-16 MuiInput-underline-19"
       >
         <input
           aria-invalid={false}
-          aria-required={false}
+          aria-required={true}
           autoComplete={undefined}
           autoFocus={undefined}
           className="MuiInput-input-23 MuiInput-inputType-26"
@@ -141,7 +151,7 @@ exports[`<Register /> renders 1`] = `
           onKeyUp={undefined}
           placeholder="Password"
           readOnly={undefined}
-          required={undefined}
+          required={true}
           rows={undefined}
           type="password"
           value=""
@@ -168,13 +178,18 @@ exports[`<Register /> renders 1`] = `
         htmlFor={undefined}
       >
         Confirm Password
+        <span
+          className="MuiFormLabel-asterisk-14"
+        >
+           *
+        </span>
       </label>
       <div
         className="MuiInput-root-15 MuiInput-fullWidth-22 MuiInput-formControl-16 MuiInput-underline-19"
       >
         <input
           aria-invalid={false}
-          aria-required={false}
+          aria-required={true}
           autoComplete={undefined}
           autoFocus={undefined}
           className="MuiInput-input-23 MuiInput-inputType-26"
@@ -189,7 +204,7 @@ exports[`<Register /> renders 1`] = `
           onKeyUp={undefined}
           placeholder="Password"
           readOnly={undefined}
-          required={undefined}
+          required={true}
           rows={undefined}
           type="password"
           value=""

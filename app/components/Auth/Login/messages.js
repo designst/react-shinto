@@ -15,6 +15,20 @@ export default defineMessages({
     id: 'app.components.Login.action',
     defaultMessage: 'Login',
   },
+  email: {
+    label: {
+      id: 'app.components.Login.email.label',
+      defaultMessage: 'E-Mail',
+    },
+    placeholder: {
+      id: 'app.components.Login.email.placeholder',
+      defaultMessage: 'E-Mail',
+    },
+    help: {
+      id: 'app.components.Login.email.help',
+      defaultMessage: 'Please enter your email',
+    },
+  },
   username: {
     label: {
       id: 'app.components.Login.username.label',

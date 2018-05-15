@@ -12,6 +12,17 @@ const LoginForm = ({ intl, handleSubmit }) => (
   <form onSubmit={handleSubmit}>
     <Field
       fullWidth
+      name="email"
+      type="email"
+      label={intl.formatMessage(messages.email.label)}
+      margin="normal"
+      component={TextField}
+      helperText={intl.formatMessage(messages.email.help)}
+      placeholder={intl.formatMessage(messages.email.placeholder)}
+    />
+
+    <Field
+      fullWidth
       name="username"
       label={intl.formatMessage(messages.username.label)}
       margin="normal"

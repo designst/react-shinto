@@ -11,16 +11,7 @@ import messages from './messages';
 const RegisterForm = ({ intl, handleSubmit }) => (
   <form onSubmit={handleSubmit}>
     <Field
-      fullWidth
-      name="username"
-      label={intl.formatMessage(messages.username.label)}
-      margin="normal"
-      component={TextField}
-      helperText={intl.formatMessage(messages.username.help)}
-      placeholder={intl.formatMessage(messages.username.placeholder)}
-    />
-
-    <Field
+      required
       fullWidth
       name="email"
       type="email"
@@ -33,6 +24,17 @@ const RegisterForm = ({ intl, handleSubmit }) => (
 
     <Field
       fullWidth
+      name="username"
+      label={intl.formatMessage(messages.username.label)}
+      margin="normal"
+      component={TextField}
+      helperText={intl.formatMessage(messages.username.help)}
+      placeholder={intl.formatMessage(messages.username.placeholder)}
+    />
+
+    <Field
+      required
+      fullWidth
       name="password"
       type="password"
       label={intl.formatMessage(messages.password.label)}
@@ -43,6 +45,7 @@ const RegisterForm = ({ intl, handleSubmit }) => (
     />
 
     <Field
+      required
       fullWidth
       name="passwordConfirm"
       type="password"
