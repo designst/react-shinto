@@ -6,6 +6,17 @@ import Loading from 'components/Loading';
 
 const locationHelper = createLocationHelper({});
 
+const userIsNotConfirmedDefaults = {
+  wrapperDisplayName: 'UserIsNotConfirmed',
+  authenticatedSelector: state => state.auth.isConfirmed === false,
+};
+
+export const userIsNotConfirmedRedirect = connectedRouterRedirect({
+  ...userIsNotConfirmedDefaults,
+  redirectPath: '/auth/login',
+  allowRedirectBack: false,
+});
+
 export const userIsAuthenticatedDefaults = {
   wrapperDisplayName: 'UserIsAuthenticated',
   authenticatedSelector: state => state.auth.isAuthenticated,

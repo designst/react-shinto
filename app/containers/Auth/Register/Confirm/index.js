@@ -6,9 +6,7 @@ import RegisterConfirm from 'components/Auth/Register/Confirm';
 import { registerConfirmRequest } from './actions';
 
 const mapStateToProps = (state, { match }) => ({
-  initialValues: {
-    token: match.params.token,
-  },
+  token: match.params.token,
 });
 
 const mapDispatchToProps = {

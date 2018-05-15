@@ -30,10 +30,18 @@ import {
   AUTH_REGISTER_FAILURE,
 } from 'containers/Auth/Register/constants';
 
+import {
+  AUTH_REGISTER_CONFIRM_REQUEST,
+  AUTH_REGISTER_CONFIRM_SUCCESS,
+  AUTH_REGISTER_CONFIRM_FAILURE,
+} from 'containers/Auth/Register/Confirm/constants';
+
 const logger = createLogger(__filename);
 
 export const authInitialState = {
   token: null,
+  isConfirmed: false,
+  isConfirming: false,
   isAuthenticated: false,
   isAuthenticating: false,
 };
@@ -85,6 +93,22 @@ export default (state = authInitialState, action) => {
       return state;
     case AUTH_REGISTER_FAILURE:
       return state;
+
+    case AUTH_REGISTER_CONFIRM_REQUEST:
+      return fp.assign(state, {
+        isConfirming: true,
+      });
+    case AUTH_REGISTER_CONFIRM_SUCCESS:
+      return fp.assign(state, {
+        isConfirmed: true,
+        isConfirming: false,
+      });
+    case AUTH_REGISTER_CONFIRM_FAILURE:
+      return fp.assign(state, {
+        isConfirmed: false,
+        isConfirming: false,
+      });
+
     default:
       return state;
   }

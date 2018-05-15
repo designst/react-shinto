@@ -41,6 +41,9 @@ const passwordResetConfirmEndpoint = `${apiPath}${
   process.env.SHINTO_AUTH_PASSWORD_RESET_CONFIRM_API_ENDPOINT
 }`;
 
+const sendAuthorized = res => res.status(200).send('Authorized');
+const sendUnauthorized = res => res.status(401).send('Unauthorized');
+
 choosePort(host, port)
   .then(appPort => {
     if (appPort == null) {
@@ -65,11 +68,11 @@ choosePort(host, port)
 
         if (token === secretToken) {
           debug('%s: 200', checkEndpoint);
-          return res.status(200).send('Authorized');
+          return sendAuthorized(res);
         }
 
         debug('%s: 403', checkEndpoint);
-        return res.status(401).send('Unauthorized');
+        return sendUnauthorized(res);
       });
 
       // Login Endpoint
@@ -89,17 +92,14 @@ choosePort(host, port)
             });
         }
 
-        return res.status(401).send('Unauthorized');
+        return sendUnauthorized(res);
       });
 
       // Logout Endpoint
       app.use(logoutEndpoint, (req, res) => {
         debug(logoutEndpoint);
 
-        return res
-          .clearCookie(process.env.SHINTO_AUTH_TOKEN_COOKIE)
-          .status(200)
-          .send('Unauthorized');
+        return sendUnauthorized(res).clearCookie(process.env.SHINTO_AUTH_TOKEN_COOKIE);
       });
 
       // Register Confirm Endpoint
@@ -109,32 +109,23 @@ choosePort(host, port)
         debug('%s: %s', registerConfirmEndpoint, token);
 
         if (token === confirmToken) {
-          return res.status(200).send('Authorized');
+          return sendAuthorized(res);
         }
 
-        return res.status(401).send('Unauthorized');
+        return sendUnauthorized(res);
       });
 
       // Register Endpoint
       app.use(registerEndpoint, (req, res) => {
-        const { email, username, password, passwordConfirm } = req.body;
+        const { email, password, passwordConfirm } = req.body;
 
         debug('%s: %s', registerEndpoint, email);
 
-        const token = secretToken;
-
         if (password === passwordConfirm) {
-          return res
-            .cookie(process.env.SHINTO_AUTH_TOKEN_COOKIE, token)
-            .status(200)
-            .send({
-              token,
-              email,
-              username,
-            });
+          return sendAuthorized(res);
         }
 
-        return res.status(401).send('Unauthorized');
+        return sendUnauthorized(res);
       });
 
       // Password Change Endpoint
@@ -144,10 +135,10 @@ choosePort(host, port)
         debug(passwordChangeEndpoint);
 
         if (oldPassword && newPassword === newPasswordConfirm) {
-          return res.status(200).send('Authorized');
+          return sendAuthorized(res);
         }
 
-        return res.status(401).send('Unauthorized');
+        return sendUnauthorized(res);
       });
 
       // Password Reset Confirm Endpoint
@@ -157,10 +148,10 @@ choosePort(host, port)
         debug('%s: %s', passwordResetConfirmEndpoint, token);
 
         if (token === confirmToken) {
-          return res.status(200).send('Authorized');
+          return sendAuthorized(res);
         }
 
-        return res.status(401).send('Unauthorized');
+        return sendUnauthorized(res);
       });
 
       // Password Reset Endpoint
@@ -170,10 +161,10 @@ choosePort(host, port)
         debug('%s: %s %s', passwordResetEndpoint, email, username);
 
         if (email || username) {
-          return res.status(200).send('Authorized');
+          return sendAuthorized(res);
         }
 
-        return res.status(401).send('Unauthorized');
+        return sendUnauthorized(res);
       });
 
       // API Endpoint
@@ -183,10 +174,10 @@ choosePort(host, port)
         const authorization = req.get('authorization');
 
         if (authorization === `${process.env.SHINTO_PROXY_API_AUTH_HEADER} ${secretToken}`) {
-          return res.status(200).send('Authorized');
+          return sendAuthorized(res);
         }
 
-        return res.status(403).send('Unauthorized');
+        return sendUnauthorized(res);
       });
 
       if (process.env.SHINTO_OPEN_BROWSER === 'true') {
