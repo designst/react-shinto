@@ -8,7 +8,7 @@ import configureStore from 'utils/configureStore';
 
 import LoadableRegister from '../loadable';
 
-describe('<LoadableHome />', () => {
+describe('<LoadableRegister />', () => {
   const store = configureStore(browserHistory, {});
   const tree = renderer
     .create(

@@ -1,21 +1,29 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { IntlProvider } from 'react-intl';
 import renderer from 'react-test-renderer';
+import { IntlProvider } from 'react-intl';
 import { browserHistory, StaticRouter } from 'react-router-dom';
 
 import configureStore from 'utils/configureStore';
 
-import ConnectedRegister from '../index';
+import LoadableRegisterConfirm from '../loadable';
 
-describe('<Register />', () => {
+describe('<LoadableRegisterConfirm />', () => {
+  const mockData = {
+    match: {
+      params: {
+        token: 'token',
+      },
+    },
+  };
+
   const store = configureStore(browserHistory, {});
   const tree = renderer
     .create(
       <Provider store={store}>
         <IntlProvider locale="en">
           <StaticRouter context={{}}>
-            <ConnectedRegister />
+            <LoadableRegisterConfirm {...mockData} />
           </StaticRouter>
         </IntlProvider>
       </Provider>,

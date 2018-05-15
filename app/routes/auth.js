@@ -3,6 +3,7 @@ import LoadableLogin from 'containers/Auth/Login/loadable';
 import LoadableRegister from 'containers/Auth/Register/loadable';
 import LoadablePasswordReset from 'containers/Auth/Password/Reset/loadable';
 import LoadablePasswordChange from 'containers/Auth/Password/Change/loadable';
+import LoadableRegisterConfirm from 'containers/Auth/Register/Confirm/loadable';
 import LoadablePasswordResetConfirm from 'containers/Auth/Password/Reset/Confirm/loadable';
 
 import { userIsAuthenticatedRedirect, userIsNotAuthenticatedRedirect } from '../auth';
@@ -23,6 +24,11 @@ export default [
         path: `${basePath}/register`,
         exact: true,
         component: userIsNotAuthenticatedRedirect(LoadableRegister),
+      },
+      {
+        path: `${basePath}/register/confirm/:token`,
+        exact: true,
+        component: userIsNotAuthenticatedRedirect(LoadableRegisterConfirm),
       },
       {
         path: `${basePath}/password/change`,

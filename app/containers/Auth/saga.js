@@ -4,8 +4,9 @@ import authCheckSaga from 'containers/Auth/Check/saga';
 import authLoginSaga from 'containers/Auth/Login/saga';
 import authLogoutSaga from 'containers/Auth/Logout/saga';
 import authRegisterSaga from 'containers/Auth/Register/saga';
-import authPasswordChangeSaga from 'containers/Auth/Password/Change/saga';
 import authPasswordResetSaga from 'containers/Auth/Password/Reset/saga';
+import authPasswordChangeSaga from 'containers/Auth/Password/Change/saga';
+import authRegisterConfirmSaga from 'containers/Auth/Register/Confirm/saga';
 import authPasswordResetConfirmSaga from 'containers/Auth/Password/Reset/Confirm/saga';
 
 import createLogger from 'utils/createLogger';
@@ -39,8 +40,9 @@ export default function* authData() {
     fork(authLoginSaga),
     fork(authLogoutSaga),
     fork(authRegisterSaga),
-    fork(authPasswordChangeSaga),
     fork(authPasswordResetSaga),
+    fork(authPasswordChangeSaga),
+    fork(authRegisterConfirmSaga),
     fork(authPasswordResetConfirmSaga),
   ]);
 }

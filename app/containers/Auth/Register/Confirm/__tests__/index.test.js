@@ -6,16 +6,24 @@ import { browserHistory, StaticRouter } from 'react-router-dom';
 
 import configureStore from 'utils/configureStore';
 
-import ConnectedRegister from '../index';
+import ConnectedRegisterConfirm from '../index';
 
-describe('<Register />', () => {
+describe('<RegisterConfirm />', () => {
+  const mockData = {
+    match: {
+      params: {
+        token: 'token',
+      },
+    },
+  };
+
   const store = configureStore(browserHistory, {});
   const tree = renderer
     .create(
       <Provider store={store}>
         <IntlProvider locale="en">
           <StaticRouter context={{}}>
-            <ConnectedRegister />
+            <ConnectedRegisterConfirm {...mockData} />
           </StaticRouter>
         </IntlProvider>
       </Provider>,

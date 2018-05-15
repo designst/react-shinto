@@ -14,11 +14,11 @@ const logger = createLogger(__filename);
 const authPasswordResetUrl = process.env.SHINTO_AUTH_PASSWORD_RESET_API_ENDPOINT;
 
 export function* authPasswordReset(action) {
-  const { email, username } = action;
+  const { email, username } = action.payload;
 
   const apiService = yield getContext('apiService');
 
-  logger('Password Reset');
+  logger('Password Reset: %s %s', email, username);
 
   try {
     const response = yield call(apiService.post, authPasswordResetUrl, {

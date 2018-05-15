@@ -14,7 +14,7 @@ const logger = createLogger(__filename);
 const authPasswordResetConfirmUrl = process.env.SHINTO_AUTH_PASSWORD_RESET_CONFIRM_API_ENDPOINT;
 
 export function* authPasswordResetConfirm(action) {
-  const { token } = action;
+  const { token } = action.payload;
 
   const apiService = yield getContext('apiService');
 

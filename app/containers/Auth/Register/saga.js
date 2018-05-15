@@ -10,11 +10,11 @@ const logger = createLogger(__filename);
 const authRegisterUrl = process.env.SHINTO_AUTH_REGISTER_API_ENDPOINT;
 
 export function* authRegister(action) {
-  const { email, username, password, passwordConfirm } = action;
+  const { email, username, password, passwordConfirm } = action.payload;
 
   const apiService = yield getContext('apiService');
 
-  logger('Register: %s', email);
+  logger('Register: %s %s', email, username);
 
   try {
     const response = yield call(apiService.post, authRegisterUrl, {

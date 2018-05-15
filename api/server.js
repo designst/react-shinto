@@ -102,6 +102,19 @@ choosePort(host, port)
           .send('Unauthorized');
       });
 
+      // Register Confirm Endpoint
+      app.use(registerConfirmEndpoint, (req, res) => {
+        const { token } = req.body;
+
+        debug('%s: %s', registerConfirmEndpoint, token);
+
+        if (token === confirmToken) {
+          return res.status(200).send('Authorized');
+        }
+
+        return res.status(401).send('Unauthorized');
+      });
+
       // Register Endpoint
       app.use(registerEndpoint, (req, res) => {
         const { email, username, password, passwordConfirm } = req.body;
@@ -124,21 +137,6 @@ choosePort(host, port)
         return res.status(401).send('Unauthorized');
       });
 
-      // Register Confirm Endpoint
-      app.use(registerConfirmEndpoint, (req, res) => {
-        const { token } = req.body;
-
-        debug('%s: %s', registerConfirmEndpoint, token);
-
-        if (token === confirmToken) {
-          return res.status(200).send({
-            token: secretToken,
-          });
-        }
-
-        return res.status(401).send('Unauthorized');
-      });
-
       // Password Change Endpoint
       app.use(passwordChangeEndpoint, (req, res) => {
         const { oldPassword, newPassword, newPasswordConfirm } = req.body;
@@ -152,19 +150,6 @@ choosePort(host, port)
         return res.status(401).send('Unauthorized');
       });
 
-      // Password Reset Endpoint
-      app.use(passwordResetEndpoint, (req, res) => {
-        const { email, username } = req.body;
-
-        debug('%s: %s %s', passwordResetEndpoint, email, username);
-
-        if (email || username) {
-          return res.status(200).send('Authorized');
-        }
-
-        return res.status(401).send('Unauthorized');
-      });
-
       // Password Reset Confirm Endpoint
       app.use(passwordResetConfirmEndpoint, (req, res) => {
         const { token } = req.body;
@@ -172,6 +157,19 @@ choosePort(host, port)
         debug('%s: %s', passwordResetConfirmEndpoint, token);
 
         if (token === confirmToken) {
+          return res.status(200).send('Authorized');
+        }
+
+        return res.status(401).send('Unauthorized');
+      });
+
+      // Password Reset Endpoint
+      app.use(passwordResetEndpoint, (req, res) => {
+        const { email, username } = req.body;
+
+        debug('%s: %s %s', passwordResetEndpoint, email, username);
+
+        if (email || username) {
           return res.status(200).send('Authorized');
         }
 

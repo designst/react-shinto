@@ -14,7 +14,7 @@ const logger = createLogger(__filename);
 const authPasswordChangeUrl = process.env.SHINTO_AUTH_PASSWORD_CHANGE_API_ENDPOINT;
 
 export function* authPasswordChange(action) {
-  const { oldPassword, newPassword, newPasswordConfirm } = action;
+  const { oldPassword, newPassword, newPasswordConfirm } = action.payload;
 
   const apiService = yield getContext('apiService');
 
