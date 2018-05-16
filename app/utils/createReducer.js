@@ -9,6 +9,7 @@ import { reducer as formReducer } from 'redux-form';
 
 import authReducer from 'containers/Auth/reducer';
 import globalReducer from 'containers/App/reducer';
+import messageProviderReducer from 'providers/Message/reducer';
 import languageProviderReducer from 'providers/Language/reducer';
 
 /**
@@ -44,6 +45,7 @@ export const rootReducers = {
   form: formReducer,
   route: routeReducer,
   global: globalReducer,
+  message: messageProviderReducer,
   language: languageProviderReducer,
 };
 

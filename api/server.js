@@ -99,7 +99,15 @@ choosePort(host, port)
       app.use(logoutEndpoint, (req, res) => {
         debug(logoutEndpoint);
 
-        return sendUnauthorized(res).clearCookie(process.env.SHINTO_AUTH_TOKEN_COOKIE);
+        debug(req);
+
+        return res
+          .clearCookie(process.env.SHINTO_AUTH_TOKEN_COOKIE)
+          .status(200)
+          .send({
+            message: 'Successfully logged out',
+            messageId: 'api.server.logout.success',
+          });
       });
 
       // Register Confirm Endpoint

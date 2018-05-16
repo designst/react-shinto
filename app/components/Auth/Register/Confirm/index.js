@@ -9,27 +9,13 @@ import { FormattedMessage } from 'react-intl';
 import RegisterConfirmForm from './form';
 import messages from './messages';
 
-class RegisterConfirm extends React.Component {
-  componentDidMount() {
-    const { token, onSubmit } = this.props;
+const RegisterConfirm = ({ token, onSubmit }) => (
+  <div className="b-register-confirm">
+    <FormattedMessage {...messages.header} />
 
-    if (token) {
-      onSubmit({ token });
-    }
-  }
-
-  render() {
-    const { token, onSubmit } = this.props;
-
-    return (
-      <div className="b-register-confirm">
-        <FormattedMessage {...messages.header} />
-
-        <RegisterConfirmForm onSubmit={onSubmit} initialValues={{ token }} />
-      </div>
-    );
-  }
-}
+    <RegisterConfirmForm onSubmit={onSubmit} initialValues={{ token }} />
+  </div>
+);
 
 RegisterConfirm.propTypes = {
   token: PropTypes.string,

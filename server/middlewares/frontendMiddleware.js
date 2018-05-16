@@ -125,12 +125,17 @@ module.exports = app => {
         }
       }
 
-      try {
-        if (serverSideRenderingEnabled) {
+      if (serverSideRenderingEnabled) {
+        try {
+          logger('Loading server side data.');
           // Load data from server-side first
           await loadBranchData();
+        } catch (err) {
+          logger('Server side data loading failed: %s', err);
         }
+      }
 
+      try {
         const staticContext = {};
         const AppComponent = (
           <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>

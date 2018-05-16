@@ -1,10 +1,13 @@
 import Auth from 'containers/Auth';
 import LoadableLogin from 'containers/Auth/Login/loadable';
+import LoadableLogout from 'containers/Auth/Logout/loadable';
 import LoadableRegister from 'containers/Auth/Register/loadable';
 import LoadablePasswordReset from 'containers/Auth/Password/Reset/loadable';
 import LoadablePasswordChange from 'containers/Auth/Password/Change/loadable';
 import LoadableRegisterConfirm from 'containers/Auth/Register/Confirm/loadable';
 import LoadablePasswordResetConfirm from 'containers/Auth/Password/Reset/Confirm/loadable';
+
+import { registerConfirmRequestWait } from 'containers/Auth/Register/Confirm/actions';
 
 import {
   userIsNotConfirmedRedirect,
@@ -25,6 +28,11 @@ export default [
         component: userIsNotAuthenticatedRedirect(LoadableLogin),
       },
       {
+        path: `${basePath}/logout`,
+        exact: true,
+        component: LoadableLogout,
+      },
+      {
         path: `${basePath}/register`,
         exact: true,
         component: userIsNotAuthenticatedRedirect(LoadableRegister),
@@ -33,6 +41,17 @@ export default [
         path: `${basePath}/register/confirm/:token?`,
         exact: true,
         component: userIsNotConfirmedRedirect(LoadableRegisterConfirm),
+        dataLoaders: ({ store, params }) => [
+          () => {
+            const { token } = params;
+
+            if (token) {
+              return store.dispatch(registerConfirmRequestWait({ token }));
+            }
+
+            return Promise.resolve();
+          },
+        ],
       },
       {
         path: `${basePath}/password/change`,

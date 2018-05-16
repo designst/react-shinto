@@ -12,6 +12,8 @@ import {
   API_NOT_FOUND_ERROR,
 } from 'providers/Error/constants';
 
+import { addMessage } from 'providers/Message/actions';
+
 const logger = createLogger(__filename);
 
 export const ApiRequest = axios.create();
@@ -73,7 +75,9 @@ class ApiService {
 
     logger('GET: %s %o', requestUrl, params);
 
-    return ApiRequest.get(requestUrl, params).catch(this.handleError);
+    return ApiRequest.get(requestUrl, params)
+      .then(this.handleData)
+      .catch(this.handleError);
   };
 
   post = (requestUrl, data) => {
@@ -85,13 +89,43 @@ class ApiService {
 
     logger('POST: %s', requestUrl);
 
-    return ApiRequest.post(requestUrl, data).catch(this.handleError);
+    return ApiRequest.post(requestUrl, data)
+      .then(this.handleData)
+      .catch(this.handleError);
+  };
+
+  handleData = data => {
+    logger('handleData: %o', data);
+
+    const { message } = data.data;
+
+    if (message) {
+      this.store.dispatch(
+        addMessage({
+          type: 'success',
+          text: message,
+        }),
+      );
+    }
+
+    return data;
   };
 
   handleError = error => {
     logger('handleError: %o', error);
 
     this.store.dispatch(error);
+
+    const { message } = error;
+
+    if (message) {
+      this.store.dispatch(
+        addMessage({
+          type: 'error',
+          text: message,
+        }),
+      );
+    }
 
     throw error;
   };
