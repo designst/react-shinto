@@ -6,16 +6,16 @@ import { browserHistory, StaticRouter } from 'react-router-dom';
 
 import configureStore from 'utils/configureStore';
 
-import LoadableLogin from '../loadable';
+import LoadableLogout from '../loadable';
 
-describe('<LoadableLogin />', () => {
+describe('<LoadableLogout />', () => {
   const store = configureStore(browserHistory, {});
   const tree = renderer
     .create(
       <Provider store={store}>
         <IntlProvider locale="en">
           <StaticRouter context={{}}>
-            <LoadableLogin />
+            <LoadableLogout />
           </StaticRouter>
         </IntlProvider>
       </Provider>,

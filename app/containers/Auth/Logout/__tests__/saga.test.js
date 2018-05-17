@@ -23,6 +23,8 @@ describe('authLogoutData', () => {
       .withReducer(authReducer)
       .hasFinalState({
         token: null,
+        isConfirmed: false,
+        isConfirming: false,
         isAuthenticated: false,
         isAuthenticating: false,
       })

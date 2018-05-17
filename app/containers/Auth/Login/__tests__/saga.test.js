@@ -44,6 +44,8 @@ describe('authLoginData', () => {
       .withReducer(authReducer)
       .hasFinalState({
         token,
+        isConfirmed: false,
+        isConfirming: false,
         isAuthenticated: true,
         isAuthenticating: false,
       })

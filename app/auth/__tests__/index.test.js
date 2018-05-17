@@ -1,6 +1,20 @@
-import { userIsAuthenticatedDefaults, userIsNotAuthenticatedDefaults } from '../index';
+import {
+  userIsNotConfirmedDefaults,
+  userIsAuthenticatedDefaults,
+  userIsNotAuthenticatedDefaults,
+} from '../index';
 
 describe('auth', () => {
+  it('should have correct not confirmed defaults', () => {
+    const notConfirmedState = { auth: { isConfirmed: false } };
+
+    expect(userIsNotConfirmedDefaults.wrapperDisplayName).toBe('UserIsNotConfirmed');
+
+    const notConfirmedSelector = userIsNotConfirmedDefaults.authenticatedSelector;
+
+    expect(notConfirmedSelector(notConfirmedState)).toBe(true);
+  });
+
   it('should have correct authenticated defaults', () => {
     const authenticatedState = { auth: { isAuthenticated: true } };
 

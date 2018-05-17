@@ -11,6 +11,7 @@ describe('createReducer', () => {
     form: expect.any(Object),
     route: expect.any(Object),
     global: expect.any(Object),
+    message: expect.any(Object),
     language: expect.any(Object),
   };
 

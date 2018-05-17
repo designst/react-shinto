@@ -6,7 +6,7 @@ import Loading from 'components/Loading';
 
 const locationHelper = createLocationHelper({});
 
-const userIsNotConfirmedDefaults = {
+export const userIsNotConfirmedDefaults = {
   wrapperDisplayName: 'UserIsNotConfirmed',
   authenticatedSelector: state => state.auth.isConfirmed === false,
 };
