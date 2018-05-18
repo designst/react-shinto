@@ -22,6 +22,8 @@ import configureStore from 'utils/configureStore';
 import getSagaInjectors from 'utils/sagaInjectors';
 import getModelInjectors from 'utils/modelInjectors';
 import getReducerInjectors from 'utils/reducerInjectors';
+
+import ConnectedMessageProvider from 'providers/Message';
 import ConnectedLanguageProvider from 'providers/Language';
 
 import { authInitialState } from 'containers/Auth/reducer';
@@ -141,12 +143,14 @@ module.exports = app => {
           <JssProvider registry={sheetsRegistry} generateClassName={generateClassName}>
             <MuiThemeProvider theme={theme} sheetsManager={new Map()}>
               <Provider store={store}>
-                <ConnectedLanguageProvider messages={translationMessages}>
-                  {/* Setup React-Router server-side rendering */}
-                  <StaticRouter context={staticContext} location={req.path}>
-                    {renderRoutes(routes)}
-                  </StaticRouter>
-                </ConnectedLanguageProvider>
+                <ConnectedMessageProvider>
+                  <ConnectedLanguageProvider messages={translationMessages}>
+                    {/* Setup React-Router server-side rendering */}
+                    <StaticRouter context={staticContext} location={req.path}>
+                      {renderRoutes(routes)}
+                    </StaticRouter>
+                  </ConnectedLanguageProvider>
+                </ConnectedMessageProvider>
               </Provider>
             </MuiThemeProvider>
           </JssProvider>

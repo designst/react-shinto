@@ -13,6 +13,8 @@ import createHistory from 'history/createBrowserHistory';
 
 import configureStore from 'utils/configureStore';
 import registerServiceWorker from 'utils/registerServiceWorker';
+
+import ConnectedMessageProvider from 'providers/Message';
 import ConnectedLanguageProvider from 'providers/Language';
 
 import { jssPreset, MuiThemeProvider, createGenerateClassName } from 'material-ui/styles';
@@ -43,9 +45,11 @@ const renderApp = (Routes: Array<Object>, messages) => {
       <JssProvider jss={jss} generateClassName={generateClassName}>
         <MuiThemeProvider theme={theme}>
           <Provider store={store}>
-            <ConnectedLanguageProvider messages={messages}>
-              <ConnectedRouter history={history}>{renderRoutes(Routes)}</ConnectedRouter>
-            </ConnectedLanguageProvider>
+            <ConnectedMessageProvider>
+              <ConnectedLanguageProvider messages={messages}>
+                <ConnectedRouter history={history}>{renderRoutes(Routes)}</ConnectedRouter>
+              </ConnectedLanguageProvider>
+            </ConnectedMessageProvider>
           </Provider>
         </MuiThemeProvider>
       </JssProvider>

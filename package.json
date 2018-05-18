@@ -274,6 +274,7 @@
     "loadable-components": "2.1.0",
     "lodash": "4.17.10",
     "material-ui": "1.0.0-beta.43",
+    "material-ui-icons": "1.0.0-beta.36",
     "morgan": "1.9.0",
     "prop-types": "15.6.1",
     "react": "16.3.2",
