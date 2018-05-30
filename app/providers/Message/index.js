@@ -8,6 +8,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
+import { deleteMessage } from './actions';
 import { makeSelectMessages } from './selectors';
 
 export class MessageProvider extends React.Component {
@@ -24,9 +25,7 @@ export class MessageProvider extends React.Component {
   shouldComponentUpdate(nextProps) {
     if (this.props.messages.length !== nextProps.messages.length) {
       if (this.state.open) {
-        this.setState({
-          open: false,
-        });
+        this.closeMessage();
       }
     }
 
@@ -38,10 +37,21 @@ export class MessageProvider extends React.Component {
     this.processMessages();
   }
 
+  closeMessage = () => {
+    const { id } = this.state.message;
+
+    this.props.deleteMessage(id);
+
+    this.setState({
+      open: false,
+    });
+  };
+
   processMessages = () => {
+    const { open } = this.state;
     const { messages } = this.props;
 
-    if (messages.length > 0) {
+    if (!open && messages.length > 0) {
       this.setState({
         open: true,
         message: messages[0],
@@ -54,7 +64,7 @@ export class MessageProvider extends React.Component {
       return;
     }
 
-    this.setState({ open: false });
+    this.closeMessage();
   };
 
   handleExited = () => {
@@ -62,7 +72,7 @@ export class MessageProvider extends React.Component {
   };
 
   render() {
-    const { id, text } = this.state.message;
+    const { id, text, options } = this.state.message;
 
     return (
       <div className="b-message-provider">
@@ -71,27 +81,31 @@ export class MessageProvider extends React.Component {
         {id &&
           text && (
             <Snackbar
-              key={id}
               anchorOrigin={{
                 vertical: 'bottom',
                 horizontal: 'left',
               }}
+              {...options}
+              key={id}
               open={this.state.open}
-              autoHideDuration={6000}
               onClose={this.handleClose}
               onExited={this.handleExited}
               ContentProps={{
                 'aria-describedby': 'message-id',
               }}
-              message={<span id="message-id">{text}</span>}
+              message={
+                <span id="message-id">
+                  {id} - {text}
+                </span>
+              }
               action={[
                 <Button key="undo" color="secondary" size="small" onClick={this.handleClose}>
                   UNDO
                 </Button>,
                 <IconButton
                   key="close"
-                  aria-label="Close"
                   color="inherit"
+                  aria-label="Close"
                   onClick={this.handleClose}
                 >
                   <CloseIcon />
@@ -107,10 +121,18 @@ export class MessageProvider extends React.Component {
 MessageProvider.propTypes = {
   messages: PropTypes.array.isRequired,
   children: PropTypes.element.isRequired,
+  deleteMessage: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   messages: makeSelectMessages(),
 });
 
-export default connect(mapStateToProps)(MessageProvider);
+const mapDispatchToProps = {
+  deleteMessage,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(MessageProvider);
