@@ -11,6 +11,9 @@ const mapDispatchToProps = {
   onSubmit: loginRequest,
 };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
 
 export default compose(connector)(Login);

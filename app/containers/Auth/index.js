@@ -13,6 +13,12 @@ const mapDispatchToProps = {};
 
 const withReducer = injectReducer({ key: 'auth', reducer });
 
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
+const withConnect = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
 
-export default compose(withReducer, withConnect)(Auth);
+export default compose(
+  withReducer,
+  withConnect,
+)(Auth);

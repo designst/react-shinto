@@ -15,6 +15,9 @@ const mapDispatchToProps = {
   onSubmit: passwordResetConfirmRequest,
 };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
 
 export default compose(connector)(PasswordResetConfirm);

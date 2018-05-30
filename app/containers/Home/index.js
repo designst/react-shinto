@@ -65,6 +65,12 @@ const mapDispatchToProps = {
   logout: logoutRequest,
 };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
 
-export default compose(withRouter, connector)(Home);
+export default compose(
+  withRouter,
+  connector,
+)(Home);

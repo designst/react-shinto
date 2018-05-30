@@ -11,6 +11,9 @@ const mapDispatchToProps = {
   onSubmit: registerRequest,
 };
 
-const connector = connect(mapStateToProps, mapDispatchToProps);
+const connector = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+);
 
 export default compose(connector)(Register);
