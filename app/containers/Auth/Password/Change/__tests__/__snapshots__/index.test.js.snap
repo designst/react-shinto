@@ -8,7 +8,6 @@ exports[`<PasswordChange /> renders 1`] = `
     onSubmit={[Function]}
   >
     <div
-      aria-describedby={undefined}
       className="MuiFormControl-root-1 MuiFormControl-marginNormal-2 MuiFormControl-fullWidth-4"
       onBlur={[Function]}
       onDragStart={[Function]}
@@ -18,7 +17,6 @@ exports[`<PasswordChange /> renders 1`] = `
       <label
         className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
         data-shrink={false}
-        htmlFor={undefined}
       >
         Current Password
       </label>
@@ -28,35 +26,24 @@ exports[`<PasswordChange /> renders 1`] = `
         <input
           aria-invalid={false}
           aria-required={false}
-          autoComplete={undefined}
-          autoFocus={undefined}
           className="MuiInput-input-23 MuiInput-inputType-26"
-          defaultValue={undefined}
           disabled={false}
-          id={undefined}
           name="oldPassword"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
-          onKeyDown={undefined}
-          onKeyUp={undefined}
           placeholder="Password"
-          readOnly={undefined}
-          required={undefined}
-          rows={undefined}
           type="password"
           value=""
         />
       </div>
       <p
         className="MuiFormHelperText-root-28"
-        id={undefined}
       >
         Please enter your current password
       </p>
     </div>
     <div
-      aria-describedby={undefined}
       className="MuiFormControl-root-1 MuiFormControl-marginNormal-2 MuiFormControl-fullWidth-4"
       onBlur={[Function]}
       onDragStart={[Function]}
@@ -66,7 +53,6 @@ exports[`<PasswordChange /> renders 1`] = `
       <label
         className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
         data-shrink={false}
-        htmlFor={undefined}
       >
         New Password
       </label>
@@ -76,35 +62,24 @@ exports[`<PasswordChange /> renders 1`] = `
         <input
           aria-invalid={false}
           aria-required={false}
-          autoComplete={undefined}
-          autoFocus={undefined}
           className="MuiInput-input-23 MuiInput-inputType-26"
-          defaultValue={undefined}
           disabled={false}
-          id={undefined}
           name="newPassword"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
-          onKeyDown={undefined}
-          onKeyUp={undefined}
           placeholder="Password"
-          readOnly={undefined}
-          required={undefined}
-          rows={undefined}
           type="password"
           value=""
         />
       </div>
       <p
         className="MuiFormHelperText-root-28"
-        id={undefined}
       >
         Please enter your new password
       </p>
     </div>
     <div
-      aria-describedby={undefined}
       className="MuiFormControl-root-1 MuiFormControl-marginNormal-2 MuiFormControl-fullWidth-4"
       onBlur={[Function]}
       onDragStart={[Function]}
@@ -114,7 +89,6 @@ exports[`<PasswordChange /> renders 1`] = `
       <label
         className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
         data-shrink={false}
-        htmlFor={undefined}
       >
         Confirm New Password
       </label>
@@ -124,35 +98,25 @@ exports[`<PasswordChange /> renders 1`] = `
         <input
           aria-invalid={false}
           aria-required={false}
-          autoComplete={undefined}
-          autoFocus={undefined}
           className="MuiInput-input-23 MuiInput-inputType-26"
-          defaultValue={undefined}
           disabled={false}
-          id={undefined}
           name="newPasswordConfirm"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
-          onKeyDown={undefined}
-          onKeyUp={undefined}
           placeholder="Password"
-          readOnly={undefined}
-          required={undefined}
-          rows={undefined}
           type="password"
           value=""
         />
       </div>
       <p
         className="MuiFormHelperText-root-28"
-        id={undefined}
       >
         Please enter your new password again
       </p>
     </div>
     <button
-      className="MuiButtonBase-root-47 MuiButton-root-32 MuiButton-raised-37 MuiButton-raisedPrimary-38"
+      className="MuiButtonBase-root-48 MuiButton-root-32 MuiButton-raised-38 MuiButton-raisedPrimary-39"
       disabled={false}
       onBlur={[Function]}
       onFocus={[Function]}
@@ -175,7 +139,7 @@ exports[`<PasswordChange /> renders 1`] = `
         </span>
       </span>
       <span
-        className="MuiTouchRipple-root-49"
+        className="MuiTouchRipple-root-51"
       />
     </button>
   </form>

@@ -11,7 +11,6 @@ exports[`<Register /> renders 1`] = `
     onSubmit={[Function]}
   >
     <div
-      aria-describedby={undefined}
       className="MuiFormControl-root-1 MuiFormControl-marginNormal-2 MuiFormControl-fullWidth-4"
       onBlur={[Function]}
       onDragStart={[Function]}
@@ -21,7 +20,6 @@ exports[`<Register /> renders 1`] = `
       <label
         className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
         data-shrink={false}
-        htmlFor={undefined}
       >
         E-Mail
         <span
@@ -36,35 +34,25 @@ exports[`<Register /> renders 1`] = `
         <input
           aria-invalid={false}
           aria-required={true}
-          autoComplete={undefined}
-          autoFocus={undefined}
           className="MuiInput-input-23 MuiInput-inputType-26"
-          defaultValue={undefined}
           disabled={false}
-          id={undefined}
           name="email"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
-          onKeyDown={undefined}
-          onKeyUp={undefined}
           placeholder="E-Mail"
-          readOnly={undefined}
           required={true}
-          rows={undefined}
           type="email"
           value=""
         />
       </div>
       <p
         className="MuiFormHelperText-root-28"
-        id={undefined}
       >
         Please enter your email
       </p>
     </div>
     <div
-      aria-describedby={undefined}
       className="MuiFormControl-root-1 MuiFormControl-marginNormal-2 MuiFormControl-fullWidth-4"
       onBlur={[Function]}
       onDragStart={[Function]}
@@ -74,7 +62,6 @@ exports[`<Register /> renders 1`] = `
       <label
         className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
         data-shrink={false}
-        htmlFor={undefined}
       >
         Username
       </label>
@@ -84,35 +71,24 @@ exports[`<Register /> renders 1`] = `
         <input
           aria-invalid={false}
           aria-required={false}
-          autoComplete={undefined}
-          autoFocus={undefined}
           className="MuiInput-input-23"
-          defaultValue={undefined}
           disabled={false}
-          id={undefined}
           name="username"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
-          onKeyDown={undefined}
-          onKeyUp={undefined}
           placeholder="Username"
-          readOnly={undefined}
-          required={undefined}
-          rows={undefined}
           type="text"
           value=""
         />
       </div>
       <p
         className="MuiFormHelperText-root-28"
-        id={undefined}
       >
         Please enter your username
       </p>
     </div>
     <div
-      aria-describedby={undefined}
       className="MuiFormControl-root-1 MuiFormControl-marginNormal-2 MuiFormControl-fullWidth-4"
       onBlur={[Function]}
       onDragStart={[Function]}
@@ -122,7 +98,6 @@ exports[`<Register /> renders 1`] = `
       <label
         className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
         data-shrink={false}
-        htmlFor={undefined}
       >
         Password
         <span
@@ -137,35 +112,25 @@ exports[`<Register /> renders 1`] = `
         <input
           aria-invalid={false}
           aria-required={true}
-          autoComplete={undefined}
-          autoFocus={undefined}
           className="MuiInput-input-23 MuiInput-inputType-26"
-          defaultValue={undefined}
           disabled={false}
-          id={undefined}
           name="password"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
-          onKeyDown={undefined}
-          onKeyUp={undefined}
           placeholder="Password"
-          readOnly={undefined}
           required={true}
-          rows={undefined}
           type="password"
           value=""
         />
       </div>
       <p
         className="MuiFormHelperText-root-28"
-        id={undefined}
       >
         Please enter your password
       </p>
     </div>
     <div
-      aria-describedby={undefined}
       className="MuiFormControl-root-1 MuiFormControl-marginNormal-2 MuiFormControl-fullWidth-4"
       onBlur={[Function]}
       onDragStart={[Function]}
@@ -175,7 +140,6 @@ exports[`<Register /> renders 1`] = `
       <label
         className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
         data-shrink={false}
-        htmlFor={undefined}
       >
         Confirm Password
         <span
@@ -190,35 +154,26 @@ exports[`<Register /> renders 1`] = `
         <input
           aria-invalid={false}
           aria-required={true}
-          autoComplete={undefined}
-          autoFocus={undefined}
           className="MuiInput-input-23 MuiInput-inputType-26"
-          defaultValue={undefined}
           disabled={false}
-          id={undefined}
           name="passwordConfirm"
           onBlur={[Function]}
           onChange={[Function]}
           onFocus={[Function]}
-          onKeyDown={undefined}
-          onKeyUp={undefined}
           placeholder="Password"
-          readOnly={undefined}
           required={true}
-          rows={undefined}
           type="password"
           value=""
         />
       </div>
       <p
         className="MuiFormHelperText-root-28"
-        id={undefined}
       >
         Please enter your password again
       </p>
     </div>
     <button
-      className="MuiButtonBase-root-47 MuiButton-root-32 MuiButton-raised-37 MuiButton-raisedPrimary-38"
+      className="MuiButtonBase-root-48 MuiButton-root-32 MuiButton-raised-38 MuiButton-raisedPrimary-39"
       disabled={false}
       onBlur={[Function]}
       onFocus={[Function]}
@@ -241,7 +196,7 @@ exports[`<Register /> renders 1`] = `
         </span>
       </span>
       <span
-        className="MuiTouchRipple-root-49"
+        className="MuiTouchRipple-root-51"
       />
     </button>
   </form>
@@ -250,7 +205,7 @@ exports[`<Register /> renders 1`] = `
     onClick={[Function]}
   >
     <button
-      className="MuiButtonBase-root-47 MuiButton-root-32"
+      className="MuiButtonBase-root-48 MuiButton-root-32"
       disabled={false}
       onBlur={[Function]}
       onFocus={[Function]}
@@ -271,7 +226,7 @@ exports[`<Register /> renders 1`] = `
         Login
       </span>
       <span
-        className="MuiTouchRipple-root-49"
+        className="MuiTouchRipple-root-51"
       />
     </button>
   </a>

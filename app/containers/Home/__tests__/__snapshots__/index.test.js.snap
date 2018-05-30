@@ -5,7 +5,7 @@ exports[`<Home /> renders authenticated 1`] = `
   className="Home"
 >
   <button
-    className="MuiButtonBase-root-16 MuiButton-root-1 MuiButton-raised-6 MuiButton-raisedSecondary-8"
+    className="MuiButtonBase-root-17 MuiButton-root-1 MuiButton-raised-7 MuiButton-raisedSecondary-9"
     disabled={false}
     margin="normal"
     onBlur={[Function]}
@@ -33,11 +33,11 @@ exports[`<Home /> renders authenticated 1`] = `
       API
     </span>
     <span
-      className="MuiTouchRipple-root-18"
+      className="MuiTouchRipple-root-20"
     />
   </button>
   <button
-    className="MuiButtonBase-root-16 MuiButton-root-1 MuiButton-raised-6 MuiButton-raisedPrimary-7"
+    className="MuiButtonBase-root-17 MuiButton-root-1 MuiButton-raised-7 MuiButton-raisedPrimary-8"
     disabled={false}
     margin="normal"
     onBlur={[Function]}
@@ -65,7 +65,7 @@ exports[`<Home /> renders authenticated 1`] = `
       Logout
     </span>
     <span
-      className="MuiTouchRipple-root-18"
+      className="MuiTouchRipple-root-20"
     />
   </button>
 </div>
@@ -76,7 +76,7 @@ exports[`<Home /> renders not authenticated 1`] = `
   className="Home"
 >
   <button
-    className="MuiButtonBase-root-16 MuiButton-root-1 MuiButton-raised-6 MuiButton-raisedSecondary-8"
+    className="MuiButtonBase-root-17 MuiButton-root-1 MuiButton-raised-7 MuiButton-raisedSecondary-9"
     disabled={false}
     margin="normal"
     onBlur={[Function]}
@@ -104,7 +104,7 @@ exports[`<Home /> renders not authenticated 1`] = `
       API
     </span>
     <span
-      className="MuiTouchRipple-root-18"
+      className="MuiTouchRipple-root-20"
     />
   </button>
 </div>
@@ -115,7 +115,7 @@ exports[`<Home /> renders not authenticated 2`] = `
   className="Home"
 >
   <button
-    className="MuiButtonBase-root-16 MuiButton-root-1 MuiButton-raised-6 MuiButton-raisedSecondary-8"
+    className="MuiButtonBase-root-17 MuiButton-root-1 MuiButton-raised-7 MuiButton-raisedSecondary-9"
     disabled={false}
     margin="normal"
     onBlur={[Function]}
@@ -143,7 +143,7 @@ exports[`<Home /> renders not authenticated 2`] = `
       API
     </span>
     <span
-      className="MuiTouchRipple-root-18"
+      className="MuiTouchRipple-root-20"
     />
   </button>
 </div>
