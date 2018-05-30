@@ -17,7 +17,7 @@ import registerServiceWorker from 'utils/registerServiceWorker';
 import ConnectedMessageProvider from 'providers/Message';
 import ConnectedLanguageProvider from 'providers/Language';
 
-import { jssPreset, MuiThemeProvider, createGenerateClassName } from 'material-ui/styles';
+import { jssPreset, MuiThemeProvider, createGenerateClassName } from '@material-ui/core/styles';
 
 import theme from './theme';
 import routes from './routes';

@@ -14,7 +14,7 @@ import { renderRoutes, matchRoutes } from 'react-router-config';
 // JSS
 import { SheetsRegistry } from 'react-jss/lib/jss';
 import JssProvider from 'react-jss/lib/JssProvider';
-import { MuiThemeProvider, createGenerateClassName } from 'material-ui/styles';
+import { MuiThemeProvider, createGenerateClassName } from '@material-ui/core/styles';
 
 import createLogger from 'utils/createLogger';
 import configureStore from 'utils/configureStore';

@@ -10,7 +10,7 @@ import { authApiRequest } from 'containers/Auth/actions';
 import { logoutRequest } from 'containers/Auth/Logout/actions';
 import { makeSelectIsAuthenticated } from 'containers/Auth/selectors';
 
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 
 import './styles.css';
 

@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 
 import LoginForm from './form';
 import messages from './messages';

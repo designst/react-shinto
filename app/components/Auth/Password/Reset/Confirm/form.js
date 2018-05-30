@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import { injectIntl, FormattedMessage } from 'react-intl';
 
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 import { TextField } from 'redux-form-material-ui';
 
 import messages from './messages';
