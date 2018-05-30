@@ -68,29 +68,37 @@ export class MessageProvider extends React.Component {
       <div className="b-message-provider">
         {React.Children.only(this.props.children)}
 
-        <Snackbar
-          key={id}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'left',
-          }}
-          open={this.state.open}
-          autoHideDuration={6000}
-          onClose={this.handleClose}
-          onExited={this.handleExited}
-          ContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id">{text}</span>}
-          action={[
-            <Button key="undo" color="secondary" size="small" onClick={this.handleclose}>
-              UNDO
-            </Button>,
-            <IconButton key="close" aria-label="Close" color="inherit" onClick={this.handleClose}>
-              <CloseIcon />
-            </IconButton>,
-          ]}
-        />
+        {id &&
+          text && (
+            <Snackbar
+              key={id}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              open={this.state.open}
+              autoHideDuration={6000}
+              onClose={this.handleClose}
+              onExited={this.handleExited}
+              ContentProps={{
+                'aria-describedby': 'message-id',
+              }}
+              message={<span id="message-id">{text}</span>}
+              action={[
+                <Button key="undo" color="secondary" size="small" onClick={this.handleClose}>
+                  UNDO
+                </Button>,
+                <IconButton
+                  key="close"
+                  aria-label="Close"
+                  color="inherit"
+                  onClick={this.handleClose}
+                >
+                  <CloseIcon />
+                </IconButton>,
+              ]}
+            />
+          )}
       </div>
     );
   }
