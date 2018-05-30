@@ -51,7 +51,7 @@ module.exports = {
     // containing code from all our entry points, and the Webpack runtime.
     filename: 'static/js/[name].js',
     // There are also additional JS chunk files if you use code splitting.
-    chunkFilename: 'static/js/[name].chunk.js',
+    chunkFilename: 'static/js/[id].chunk.js',
     // Point sourcemap entries to original disk location (format as URL on Windows)
     devtoolModuleFilenameTemplate: info =>
       path.resolve(info.absoluteResourcePath).replace(/\\/g, '/'),
