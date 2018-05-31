@@ -11,6 +11,7 @@ import messages from './messages';
 const PasswordResetForm = ({ intl, handleSubmit }) => (
   <form onSubmit={handleSubmit}>
     <Field
+      autoFocus
       fullWidth
       name="email"
       type="email"

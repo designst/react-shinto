@@ -11,6 +11,7 @@ import messages from './messages';
 const PasswordResetConfirmForm = ({ intl, handleSubmit }) => (
   <form onSubmit={handleSubmit}>
     <Field
+      autoFocus
       fullWidth
       name="token"
       label={intl.formatMessage(messages.token.label)}

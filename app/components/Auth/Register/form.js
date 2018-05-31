@@ -7,11 +7,14 @@ import Button from '@material-ui/core/Button';
 import { TextField } from 'redux-form-material-ui';
 
 import messages from './messages';
+import validate from './validate';
+import asyncValidate from './asyncValidate';
 
 const RegisterForm = ({ intl, handleSubmit }) => (
   <form onSubmit={handleSubmit}>
     <Field
       required
+      autoFocus
       fullWidth
       name="email"
       type="email"
@@ -71,4 +74,7 @@ const withIntl = injectIntl(RegisterForm);
 
 export default reduxForm({
   form: 'register',
+  validate,
+  asyncValidate,
+  asyncChangeFields: ['email', 'username'],
 })(withIntl);

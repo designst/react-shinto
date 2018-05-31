@@ -36,10 +36,6 @@ class App extends React.Component {
           <h1 className="App-title">{config.app.title}</h1>
         </header>
 
-        <p className="App-intro">
-          To get started, edit <code>app/containers/App/index.js</code> and save to reload.
-        </p>
-
         {renderRoutes(route.routes)}
       </div>
     );

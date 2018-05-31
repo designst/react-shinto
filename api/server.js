@@ -33,6 +33,9 @@ const registerEndpoint = `${apiPath}${process.env.SHINTO_AUTH_REGISTER_API_ENDPO
 const registerConfirmEndpoint = `${apiPath}${
   process.env.SHINTO_AUTH_REGISTER_CONFIRM_API_ENDPOINT
 }`;
+const registerValidateEndpoint = `${apiPath}${
+  process.env.SHINTO_AUTH_REGISTER_VALIDATE_API_ENDPOINT
+}`;
 
 const passwordChangeEndpoint = `${apiPath}${process.env.SHINTO_AUTH_PASSWORD_CHANGE_API_ENDPOINT}`;
 
@@ -108,6 +111,25 @@ choosePort(host, port)
             message: 'Successfully logged out',
             messageId: 'api.server.logout.success',
           });
+      });
+
+      // Register Validate Endpoint
+      app.use(registerValidateEndpoint, (req, res) => {
+        const { email, username } = req.body;
+
+        const validateFailure = {};
+
+        if (email === 'john@doe.com') {
+          validateFailure.email = 'E-mail already exists';
+        }
+
+        if (username === 'john') {
+          validateFailure.username = 'Username already exists';
+        }
+
+        res.status(200).send({
+          validateFailure,
+        });
       });
 
       // Register Confirm Endpoint

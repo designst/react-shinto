@@ -51,7 +51,12 @@ export default (history, initialState, configuration = {}) => {
 
   const waitForActionMiddleware = createWaitForActionMiddleware();
 
-  const middlewares = [thunk, sagaMiddleware, waitForActionMiddleware, routerMiddleware(history)];
+  const middlewares = [
+    thunk.withExtraArgument(apiService),
+    sagaMiddleware,
+    waitForActionMiddleware,
+    routerMiddleware(history),
+  ];
 
   if (__DEV__ && __CLIENT__) {
     const loggerMiddleware = createLoggerMiddleware();

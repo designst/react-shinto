@@ -8,13 +8,16 @@ import { Link } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 import LoginForm from './form';
 import messages from './messages';
 
 const Login = ({ onSubmit }) => (
   <div className="b-login">
-    <FormattedMessage {...messages.header} />
+    <Typography variant="headline">
+      <FormattedMessage {...messages.header} />
+    </Typography>
 
     <LoginForm onSubmit={onSubmit} />
 
