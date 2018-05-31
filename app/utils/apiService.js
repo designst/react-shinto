@@ -27,11 +27,17 @@ ApiRequest.interceptors.response.use(
 
   error => {
     const { message, response } = error;
-    const { status, statusText } = response;
 
     let errorType;
+    let statusCode;
+    let statusMessage;
 
-    switch (status) {
+    if (response) {
+      statusCode = response.status;
+      statusMessage = response.statusText;
+    }
+
+    switch (statusCode) {
       case 403:
         errorType = API_AUTH_ERROR;
         break;
@@ -48,8 +54,8 @@ ApiRequest.interceptors.response.use(
 
     const err = {
       type: errorType,
-      status,
-      message: statusText || message,
+      status: statusCode,
+      message: statusMessage || message,
     };
 
     return Promise.reject(err);
