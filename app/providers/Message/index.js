@@ -93,11 +93,7 @@ export class MessageProvider extends React.Component {
               ContentProps={{
                 'aria-describedby': 'message-id',
               }}
-              message={
-                <span id="message-id">
-                  {id} - {text}
-                </span>
-              }
+              message={<span id="message-id">{text}</span>}
               action={[
                 <Button key="undo" color="secondary" size="small" onClick={this.handleClose}>
                   UNDO
