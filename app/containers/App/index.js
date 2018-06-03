@@ -6,7 +6,7 @@ import { renderRoutes } from 'react-router-config';
 import config from 'config';
 
 import './style.css';
-import logo from './logo.svg';
+import logo from './logo.png';
 
 type Props = { route: Object };
 
