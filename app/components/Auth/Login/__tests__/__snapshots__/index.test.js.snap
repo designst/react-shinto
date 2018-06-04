@@ -4,32 +4,37 @@ exports[`<Login /> renders 1`] = `
 <div
   className="b-login"
 >
-  <span>
-    This is the Login component!
-  </span>
+  <h1
+    className="MuiTypography-root-1 MuiTypography-headline-6"
+  >
+    <span>
+      This is the Login component!
+    </span>
+  </h1>
   <form
     onSubmit={[Function]}
   >
     <div
-      className="MuiFormControl-root-1 MuiFormControl-marginNormal-2 MuiFormControl-fullWidth-4"
+      className="MuiFormControl-root-25 MuiFormControl-marginNormal-26 MuiFormControl-fullWidth-28"
       onBlur={[Function]}
       onDragStart={[Function]}
       onDrop={[Function]}
       onFocus={[Function]}
     >
       <label
-        className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
+        className="MuiFormLabel-root-34 MuiInputLabel-root-29 MuiInputLabel-formControl-30 MuiInputLabel-animated-33"
         data-shrink={false}
       >
         E-Mail
       </label>
       <div
-        className="MuiInput-root-15 MuiInput-fullWidth-22 MuiInput-formControl-16 MuiInput-underline-19"
+        className="MuiInput-root-39 MuiInput-fullWidth-46 MuiInput-formControl-40 MuiInput-underline-43"
       >
         <input
           aria-invalid={false}
           aria-required={false}
-          className="MuiInput-input-23 MuiInput-inputType-26"
+          autoFocus={true}
+          className="MuiInput-input-47 MuiInput-inputType-50"
           disabled={false}
           name="email"
           onBlur={[Function]}
@@ -41,31 +46,31 @@ exports[`<Login /> renders 1`] = `
         />
       </div>
       <p
-        className="MuiFormHelperText-root-28"
+        className="MuiFormHelperText-root-52"
       >
         Please enter your email
       </p>
     </div>
     <div
-      className="MuiFormControl-root-1 MuiFormControl-marginNormal-2 MuiFormControl-fullWidth-4"
+      className="MuiFormControl-root-25 MuiFormControl-marginNormal-26 MuiFormControl-fullWidth-28"
       onBlur={[Function]}
       onDragStart={[Function]}
       onDrop={[Function]}
       onFocus={[Function]}
     >
       <label
-        className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
+        className="MuiFormLabel-root-34 MuiInputLabel-root-29 MuiInputLabel-formControl-30 MuiInputLabel-animated-33"
         data-shrink={false}
       >
         Username
       </label>
       <div
-        className="MuiInput-root-15 MuiInput-fullWidth-22 MuiInput-formControl-16 MuiInput-underline-19"
+        className="MuiInput-root-39 MuiInput-fullWidth-46 MuiInput-formControl-40 MuiInput-underline-43"
       >
         <input
           aria-invalid={false}
           aria-required={false}
-          className="MuiInput-input-23"
+          className="MuiInput-input-47"
           disabled={false}
           name="username"
           onBlur={[Function]}
@@ -77,31 +82,31 @@ exports[`<Login /> renders 1`] = `
         />
       </div>
       <p
-        className="MuiFormHelperText-root-28"
+        className="MuiFormHelperText-root-52"
       >
         Please enter your username
       </p>
     </div>
     <div
-      className="MuiFormControl-root-1 MuiFormControl-marginNormal-2 MuiFormControl-fullWidth-4"
+      className="MuiFormControl-root-25 MuiFormControl-marginNormal-26 MuiFormControl-fullWidth-28"
       onBlur={[Function]}
       onDragStart={[Function]}
       onDrop={[Function]}
       onFocus={[Function]}
     >
       <label
-        className="MuiFormLabel-root-10 MuiInputLabel-root-5 MuiInputLabel-formControl-6 MuiInputLabel-animated-9"
+        className="MuiFormLabel-root-34 MuiInputLabel-root-29 MuiInputLabel-formControl-30 MuiInputLabel-animated-33"
         data-shrink={false}
       >
         Password
       </label>
       <div
-        className="MuiInput-root-15 MuiInput-fullWidth-22 MuiInput-formControl-16 MuiInput-underline-19"
+        className="MuiInput-root-39 MuiInput-fullWidth-46 MuiInput-formControl-40 MuiInput-underline-43"
       >
         <input
           aria-invalid={false}
           aria-required={false}
-          className="MuiInput-input-23 MuiInput-inputType-26"
+          className="MuiInput-input-47 MuiInput-inputType-50"
           disabled={false}
           name="password"
           onBlur={[Function]}
@@ -113,13 +118,13 @@ exports[`<Login /> renders 1`] = `
         />
       </div>
       <p
-        className="MuiFormHelperText-root-28"
+        className="MuiFormHelperText-root-52"
       >
         Please enter your password
       </p>
     </div>
     <button
-      className="MuiButtonBase-root-48 MuiButton-root-32 MuiButton-raised-38 MuiButton-raisedPrimary-39"
+      className="MuiButtonBase-root-78 MuiButton-root-56 MuiButton-contained-65 MuiButton-containedPrimary-66 MuiButton-raised-68 MuiButton-raisedPrimary-69"
       disabled={false}
       onBlur={[Function]}
       onFocus={[Function]}
@@ -135,14 +140,14 @@ exports[`<Login /> renders 1`] = `
       type="submit"
     >
       <span
-        className="MuiButton-label-33"
+        className="MuiButton-label-57"
       >
         <span>
           Login
         </span>
       </span>
       <span
-        className="MuiTouchRipple-root-51"
+        className="MuiTouchRipple-root-81"
       />
     </button>
   </form>
@@ -151,7 +156,7 @@ exports[`<Login /> renders 1`] = `
     onClick={[Function]}
   >
     <button
-      className="MuiButtonBase-root-48 MuiButton-root-32"
+      className="MuiButtonBase-root-78 MuiButton-root-56 MuiButton-flat-60"
       disabled={false}
       onBlur={[Function]}
       onFocus={[Function]}
@@ -167,12 +172,12 @@ exports[`<Login /> renders 1`] = `
       type="link"
     >
       <span
-        className="MuiButton-label-33"
+        className="MuiButton-label-57"
       >
         Register
       </span>
       <span
-        className="MuiTouchRipple-root-51"
+        className="MuiTouchRipple-root-81"
       />
     </button>
   </a>
@@ -181,7 +186,7 @@ exports[`<Login /> renders 1`] = `
     onClick={[Function]}
   >
     <button
-      className="MuiButtonBase-root-48 MuiButton-root-32"
+      className="MuiButtonBase-root-78 MuiButton-root-56 MuiButton-flat-60"
       disabled={false}
       onBlur={[Function]}
       onFocus={[Function]}
@@ -197,12 +202,12 @@ exports[`<Login /> renders 1`] = `
       type="link"
     >
       <span
-        className="MuiButton-label-33"
+        className="MuiButton-label-57"
       >
         Password Reset
       </span>
       <span
-        className="MuiTouchRipple-root-51"
+        className="MuiTouchRipple-root-81"
       />
     </button>
   </a>

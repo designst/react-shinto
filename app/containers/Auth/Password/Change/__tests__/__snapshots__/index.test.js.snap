@@ -116,7 +116,7 @@ exports[`<PasswordChange /> renders 1`] = `
       </p>
     </div>
     <button
-      className="MuiButtonBase-root-48 MuiButton-root-32 MuiButton-raised-38 MuiButton-raisedPrimary-39"
+      className="MuiButtonBase-root-54 MuiButton-root-32 MuiButton-contained-41 MuiButton-containedPrimary-42 MuiButton-raised-44 MuiButton-raisedPrimary-45"
       disabled={false}
       onBlur={[Function]}
       onFocus={[Function]}
@@ -139,7 +139,7 @@ exports[`<PasswordChange /> renders 1`] = `
         </span>
       </span>
       <span
-        className="MuiTouchRipple-root-51"
+        className="MuiTouchRipple-root-57"
       />
     </button>
   </form>

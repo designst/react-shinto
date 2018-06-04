@@ -10,7 +10,7 @@ exports[`<App /> renders 1`] = `
     <img
       alt="logo"
       className="App-logo"
-      src="logo.svg"
+      src="logo.png"
     />
     <h1
       className="App-title"
@@ -18,14 +18,5 @@ exports[`<App /> renders 1`] = `
       React Shintõ
     </h1>
   </header>
-  <p
-    className="App-intro"
-  >
-    To get started, edit 
-    <code>
-      app/containers/App/index.js
-    </code>
-     and save to reload.
-  </p>
 </div>
 `;
