@@ -16,12 +16,14 @@ const debug = new Debug('shinto:utils:inject-models');
 export default models => WrappedComponent => {
   class ModelInjector extends React.Component {
     static WrappedComponent = WrappedComponent;
-    static contextTypes = {
-      store: PropTypes.object.isRequired,
-    };
+
     static displayName = `withModels(${WrappedComponent.displayName ||
       WrappedComponent.name ||
       'Component'})`;
+
+    static contextTypes = {
+      store: PropTypes.object.isRequired,
+    };
 
     componentWillMount() {
       const { injectModels } = this.injectors;
