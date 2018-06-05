@@ -30,27 +30,3 @@ coverage:latest:
   stage: coverage
   script:
     - yarn coveralls
-
-test:10:
-  stage: test
-  image: node:10
-  script:
-    - yarn test
-
-build:10:
-  stage: build
-  image: node:10
-  script:
-    - yarn build
-
-test:9:
-  stage: test
-  image: node:9
-  script:
-    - yarn test
-
-build:9:
-  stage: build
-  image: node:9
-  script:
-    - yarn build
