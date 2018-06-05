@@ -1,0 +1,56 @@
+# Official framework image. Look for the different tagged releases at:
+# https://hub.docker.com/r/library/node/tags/
+image: node:latest
+
+stages:
+  - test
+  - build
+  - coverage
+
+# This folder is cached between builds
+# http://docs.gitlab.com/ce/ci/yaml/README.html#cache
+cache:
+  paths:
+    - node_modules/
+
+before_script:
+  - yarn install
+
+test:latest:
+  stage: test
+  script:
+    - yarn test
+
+build:latest:
+  stage: build
+  script:
+    - yarn build
+
+coverage:latest:
+  stage: coverage
+  script:
+    - yarn coveralls
+
+test:10:
+  stage: test
+  image: node:10
+  script:
+    - yarn test
+
+build:10:
+  stage: build
+  image: node:10
+  script:
+    - yarn build
+
+test:9:
+  stage: test
+  image: node:9
+  script:
+    - yarn test
+
+build:9:
+  stage: build
+  image: node:9
+  script:
+    - yarn build
